@@ -1,0 +1,44 @@
+title=Parsing
+tags=parsing
+draft=parser_design-17_nov_2004.pdf|A New Parser|a very early draft, with a few details.
+slides=a_new_parser-17_nov_2004.pdf|A New Parser Presentation|a talk I gave to PLASMA, on a new design for a parsing system.
+
+<p>
+	A parser is a tool used to split a text stream, typically in some human readable form, into a representation suitable for understanding by a computer. There are many parser tools in existence, but by far the most well known are Lex and Yacc, and their open source alternatives Flex and Bison.
+</p><p>
+	Unfortunately there are many problems with Lex and Yacc, including language dependence and the difficultly of specifying grammar which will work. These issues are discussed, along with the things that are hard to do in this system, and yet are required frequently.
+</p><p>
+	An alternative design for a parsing system is given, comprising of three separate modules being Bracket, Lex and Token. Their advantages are discussed, along with their relationship to traditional Lex and Yacc. Details of implementation are given.
+</p><p>
+	Some of the performance claims in the system are wrong, particular the claim that maximal munch lexing is <i>O(n)</i>. I am hoping to fix this <? morei('helix') ?>.
+</p>
+
+<h2>Parsing as Types</h2>
+
+<p>
+	If a parser were written as a Haskell program, then the types of Lex and Yacc would probably be given as:
+</p><pre>
+parsing :: String -> Tree Token
+parsing = yacc . lex
+
+lex :: String -> List Token
+yacc :: List Token -> Tree Token
+</pre><p>
+	The alternative design presented by my parser can be thought of as:
+</p><pre>
+parsing :: String -> Tree Token
+parsing = group . map lex . bracket
+
+bracket :: String -> Tree String
+lex :: String -> List Token
+group :: Tree Token -> Tree Token
+</pre>
+
+<h2>References</h2>
+
+<ul>
+	<li><a href="http://en.wikipedia.org/wiki/Category:Parsing_algorithms">Parsing Algorithms, Wikipedia</a></li>
+	<li><a href="http://pdos.csail.mit.edu/~baford/packrat/">Packrat Parsing</a></li>
+	<li><a href="http://www.antlr.org/">ANTLR</a></li>
+	<li><a href="http://www.cs.uu.nl/~daan/download/parsec/parsec.html">Parsec</a></li>
+</ul>

@@ -1,0 +1,83 @@
+title=Windows Packages
+
+include("../elements/prefix.inc");
+
+
+function item($name,$download,$website)
+{
+	print ' <span style="white-space:nowrap;"><a href="' . $download . '">' . $name . '</a> <a href="' . $website . '"><img src="elements/linkout.png" alt="linkout" /></a></span> ;';
+}
+
+
+?>
+
+<p>
+	This page provides direct download links to binary packages required for various things, all compiled for Windows. If any of these packages are out of date, please contact me. Click on the <img src="elements/linkout.png" alt="linkout" /> to go to the website for the project.
+</p>
+
+<h3>Haskell</h3>
+
+<?
+item("Alex 2.0.1","http://www.haskell.org/alex/dist/alex-2.0.1-win32.zip","http://www.haskell.org/alex/");
+item("Cpphs 1.2","http://www.cs.york.ac.uk/fp/cpphs-1.2-win32.zip","http://haskell.org/cpphs/");
+item("Darcs 1.0.7","http://zooko.com/darcsdir-w32-1.0.7.zip","http://darcs.net/");
+item("Drift Sep 2006","http://haskell.org/hoogle/other/drift-Sep2006.zip","http://repetae.net/john/computer/haskell/DrIFT/");
+item("GHC 6.4.2","http://haskell.org/ghc/dist/6.4.2/ghc-6-4-2.msi","http://haskell.org/ghc/");
+item("Haddock 0.7","http://haskell.org/haddock/haddock-0.7-Win32.zip","http://haskell.org/haddock/");
+item("Hat July 2006","http://www.cs.york.ac.uk/fp/temp/hat-win32-05_jul_2006.zip","http://haskell.org/hat/");
+item("Happy 1.13","http://www.haskell.org/happy/dist/1.13/happy-1-13.msi","http://www.haskell.org/happy/");
+item("Hoogle June 2006","http://www.haskell.org/hoogle/other/hoogle-win32.zip","http://www.haskell.org/hoogle/");
+item("HsColour 1.3","ftp://ftp.cs.york.ac.uk/pub/haskell/contrib/hscolour-1.3-win.zip","http://www.cs.york.ac.uk/fp/darcs/hscolour/");
+item("Lambda Shell 0.3","http://haskell.org/hoogle/other/lambdashell-0.3.zip","http://www.eecs.tufts.edu/~rdocki01/lambda.html");
+item("WinHugs May 2006","http://cvs.haskell.org/Hugs/downloads/2006-05/WinHugs-May2006.exe","http://www.haskell.org/hugs/");
+?>
+
+<h3>Development</h3>
+
+<?
+item("CVS 1.11.22","ftp://ftp.gnu.org/gnu/non-gnu/cvs/binary/stable/x86-woe/cvs-1-11-22.zip","http://www.nongnu.org/cvs/");
+item("Python 2.4.3","http://www.python.org/ftp/python/2.4.3/python-2.4.3.msi","http://www.python.org/");
+item("Scons 0.96.1","http://kent.dl.sourceforge.net/sourceforge/scons/scons-0.96.1.win32.exe","http://www.scons.org/");
+item("SVN 1.3.2","http://subversion.tigris.org/files/documents/15/32856/svn-1.3.2-setup.exe","http://subversion.tigris.org/");
+item("TextPad 4.7.3","ftp://download.textpad.com/pub/textpad4.7/txpeng473.exe","http://www.textpad.com/");
+item("Unix Utils 14-04-03","http://unxutils.sourceforge.net/UnxUtils.zip","http://unxutils.sourceforge.net/");
+?>
+
+<h3>Darcs / Cabal</h3>
+
+<pre>http://darcs.haskell.org/packages/Cabal
+http://darcs.haskell.org/packages/base/
+http://darcs.haskell.org/alex/
+http://darcs.haskell.org/happy/
+http://www.cs.york.ac.uk/fp/darcs/cpphs/
+http://www.cs.york.ac.uk/fp/darcs/hscolour/
+http://www.cs.york.ac.uk/fp/darcs/hoogle/
+http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/</pre>
+
+<p>
+	After having downloaded GHC and Darcs, you might prefer to build your own Haskell packages. If so the procedure is:
+</p>
+
+<pre>darcs get --partial <i>url</i>
+runhaskell Setup configure
+runhaskell Setup build
+runhaskell Setup install</pre>
+
+<p>
+	This is currently the way I am doing this, unfortunately its a bit of a bumpy ride for now - dependancies must be done manually, and you can guarantee at least one package will be broken at any time, if not more.
+</p>
+
+<p>
+	The initial Cabal package is special, do:
+</p>
+
+<pre>darcs get --partial http://darcs.haskell.org/packages/Cabal
+cd Cabal
+ghc --make -cpp Setup -o setup.exe
+setup configure
+setup build
+setup install</pre>
+
+
+
+<? include("../elements/suffix.inc") ?>

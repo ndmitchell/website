@@ -1,0 +1,61 @@
+title=Hat
+tags=program haskell
+slides=hat_windows_and_wimp-05_oct_2006.pdf|Hat: Windows and WIMP|a talk I gave at <a href="http://www.haskell.org/hat/">Hat</a> Day 2006, at The University of Kent.
+paper=hatday-28_oct_2005.pdf|Visual Hat
+slides=hat_visual-27_may_2005.pdf|Hat Visual|a talk I gave as part of the <a href="http://www.haskell.org/hat/">Hat</a> day, at York
+
+<p>
+	I have done a very small amount of work on <a href="http://www.haskell.org/hat/">Hat</a>.
+	I have compiled Hat for Windows, and am writing a GUI for Hat.
+</p>
+
+<img src="hat-gui-stack.png" alt="Screenshot of GUI for hat-stack" />
+<img src="hat-gui-cover.png" alt="Screenshot of GUI for hat-cover" />
+
+<h2>Hat on Windows</h2>
+
+<p>
+	Download from <a href="http://www.cs.york.ac.uk/fp/temp/hat-win32-05_jul_2006.zip">here</a>.
+</p><p>
+	All hat utilities are available and seem to work apart from:
+</p>
+<ul>
+	<li>hat-explore - advanced escape codes, looks pretty hard to get round</li>
+	<li>hat-anim - escape codes, might be able to work round</li>
+	<li>hat-detect - tries to spawn an xterm</li>
+</ul>
+<p>
+	In addition, there is also hat-make, which is windows only hmake -hat
+	alternative.
+</p>
+
+<h2>Instructions for installing</h2>
+
+<p>
+	Extract the contents of the .zip file into a folder preserving
+	directory structure.
+</p><p>
+	Add the folder containing hat-make to your %PATH% variable, this is
+	100% required, even if you give the explicit path to hat-make when you
+	use it.
+</p><p>
+	Make sure <a href="http://haskell.org/ghc/">ghc</a> is available on your system and has been added to the %PATH%.
+</p>
+
+<h2>Instructions for use</h2>
+
+<p>
+	cd to the directory containing your Haskell source
+</p>
+<pre>
+hat-make Main.hs
+main <arguments>
+hat-stack Main.hat
+hat-observe Main.hat
+etc.
+</pre>
+<p>
+	I have tested the programs, and they all work quite well - I have not
+	run into any limitations beyond those which happen on Hat on Linux as
+	well.
+</p>

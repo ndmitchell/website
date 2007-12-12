@@ -1,0 +1,50 @@
+title=Catch: Case Totality Checker for Haskell
+shortname=Catch
+tags=haskell phd research yhc program popular released
+darcs=http://www.cs.york.ac.uk/fp/darcs/catch
+manual=http://www.cs.york.ac.uk/fp/darcs/catch/catch.htm|Catch: A User Manual
+draft=catch-15_jun_2007.pdf|Not All Patterns, But Enough - an automatic verifier for partial but sufficient pattern matching|awaiting revision</a>
+paper=a_static_checker_for_safe_pattern_matching_in_haskell-01_feb_2007.pdf|A Static Checker for Safe Pattern Matching in Haskell|An overview of pattern match checking|written with Colin Runciman, in the
+paper=unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf|Unfailing Haskell: A static checker for pattern matching|written with Colin Runciman
+paper=qualifying_dissertation-30_jun_2005.pdf|Unfailing Haskell|my Qualifying disseration
+slides=detecting_pattern_match_failures_in_haskell-26_nov_2007.pdf|Detecting Pattern-Match Failures in Haskell|a talk I gave at the <a href="http://metacomp.comlab.ox.ac.uk/">Oxford Centre for Metacomputation</a>
+slides=catch-06_apr_2006.pdf|Catch, A Practical Tool|a talk I gave at <a href="http://www.bctcs.ac.uk/">BCTCS 2006</a>
+slides=unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf|Unfailing Haskell: A static checker for pattern matching|a talk I gave at <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a>
+slides=catch-16_mar_2006.pdf|Catch, Lazy Termination|a talk I gave to PLASMA
+slides=termination_checking_for_a_lazy_functional_language-21_dec_2004.pdf|Termination checking for a lazy functional language|my first year literature review seminar. A <a href="http://www-user.cs.york.ac.uk/~ndm/downloads/refs-termination_checking_for_a_lazy_functional_language-21_dec_2004.pdf">list of references</a> is available
+slides=first_order_haskell-06_apr_2007.pdf|First Order Haskell|a talk I gave at <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
+tarball=http://hackage.haskell.org/cgi-bin/hackage-scripts/package/catch|0.1.1
+blog=1
+
+<p>
+	This is my primary PhD topic. An initial version was presented at <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a>.
+</p>
+
+<h2>Abstract</h2>
+<p>
+	A Haskell program may fail at runtime with a pattern-match error if the program has any incomplete (non-exhaustive) patterns in definitions or case alternatives. This paper describes a static checker that allows non-exhaustive patterns to exist, yet ensures that a pattern-match error does not occur. It describes a constraint language that can be used to reason about pattern matches, along with mechanisms to propagate these constraints between program components. The checker can handle some higher-order functions.
+</p>
+
+<h2>Users</h2>
+<p>
+    <img style="float:right;margin-left:10px; border:0;" src="[[=root]]elements/valid-catch.png" alt="Checked by Catch!" height="31" width="88" />
+    The following programs and libraries have all had some of their source code verified by Catch. If you verify a released Haskell project with Catch, please let me know your experiences. To indicate that you have taken the time to ensure pattern match safety, you may use the following "Checked with Catch" logo.
+</p>
+<ul>
+    <li><a href="http://xmonad.org/">XMonad</a> - the <a href="http://darcs.haskell.org/~sjanssen/xmonad/StackSet.hs">StackSet</a> module has been verified several times, as the design changes - see <a href="http://neilmitchell.blogspot.com/2007/05/does-xmonad-crash.html">this blog post</a> for the first instance.</li>
+    <li>[[filepath|System.FilePath]] - see <a href="http://neilmitchell.blogspot.com/2007/04/exploding-patterns-in-filepath.html">this blog post</a>.</li>
+    <li>[[safe|Safe]]</li>
+    <li><a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/FiniteMap-0.1">Data.FiniteMap</a> - see the forthcoming paper.</li>
+    <li><a href="http://www.cs.york.ac.uk/fp/darcs/hscolour/">HsColour</a> - see the forthcoming paper.</li>
+</ul>
+
+<h2>Credits</h2>
+<p>
+	The name is courtesy of <a href="http://www-users.cs.york.ac.uk/~miked/">Mike Dodds</a>.
+</p>
+
+<h2>Related work</h2>
+<ul>
+	<li><a href="http://www.cl.cam.ac.uk/~nx200/research/escH-hw.ps">ESC/Haskell</a>, by <a href="http://www.cl.cam.ac.uk/~nx200/">Dana Xu</a> - explicit pre/post condition annotations.</li>
+    <li><a href="http://www.haskell.org/haskellwiki/Non-empty_list">Non-empty lists</a> - moving the safety into the types.</li>
+</ul>

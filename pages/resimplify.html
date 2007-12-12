@@ -1,0 +1,13 @@
+title=Regular Expression Simplification
+shortname=RE Simplify
+tags=regexp haskell program
+
+<p>
+	<i>This paper was my 3rd year undergraduate project, and a regular expression simplifier was written in Haskell with reasonably good performance.</i>
+</p><p>
+	Regular expressions are a widely used concept, which are commonly manipulated by first converting them to Finite State Automata. This conversion has a high computational complexity associated with it. The corresponding Finite State Automata to regular expression conversion algorithm produces far from minimal expressions.
+</p><p>
+	This project reviews the existing theory of regular expressions, including current research and existing implementations of systems, focusing on the simplification aspect. A program is designed and implemented to attempt the specific problem of simplification, using conditional rewrite rules.
+</p><p>
+	The resulting program is proved to always produce equivalent regular expressions, and to always terminate. A function is also given that measures the complexity of a regular expression. The program performs significantly better than any other solution available, in terms of simplification, but does not produce minimal expressions in every case.
+</p>

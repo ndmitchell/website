@@ -1,0 +1,180 @@
+
+/********************************************************************
+** BODY
+*******************************************************************/
+
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+body, div {
+	font-family: sans-serif;
+}
+
+h1 {
+	font-size: 20pt;
+}
+
+h2 {
+	font-size: 16pt;
+}
+
+
+/********************************************************************
+** TOP HEADING
+*******************************************************************/
+
+#header {
+	background-image: url(york-woodcut.png);
+	background-repeat: no-repeat;
+	background-color: black;
+	color: white;
+	
+	height: 50px;
+	margin: 0px;
+	padding: 5px;
+	padding-left: 186px;
+	font-family: serif;
+	font-style: italic;
+	text-align: center;
+}
+
+#header #name {
+	font-size: 25px;
+	font-weight: bold;
+	font-family: serif;
+}
+
+#header #uni {
+	font-size: 14px;
+	font-weight: normal;
+	font-family: serif;
+}
+
+
+/********************************************************************
+** SIDEBAR / MENU
+*******************************************************************/
+
+#menu {
+	/* mozilla only rules */
+	/* -moz- breaks the CSS validator, but tough */
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-topright: 10px;
+	position: fixed !important;
+	/* end */
+	width: 130px;
+	left: 0px;
+	position: absolute;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	padding-left: 0px;
+	border: 1px solid gray;
+	border-left-width: 0px;
+	margin: 0px;
+	background-color: #808;
+
+}
+/* set everyone to zero so I have a consistent base to work from */
+#menu a, #menu li, #menu ul {
+	padding: 0px;
+	margin: 0px;
+}
+#menu a {
+	color: white;
+	display: block;
+	text-decoration: none;
+	font-size: 14px;
+	padding-left: 5px;
+}
+/* required for IE, and i have *no* idea why... */
+#menu li {
+	border-width: 0px !important;
+	border: 1px solid #808;
+}
+#menu ul a {
+	padding-left: 20px;
+}
+#menu a:hover {
+	background-color: gray;
+}
+
+
+/********************************************************************
+** CONTENT
+*******************************************************************/
+
+#content, #footer {
+	margin-left: 150px;
+	margin-right: 10px;
+}
+#content {
+	margin-top: 15px;
+}
+#footer {
+	font-size: 10pt;
+	text-align: center;
+}
+#tags {
+	margin-top: 25px;
+	font-size: 10pt;
+	color: #080;
+	font-weight: bold;
+}
+#tags a {
+	font-weight: normal;
+	color: #080;
+}
+
+
+/********************************************************************
+** GENERAL ELEMENTS
+*******************************************************************/
+
+.more {
+	font-size: 14px;
+	color: #808;
+	text-decoration: none;
+}
+a.more {
+	background-image: url(more.png);
+	padding-left: 8px;
+	background-repeat: no-repeat;
+	background-position: center left;
+}
+a.video {
+	background-image: url(video.png);
+	padding-left: 18px;
+	background-repeat: no-repeat;
+	background-position: center left;
+}
+a:hover {
+	background-color: #ffb;
+}
+.space li {
+	margin-bottom: 8px;
+}
+pre {
+	border: 2px solid gray;
+	padding: 1px;
+	padding-left: 5px;
+	margin-left: 10px;
+	background-color: #eee;
+}
+pre a {
+	text-decoration: none;
+}
+a img {
+	border: 0px;
+}
+
+.darcs {list-style-image: url(darcs.png);}
+.slides {list-style-image: url(slides.png);}
+.manual {list-style-image: url(manual.png);}
+.paper {list-style-image: url(paper.png);}
+.draft {list-style-image: url(draft.png);}
+.program {list-style-image: url(program.png);}
+.haddock {list-style-image: url(haddock.png);}
+.blog {list-style-image: url(blog.png);}
+.release {list-style-image: url(release.png);}

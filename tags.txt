@@ -1,0 +1,13 @@
+admin=General pages for the site, not actual things for people to use
+useable=These all have a useable tool which can be downloaded
+dead=Projects which are only of interest for historical purposes
+haskell=These use the Haskell language, or are tools for Haskell
+library=These are libraries
+parsing=These relate to parsing
+popular=These are the more commonly visited pages
+phd=These topics will form part of my PhD
+program=These are programs
+regexp=These involve regular expressions
+released=These are released, and available for general purpose use
+research=These are areas of academic research
+yhc=These relate to the Yhc compiler

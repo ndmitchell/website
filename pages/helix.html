@@ -1,0 +1,41 @@
+title=Helix
+tags=program haskell parsing
+
+<p>
+	Helix is a maximal munch lexer for Haskell, which will form part of my [[parsing|parser]]. I hope to release Helix first as a standalone tool, hopefully with compatability modes for both <a href="http://www.haskell.org/alex/">Alex</a> and <a href="http://www.gnu.org/software/flex/">Flex</a>. A prototype currently exists.
+</p>
+
+<h2>Problems with Maximal Munch Lexers</h2>
+
+<p>
+	Traditionally, most maximal munch lexers are <i>O(n<sup>2</sup>)</i>. Note that while regular expression matching is <i>O(n)</i>, this is a fundamentally different problem. To observe the worst case behaviour requires a pathalogical lexer specification.
+</p><p>
+	Consider the example of the regular expressions <tt>`a*b`</tt> or <tt>`a`</tt>, parsing maximal munch over a long list of <tt>'a'</tt> characters.
+</p><p>
+	This can be written as an <a href="http://www.haskell.org/alex/">Alex</a> specification as:
+</p><pre>
+{
+module Alex(alexScanTokens) where
+}
+
+%wrapper "basic"
+
+tokens :-
+ "a" { id }
+ "a"*"b" { id }
+</pre><p>
+	And a driver written as:
+</p><pre>
+n = 10000
+main = print $ length $ alexScanTokens $ replicate n 'a'
+</pre><p>
+	The performance of this is
+</p><p style="text-align:center;">
+	<img src="helix-alex.png" alt="Graph of Alex's performance" />
+</p><p>
+	As you can see from this graph, the performance is <i>O(n<sup>2</sup>)</i>. Statistical tests confirm this.
+</p><p>
+	The reason is that the lexer runs to the end looking for a <tt>'b'</tt>, it doesn't find one so at this point it outputs a single letter <tt>'a'</tt> as the token, and restarts the lexer at the second character.
+</p><p>
+	A solution has been given by Thomas Reps, in a paper entitled <a href="http://portal.acm.org/citation.cfm?id=276394">"Maximal-munch" tokenization in linear time</a>. This gives <i>O(n)</i> performance but requires <i>O(n)</i> memory, both in the best case and the worse case. Contrast this to the standard lexers which require O(n) memory in the worst case, but a typical case of O(1) memory.
+</p>

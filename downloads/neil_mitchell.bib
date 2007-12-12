@@ -1,0 +1,168 @@
+% Neil Mitchell's publications
+% http://www.cs.york.ac.uk/~ndm/
+
+@inproceedings{Mitchell:2007:derive,
+    author    = "Neil Mitchell",
+    title     = "Deriving Generic Functions by Example",
+    year      = "2007"
+    month     = "October",
+    day       = "26"
+    booktitle = "Proc. York Doctoral Symposium 2007"
+    pdf       = "http://www-users.cs.york.ac.uk/\~{}ndm/downloads/paper-deriving_generic_functions_by_example-26_oct_2007.pdf",
+    abstract  =
+        "A function is said to be generic if it operates over values of
+        any data type. For example, a generic equality function can test pairs of
+        booleans, integers, lists, trees etc. In most languages programmers must
+        define generic functions multiple times, specialised for each data type.
+        Alternatively, a tool could be used to specify the relationship between the
+        data type and the implementation, but this relationship may be complex.
+        This paper describes a solution: given a single example of the generic
+        function on one data type, we can infer the relationship between a data
+        type and the implementation. We have used our method in the Derive
+        tool, allowing the implementation of 60\% of the generic functions to be
+        inferred.",
+}
+
+@inproceedings{Mitchell:2007:uniplate,
+    author    = "Neil Mitchell and Colin Runciman",
+    title     = "Uniform Boilerplate and List Processing",
+    year      = "2007"
+    month     = "September",
+    day       = "30"
+    booktitle = "Proc. Haskell Workshop 2007"
+    pdf       = "http://www-users.cs.york.ac.uk/\~{}ndm/downloads/paper-uniform_boilerplate_and_list_processing-30_sep_2007.pdf",
+    abstract  =
+        "Generic traversals over recursive data structures are often referred
+        to as boilerplate code. The definitions of functions involving such
+        traversals may repeat very similar patterns, but with variations for
+        different data types and different functionality. Libraries of operations
+        abstracting away boilerplate code typically rely on elaborate
+        types to make operations generic. The motivating observation for
+        this paper is that most traversals have value-specific behaviour for
+        just one type. We present the design of a new library exploiting
+        this assumption. Our library allows concise expression of traversals
+        with competitive performance.",
+}
+
+@inproceedings{Mitchell:2007:supero,
+    author    = "Neil Mitchell and Colin Runciman",
+    title     = "Supero: Making Haskell Faster",
+    year      = "2007",
+    month     = "September",
+    day       = "27",
+    booktitle = "Proc. IFL 2007"
+    pdf       = "http://www-users.cs.york.ac.uk/\~{}ndm/downloads/paper-supero_making_haskell_faster-27_sep_2007.pdf",
+    abstract  =
+        "Haskell is a functional language, with features such as higher
+        order functions and lazy evaluation, which allow succinct programs. These
+        high-level features are difficult for fast execution, but GHC is a ma-
+        ture and widely used optimising compiler. This paper presents a whole-
+        program approach to optimisation, which produces speed improvements
+        of between 10\% and 60\% when used with GHC, on eight benchmarks.",
+}
+
+@article{Mitchell:2007:yhccore,
+    author    = "Dimitry Golubovsky and Neil Mitchell and Matthew Naylor",
+    title     = "{Y}hc.{C}ore - from {H}askell to {C}ore",
+    year      = "2007",
+    month     = "April",
+    day       = "30",
+    journal   = "The Monad.Reader",
+    number    = "7",
+    pages     = "45--61",
+    pdf       = "http://www-users.cs.york.ac.uk/\~{}ndm/downloads/paper-yhc_core-30_apr_2007.pdf",
+    abstract  =
+        "The Yhc compiler is a hot-bed of new and interesting ideas. We present Yhc.Core
+        - one of the most popular libraries from Yhc. We describe what we think makes
+        Yhc.Core special, and how people have used it in various projects including an
+        evaluator, and a Javascript code generator."
+}
+
+
+@inproceedings{Mitchell:2006:patternshaskell,
+    author    = "Neil Mitchell and Colin Runciman",
+    title     = "A Static Checker for Safe Pattern Matching in {H}askell,
+    publisher = "Intellect",
+    year      = "2007"
+    booktitle = "Trends in Functional Programming"
+    volume    = "6"
+    isbn      = "9781841501765"
+    pdf       = "http://www-users.cs.york.ac.uk/\~{}ndm/downloads/paper-a_static_checker_for_safe_pattern_matching_in_haskell-01_feb_2007.pdf",
+    abstract  =
+        "A Haskell program may fail at runtime with a pattern-match error if
+        the program has any incomplete (non-exhaustive) patterns in definitions or case
+        alternatives. This paper describes a static checker that allows non-exhaustive patterns
+        to exist, yet ensures that a pattern-match error does not occur. It describes a
+        constraint language that can be used to reason about pattern matches, along with
+        mechanisms to propagate these constraints between program components.",
+}
+
+
+@inproceedings{Mitchell:2005:unfailinghaskell,
+    author    = "Neil Mitchell and Colin Runciman",
+    title     = "Unfailing {H}askell: A Static Checker for Pattern Matching",
+    booktitle = "Proceedings of the Sixth Symposium on Trends in Functional Programming",
+    pages     = "313--328",
+    year      = "2005",
+    month     = "September",
+    day       = "24",
+    pdf       = "http://www-users.cs.york.ac.uk/\~{}ndm/downloads/paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf",
+    abstract  =
+        "A Haskell program may fail at runtime with a pattern-match error if the program has
+        any incomplete (non-exhaustive) patterns in definitions or case alternatives. This paper
+        describes a static checker that allows non-exhaustive patterns to exist, yet ensures
+        that a pattern-match error does not occur. It describes a constraint language that can
+        be used to reason about pattern matches, along with mechanisms to propagate these
+        constraints between program components.",
+}
+
+
+@inproceedings{Mitchell:2005:visualhat,
+    author    = "Neil Mitchell",
+    title     = "Visual {H}at",
+    booktitle = "{Hat Day 2005}: work in progress on the {H}at tracing system for {H}askell",
+    pages     = "23--26",
+    publisher = "Tech. Report YCS-2005-395, Dept. of Computer Science, University of York, UK",
+    editor    = "Colin Runciman",
+    year      = "2005",
+    month     = "October",
+    day       = "28",
+    pdf       = "http://www-users.cs.york.ac.uk/\~{}ndm/downloads/paper-hatday-28_oct_2005.pdf",
+    abstract  =
+        "This paper describes a new approach to visualizing
+        the data contained in Hat traces. The aim is to cater for Windows
+        users who are more familiar with graphical debugging tools.",
+}
+
+
+@techreport{Mitchell:2005:qualifyingdissertation
+    author      = "Neil Mitchell",
+    title       = "Unfailing {H}askell",
+    institution = "University of York",
+    type        = "Qualifying Dissertation",
+    year        = "2005",
+    month       = "June",
+    day         = "30",
+    pdf         = "http://www-users.cs.york.ac.uk/\~{}ndm/downloads/paper-qualifying_dissertation-30_jun_2005.pdf",
+    abstract  =
+        "Programs written in Haskell may fail at runtime with either a
+        pattern match error, or with non-termination. Both of these can be
+        thought of as giving the value $\bot$ as a result. Other forms of
+        failure, for example heap exhaustion, are not considered.
+
+        The first section of this document reviews previous work, including
+        total functional programming and sized types. Attention is paid to
+        termination checkers for both Prolog and various functional
+        languages.
+
+        The main result from work so far is a static checker for pattern
+        match errors that allows non-exhaustive patterns to exist, yet
+        ensures that a pattern match error does not occur. It includes a
+        constraint language that can be used to reason about pattern
+        matches, along with mechanisms to propagate these constraints
+        between program components.
+
+        The proposal deals with future work to be done. It gives an
+        approximate timetable for the design and implementation of a static
+        checker for termination and pattern match errors."
+}
