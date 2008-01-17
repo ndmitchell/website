@@ -37,6 +37,7 @@ process action xs = do
     mapM_ (f atts) xs
     where
         f atts (x,y) = do
-            src <- readFile x
+            src <- readFileContents x
             src <- action (promoteConfig atts x) src
-            writeFile y src
+            createDirectoryIfMissing True (takeDirectory y)
+            writeFileBinary y src
