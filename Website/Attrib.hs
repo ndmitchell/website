@@ -2,6 +2,7 @@
 module Website.Attrib(
     Attribs, Config,
     (!*), (!+), (!?), (!>),
+    (+=),
     readFilesAttribs, readFileAttribs, readFileContents,
     configAttribs,
     promoteConfig
@@ -18,24 +19,30 @@ data Config = Config (Map.Map FilePath Attribs) Attribs
 
 
 
-class GetAttribs a where
+class FindAttribs a where
     getAttribs :: a -> Attribs
+    setAttribs :: a -> Attribs ->  a
 
-instance GetAttribs Attribs where getAttribs = id
-instance GetAttribs Config where getAttribs (Config _ x) = x
+instance FindAttribs Attribs where
+    getAttribs = id
+    setAttribs _ = id
+
+instance FindAttribs Config where
+    getAttribs (Config _ x) = x
+    setAttribs (Config a _) x = Config a x
 
 
 -- | Get all the associated attributes
-(!*) :: GetAttribs a => a -> String -> [String]
+(!*) :: FindAttribs a => a -> String -> [String]
 a !* s = Map.findWithDefault [] s x
     where Attribs x = getAttribs a
 
 -- | Get one associated attribute (empty string on failure)
-(!+) :: GetAttribs a => a -> String -> String
+(!+) :: FindAttribs a => a -> String -> String
 a !+ s = head $ (a !* s) ++ [""]
 
 -- | Does a particular attribute exist
-(!?) :: GetAttribs a => a -> String -> Bool
+(!?) :: FindAttribs a => a -> String -> Bool
 a !? s = Map.member s x
     where Attribs x = getAttribs a
 
@@ -43,6 +50,12 @@ a !? s = Map.member s x
 -- | Follow into the general attributes of a particular file
 (!>) :: Config -> FilePath -> Attribs
 (Config x _) !> s = Map.findWithDefault (Attribs Map.empty) s x
+
+
+-- | Add an extra value, onto the end
+(+=) :: FindAttribs a => a -> (String,String) -> a
+(+=) a (k,v) = setAttribs a $ Attribs $ Map.insertWith (flip (++)) k [v] x
+    where Attribs x = getAttribs a
 
 
 configAttribs :: Config -> [Attribs]
@@ -79,7 +92,7 @@ getArgsAttribs = liftM readAttribs getArgs
 addArgsAttribs :: Attribs -> IO Attribs
 addArgsAttribs (Attribs orig) = do
     Attribs new <- getArgsAttribs
-    return $ Attribs $ new `Map.union` orig
+    return $ Attribs $ Map.unionWith (++) new orig
 
 
 readAttribs :: [String] -> Attribs
