@@ -6,11 +6,19 @@ import Website.Driver
 
 
 main = do
+    copy "downloads/*.bib;*.pdf" "downloads/"
+    copy "elements/" "elements/"
+
     pages <- getDirWildcards "pages/*.html"
+    
+    -- first copy the associated image files
+    flip mapM_ pages $ \x -> let x2 = takeBaseName x in
+        copy ("pages/" ++ x2 ++ "*.png") (x2 ++ "/")
+
+    -- now process the actual files    
     let outloc x | takeBaseName x == "index" = x
                  | otherwise = takeBaseName x </> "index.html"
     process rewrite [(p, outloc p) | p <- pages]
-
 
 
 
@@ -21,15 +29,6 @@ rewrite c s = return s
 {-
 
 
-    createDir "publish"
-    pages <- liftM (map dropExtension . filter (\x -> takeExtension x == ".html")) $
-                   getDirectoryContents "pages"
-    
-    args <- getArgs
-    bags <- mapM queryPage pages
-    let info = Info (map readEq args) (zip pages bags)
-    
-    copyElements
     copyDownloads
     copyFileBinary "Main.hs" "publish/Main.hs"
     mapM_ (processPage info) pages
