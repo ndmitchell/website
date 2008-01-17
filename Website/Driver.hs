@@ -1,7 +1,8 @@
 
 module Website.Driver(
     copy, process,
-    module Website.Attrib
+    module Website.Attrib,
+    module Website.Wildcard
     ) where
 
 import System.Directory
