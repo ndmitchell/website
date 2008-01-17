@@ -43,6 +43,7 @@ page c [] = []
 
 tag :: Config -> Tag -> [Tag]
 tag c (TagOpen ('?':name) []) = [TagText $ c !+ name]
+tag c (TagOpen (':':name) atts) = custom c name (map (uncurry (++)) atts)
 tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = [TagOpen "a" [("href",url)], TagText text, TagClose "a"]
     where
         title = c !> ("pages" </> name <.> "html") !+ name
@@ -52,6 +53,18 @@ tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = [TagOpen "a" [("href",url)
         text = if null atts then title else uncurry (++) (head atts)
 
 tag c x = [x]
+
+
+
+custom :: Config -> String -> [String] -> [Tag]
+custom c "catch" _ | not $ c !? "catch" = []
+                   | otherwise =
+    [TagOpen "a" [("href","http://www-users.cs.york.ac.uk/~ndm/catch/")]
+        ,TagOpen "img" [("style","border:0;"), ("src",(c !+ "root") ++ "elements/valid-catch.png")
+                       ,("alt","Checked by Catch!"),("height","31"),("width","88")]
+    ,TagClose "a"]
+
+custom _ name _ = error $ "Custom tag not known, " ++ name
 
 
 {-
