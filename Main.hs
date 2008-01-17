@@ -2,6 +2,7 @@
 module Main(main) where
 
 import System.FilePath
+import Text.HTML.TagSoup
 import Website.Driver
 
 
@@ -18,12 +19,30 @@ main = do
     -- now process the actual files    
     let outloc x | takeBaseName x == "index" = x
                  | otherwise = takeBaseName x </> "index.html"
-    process rewrite [(p, outloc p) | p <- pages]
+    prefix <- readFile "elements/prefix.txt"
+    suffix <- readFile "elements/suffix.txt"
+    process (rewrite prefix suffix) [(p, outloc p) | p <- pages]
 
 
 
-rewrite :: Config -> String -> IO String
-rewrite c s = return s
+rewrite :: String -> String -> Config -> String -> IO String
+rewrite prefix suffix c s = return $ renderTags $ page c2 $ parseTagsOptions popts $ prefix ++ s ++ suffix
+    where
+        c2 = c += ("root", if takeBaseName (c !+ "source") == "index" then "" else "../")
+
+        popts = parseOptions{optLookupEntity = entity}
+        entity (':':xs) = [TagText $ c2 !+ xs]
+        entity xs = optLookupEntity parseOptions xs
+
+
+page :: Config -> [Tag] -> [Tag]
+page c (x:xs) = tag c x : page c xs
+page c [] = []
+
+
+tag :: Config -> Tag -> Tag
+tag c (TagOpen ('?':name) []) = TagText $ c !+ name
+tag c x = x
 
 
 {-

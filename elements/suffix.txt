@@ -9,10 +9,10 @@
 	<tr>
 		<td>
 			<a href="http://validator.w3.org/check?uri=referer">
-				<img style="border:0;" src="[[=root]]elements/valid-xhtml.png" alt="Valid XHTML 1.0!" height="31" width="88" />
+				<img style="border:0;" src="&:root;elements/valid-xhtml.png" alt="Valid XHTML 1.0!" height="31" width="88" />
 			</a>
 			<a href="http://jigsaw.w3.org/css-validator/check/referer/">
-				<img style="border:0;" src="[[=root]]elements/valid-css.png" alt="Valid CSS!" height="31" width="88" />
+				<img style="border:0;" src="&:root;elements/valid-css.png" alt="Valid CSS!" height="31" width="88" />
 			</a>
 			[[=catch]]
 		</td>

@@ -2,10 +2,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<title>Neil Mitchell - [[=title]]</title>
+		<title>Neil Mitchell - &:title;</title>
 
-		<link type="text/css" rel="stylesheet" href="[[=root]]elements/index.css" />
-		<script type="text/javascript" src="[[=root]]elements/emailscrambler.js"></script>
+		<link type="text/css" rel="stylesheet" href="&:root;elements/index.css" />
+		<script type="text/javascript" src="&:root;elements/emailscrambler.js"> </script>
 	</head>
 	<body>
 
@@ -17,4 +17,4 @@
 [[=menu]]
 
 <div id="content">
-	<h1>[[=title]]</h1>
+	<h1>&:title;</h1>
