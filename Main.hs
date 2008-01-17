@@ -36,13 +36,21 @@ rewrite prefix suffix c s = return $ renderTags $ page c2 $ parseTagsOptions pop
 
 
 page :: Config -> [Tag] -> [Tag]
-page c (x:xs) = tag c x : page c xs
+page c (x:xs) = tag c x ++ page c xs
 page c [] = []
 
 
-tag :: Config -> Tag -> Tag
-tag c (TagOpen ('?':name) []) = TagText $ c !+ name
-tag c x = x
+tag :: Config -> Tag -> [Tag]
+tag c (TagOpen ('?':name) []) = [TagText $ c !+ name]
+tag c (TagOpen ('!':name) atts) = [TagOpen "a" [("href",url)], TagText text, TagClose "a"]
+    where
+        title = c !> ("pages" </> name <.> "html") !+ name
+        url = concat [c !+ "root"
+                     ,if name == "index" then "" else name
+                     ,if c !? "debug" then "/index.html" else "/"]
+        text = if null atts then title else uncurry (++) (head atts)
+
+tag c x = [x]
 
 
 {-
