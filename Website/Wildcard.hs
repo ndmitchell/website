@@ -3,6 +3,7 @@ module Website.Wildcard(
     expandWildcards, getDirWildcards
     ) where
 
+import Control.Monad
 import System.FilePath
 import Website.Util
 
@@ -36,10 +37,7 @@ expandWildcards (lhs,rhs) = do
 
 
 getDirWildcards :: FilePath -> IO [FilePath]
-getDirWildcards s = do
-    xs <- getDirContentsFull $ takeDirectory s
-    s <- mapM (\r -> expandWildcards (r, ".")) xs
-    return $ map fst $ concat s
+getDirWildcards s = liftM (map fst) $ expandWildcards (s, ".")
 
 
 ---------------------------------------------------------------------
