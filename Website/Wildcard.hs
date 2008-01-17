@@ -1,5 +1,7 @@
 
-module Website.Wildcard(expandWildcards) where
+module Website.Wildcard(
+    expandWildcards, getDirWildcards
+    ) where
 
 import System.FilePath
 import Website.Util
@@ -24,6 +26,13 @@ expandWildcards (lhs,rhs) = do
         rDir <- isDirectory rhs
         let dest = if rDir then rhs </> takeFileName lhs else rhs
         return [(lhs,dest)]
+
+
+getDirWildcards :: FilePath -> IO [FilePath]
+getDirWildcards s = do
+    xs <- getDirContentsFull s
+    s <- mapM (\r -> expandWildcards (r, ".")) xs
+    return $ map fst $ concat s
 
 
 ---------------------------------------------------------------------
