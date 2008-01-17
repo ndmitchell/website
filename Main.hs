@@ -1,6 +1,7 @@
 
 module Main(main) where
 
+import Data.List
 import System.FilePath
 import Text.HTML.TagSoup
 import Website.Driver
@@ -17,12 +18,13 @@ main = do
         copy ("pages/" ++ x2 ++ "*.png") (x2 ++ "/")
 
     -- now process the actual files    
-    let outloc x | takeBaseName x == "index" = x
+    let outloc x | takeBaseName x == "index" = "index.html"
                  | otherwise = takeBaseName x </> "index.html"
     prefix <- readFile "elements/prefix.txt"
     suffix <- readFile "elements/suffix.txt"
     process (rewrite prefix suffix) [(p, outloc p) | p <- pages]
 
+ndm = "http://www-users.cs.york.ac.uk/~ndm/"
 
 
 rewrite :: String -> String -> Config -> String -> IO String
@@ -41,16 +43,24 @@ page c (x:xs) = tag c x ++ page c xs
 page c [] = []
 
 
+wordTags = map (uncurry (++))
+
 tag :: Config -> Tag -> [Tag]
 tag c (TagOpen ('?':name) []) = [TagText $ c !+ name]
 tag c (TagOpen (':':name) atts) = custom c name (map (uncurry (++)) atts)
-tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = [TagOpen "a" [("href",url)], TagText text, TagClose "a"]
+tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = parseTags $
+        if "more" `elem` wordTags atts 
+        then "<span class='more'>(<a href='" ++ url ++ "' class='more'>read&nbsp;more</a>)</span>"
+        else "<a href='" ++ url ++ "'>" ++ text ++ "</a>"
     where
-        title = c !> ("pages" </> name <.> "html") !+ name
-        url = concat [c !+ "root"
-                     ,if name == "index" then "" else name
+        tag = ":" `isPrefixOf` name
+        title = if tag then tail name else c !> ("pages" </> name <.> "html") !+ name
+
+        url = (c !+ "root") ++ if tag then "tags/#" ++ tail name else
+              concat [if name == "index" then "" else name
                      ,if c !? "debug" then "/index.html" else "/"]
         text = if null atts then title else uncurry (++) (head atts)
+        
 
 tag c x = [x]
 
@@ -58,13 +68,17 @@ tag c x = [x]
 
 custom :: Config -> String -> [String] -> [Tag]
 custom c "catch" _ | not $ c !? "catch" = []
-                   | otherwise =
-    [TagOpen "a" [("href","http://www-users.cs.york.ac.uk/~ndm/catch/")]
-        ,TagOpen "img" [("style","border:0;"), ("src",(c !+ "root") ++ "elements/valid-catch.png")
-                       ,("alt","Checked by Catch!"),("height","31"),("width","88")]
-    ,TagClose "a"]
+                   | otherwise = parseTags $
+    "<a href='" ++ ndm ++ "catch/'>" ++
+        "<img style='border:0;' src='" ++ (c !+ "root") ++ "elements/valid-catch.png' " ++
+              "alt='Checked by Catch!' height='31' width='88' />" ++
+    "</a>"
+
+custom c "tags" _ = parseTags $ unwords $ map f $ words $ c !+ "tags"
+    where f x = "<a href='" ++ (c !+ "root") ++ "tags/#" ++ x ++ "'>" ++ x ++ "</a>"
 
 custom _ name _ = error $ "Custom tag not known, " ++ name
+
 
 
 {-
