@@ -2,6 +2,7 @@
 module Main(main) where
 
 import Data.List
+import Data.Maybe
 import System.FilePath
 import Text.HTML.TagSoup
 import Website.Driver
@@ -52,7 +53,7 @@ tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = parseTags $
         else "<a href='" ++ url ++ "'>" ++ text ++ "</a>"
     where
         tag   = ":" `isPrefixOf` name
-        title = if tag then tail name else c !> ("pages" </> name <.> "html") !+ name
+        title = if tag then tail name else c !> (srcPage name) !+ name
         url   = if tag then urlTag c (tail name) else urlPage c name
         text  = if null atts then title else uncurry (++) (head atts)
         
@@ -61,6 +62,7 @@ tag c x = [x]
 
 
 urlTag  c x = (c !+ "root") ++ "tags/#" ++ x
+srcPage x = if x == "index" then "pages/index.html" else "pages" </> x <.> "html"
 urlPage c x = concat [c !+ "root"
                      ,if x == "index" then "" else x
                      ,if c !? "debug" then "/index.html" else "/"]
@@ -82,13 +84,21 @@ custom c "email" atts =
     [TagOpen "span" [("class","es_address")]
     ,TagText $ concatMap f $ head atts
     ,TagClose "span"]
+    where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
+
+custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
     where
-        f '@' = " AT "
-        f '.' = " DOT "
-        f x = [x]
+        links = [("index","")] ++ pick "admin" ++ [("","")] ++ pick "popular" ++ [("tags","All pages...")]
+
+        pick tag = [(x !+ "source","") | x <- configAttribs c, tag `elem` words (x !+ "tags")]
+
+        f ("","") = "<li> </li>"
+        f (page,msg) = "<li><a href='" ++ urlPage c page ++ "'>" ++ title ++ "</a></li>"
+            where
+                a = c !> srcPage page
+                title = head $ dropWhile null [msg, a !+ "shortname", a !+ "name", page]
 
 custom _ name _ = error $ "Custom tag not known, " ++ name
-
 
 
 {-

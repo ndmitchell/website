@@ -14,7 +14,7 @@
 	<div id="uni">Department of Computer Science, University of York</div>
 </div>
 
-[[=menu]]
+<:menu>
 
 <div id="content">
 	<h1>&:title;</h1>
