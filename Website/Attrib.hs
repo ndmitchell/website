@@ -11,6 +11,7 @@ module Website.Attrib(
 import Control.Monad
 import qualified Data.Map as Map
 import System.Environment
+import System.FilePath
 
 
 data Attribs = Attribs (Map.Map String [String])
@@ -49,7 +50,7 @@ a !? s = Map.member s x
 
 -- | Follow into the general attributes of a particular file
 (!>) :: Config -> FilePath -> Attribs
-(Config x _) !> s = Map.findWithDefault (Attribs Map.empty) s x
+(Config x _) !> s = Map.findWithDefault (Attribs Map.empty) (normalise s) x
 
 
 -- | Add an extra value, onto the end
@@ -70,7 +71,7 @@ readFilesAttribs :: [FilePath] -> IO Config
 readFilesAttribs files = do
     res <- mapM readFileAttribs files
     return $ Config
-        (Map.fromList $ zip files res)
+        (Map.fromList $ zip (map normalise files) res)
         (error "You must promote a Config before using it")
 
 readFileContents :: FilePath -> IO String
