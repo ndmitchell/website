@@ -2,8 +2,9 @@
 module Website.Attrib(
     Attribs, Config,
     (!*), (!+), (!?), (!>),
-    readFileAttribs, getArgsAttribs,
-    configAttribs
+    readFilesAttribs, readFileAttribs, getArgsAttribs,
+    configAttribs,
+    promoteConfig
     ) where
 
 import qualified Data.Map as Map
@@ -45,6 +46,18 @@ a !? s = Map.member s x
 
 configAttribs :: Config -> [Attribs]
 configAttribs (Config x _) = Map.elems x
+
+
+promoteConfig :: Config -> FilePath -> Config
+promoteConfig c@(Config x _) s = Config x (c !> s)
+
+
+readFilesAttribs :: [FilePath] -> IO Config
+readFilesAttribs files = do
+    res <- mapM readFileAttribs files
+    return $ Config
+        (Map.fromList $ zip files res)
+        (error "You must promote a Config before using it")
 
 
 readFileAttribs :: FilePath -> IO Attribs
