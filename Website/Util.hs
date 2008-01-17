@@ -4,6 +4,7 @@ module Website.Util where
 import Control.Monad
 import System.Directory
 import System.FilePath
+import System.IO
 
 
 isDirectory x = if hasTrailingPathSeparator x
@@ -18,3 +19,18 @@ getDirContentsFull x = liftM (map (x </>)) $ getDirContents x
 
 concatMapM f x = liftM concat $ mapM f x
 
+copyFileBinary :: FilePath -> FilePath -> IO ()
+copyFileBinary fromFPath toFPath =
+    do readFileBinary fromFPath >>= writeFileBinary toFPath
+       return ()
+
+readFileBinary :: FilePath -> IO String
+readFileBinary file = do
+    h <- openBinaryFile file ReadMode
+    hGetContents h
+
+writeFileBinary :: FilePath -> String -> IO ()
+writeFileBinary file str = do
+    h <- openBinaryFile file WriteMode
+    hPutStr h str
+    hClose h
