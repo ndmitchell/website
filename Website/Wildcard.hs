@@ -1,9 +1,8 @@
 
 module Website.Wildcard(expandWildcards) where
 
-import Control.Monad
-import System.Directory
 import System.FilePath
+import Website.Util
 
 
 expandWildcards :: (FilePath,FilePath) -> IO [(FilePath,FilePath)]
@@ -41,18 +40,3 @@ matchWildcard _ _ = Nothing
 
 replaceWildcard :: String -> String -> String
 replaceWildcard x with = concatMap (\y -> if y == '*' then with else [y]) x
-
----------------------------------------------------------------------
--- AUXILIARY UTILITIES
-
-isDirectory x = if hasTrailingPathSeparator x
-                then return True
-                else doesDirectoryExist x
-
-getDirContents x = do
-    s <- getDirectoryContents x
-    return $ filter (`notElem` [".",".."]) s
-
-getDirContentsFull x = liftM (map (x </>)) $ getDirContents x
-
-concatMapM f x = liftM concat $ mapM f x
