@@ -43,13 +43,11 @@ page c (x:xs) = tag c x ++ page c xs
 page c [] = []
 
 
-wordTags = map (uncurry (++))
-
 tag :: Config -> Tag -> [Tag]
 tag c (TagOpen ('?':name) []) = [TagText $ c !+ name]
 tag c (TagOpen (':':name) atts) = custom c name (map (uncurry (++)) atts)
 tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = parseTags $
-        if "more" `elem` wordTags atts 
+        if ("more","") `elem` atts 
         then "<span class='more'>(<a href='" ++ url ++ "' class='more'>read&nbsp;more</a>)</span>"
         else "<a href='" ++ url ++ "'>" ++ text ++ "</a>"
     where
@@ -76,6 +74,15 @@ custom c "catch" _ | not $ c !? "catch" = []
 
 custom c "tags" _ = parseTags $ unwords $ map f $ words $ c !+ "tags"
     where f x = "<a href='" ++ (c !+ "root") ++ "tags/#" ++ x ++ "'>" ++ x ++ "</a>"
+
+custom c "email" atts =
+    [TagOpen "span" [("class","es_address")]
+    ,TagText $ concatMap f $ head atts
+    ,TagClose "span"]
+    where
+        f '@' = " AT "
+        f '.' = " DOT "
+        f x = [x]
 
 custom _ name _ = error $ "Custom tag not known, " ++ name
 
