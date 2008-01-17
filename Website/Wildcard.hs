@@ -9,6 +9,13 @@ import Website.Util
 
 expandWildcards :: (FilePath,FilePath) -> IO [(FilePath,FilePath)]
 
+expandWildcards (lhs,rhs) | ';' `elem` takeFileName lhs =
+        concatMapM expandWildcards [(l,rhs) | l <- xs]
+    where
+        (ldir,lnam) = splitFileName lhs
+        xs = words $ map (\x -> if x == ';' then ' ' else x) lnam
+
+
 expandWildcards (lhs,rhs) | '*' `elem` takeFileName lhs = do
     let (ldir,lnam) = splitFileName lhs
     files <- getDirContents ldir
