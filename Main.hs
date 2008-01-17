@@ -42,7 +42,7 @@ page c [] = []
 
 tag :: Config -> Tag -> [Tag]
 tag c (TagOpen ('?':name) []) = [TagText $ c !+ name]
-tag c (TagOpen ('!':name) atts) = [TagOpen "a" [("href",url)], TagText text, TagClose "a"]
+tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = [TagOpen "a" [("href",url)], TagText text, TagClose "a"]
     where
         title = c !> ("pages" </> name <.> "html") !+ name
         url = concat [c !+ "root"
