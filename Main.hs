@@ -1,4 +1,46 @@
 
+module Main(main) where
+
+import System.FilePath
+import Website.Driver
+
+
+main = do
+    pages <- getDirWildcards "pages/*.html"
+    let outloc x | takeBaseName x == "index" = x
+                 | otherwise = takeBaseName x </> "index.html"
+    process rewrite [(p, outloc p) | p <- pages]
+
+
+
+
+rewrite :: Config -> String -> IO String
+rewrite c s = return s
+
+
+{-
+
+
+    createDir "publish"
+    pages <- liftM (map dropExtension . filter (\x -> takeExtension x == ".html")) $
+                   getDirectoryContents "pages"
+    
+    args <- getArgs
+    bags <- mapM queryPage pages
+    let info = Info (map readEq args) (zip pages bags)
+    
+    copyElements
+    copyDownloads
+    copyFileBinary "Main.hs" "publish/Main.hs"
+    mapM_ (processPage info) pages
+
+    when (getRelease info) $ system "deploy.bat" >> return ()
+
+
+
+
+
+
 import System
 import Directory
 import System.Directory
@@ -8,27 +50,6 @@ import Monad
 import Maybe
 import List
 import Debug.Trace
-
-
-
----------------------------------------------------------------------
--- INFO AND BAG RELATED FUNCTIONS
-
-type Name = String
-type Bag = [(String,String)]
-data Info = Info {infoBase :: Bag, infoRest :: [(Name,Bag)]}
-
-
-addInfoBase (Info x ys) zs = Info (zs++x) ys
-
-getDebug (Info bag xs) = "debug" `elem` map fst bag
-getRelease (Info bag xs) = "release" `elem` map fst bag
-
-get x (Info bag xs) = lookupJust x bag
-
----------------------------------------------------------------------
--- UTILITIES
-
 
 
 loadHtml :: Name -> IO String
@@ -375,3 +396,4 @@ writeFileBinary file str = do
     h <- openBinaryFile file WriteMode
     hPutStr h str
     hClose h
+-}
