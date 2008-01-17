@@ -2,7 +2,7 @@
 module Website.Attrib(
     Attribs, Config,
     (!*), (!+), (!?), (!>),
-    readFilesAttribs, readFileAttribs, getArgsAttribs,
+    readFilesAttribs, readFileAttribs,
     configAttribs,
     promoteConfig
     ) where
@@ -61,7 +61,7 @@ readFilesAttribs files = do
 
 
 readFileAttribs :: FilePath -> IO Attribs
-readFileAttribs s = return . readAttribs . takeWhile (not . null) . lines =<< readFile s
+readFileAttribs s = addArgsAttribs .  readAttribs . takeWhile (not . null) . lines =<< readFile s
 
 
 skipFileAttribs :: String -> String
@@ -70,6 +70,12 @@ skipFileAttribs = unlines . dropWhile null . dropWhile (not . null) . lines
 
 getArgsAttribs :: IO Attribs
 getArgsAttribs = return . readAttribs =<< getArgs
+
+
+addArgsAttribs :: Attribs -> IO Attribs
+addArgsAttribs (Attribs orig) = do
+    Attribs new <- getArgsAttribs
+    return $ Attribs $ new `Map.union` orig
 
 
 readAttribs :: [String] -> Attribs
