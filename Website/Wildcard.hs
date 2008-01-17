@@ -10,7 +10,7 @@ import Website.Util
 expandWildcards :: (FilePath,FilePath) -> IO [(FilePath,FilePath)]
 
 expandWildcards (lhs,rhs) | ';' `elem` takeFileName lhs =
-        concatMapM expandWildcards [(l,rhs) | l <- xs]
+        concatMapM expandWildcards [(ldir </> l, rhs) | l <- xs]
     where
         (ldir,lnam) = splitFileName lhs
         xs = words $ map (\x -> if x == ';' then ' ' else x) lnam
@@ -37,7 +37,7 @@ expandWildcards (lhs,rhs) = do
 
 getDirWildcards :: FilePath -> IO [FilePath]
 getDirWildcards s = do
-    xs <- getDirContentsFull s
+    xs <- getDirContentsFull $ takeDirectory s
     s <- mapM (\r -> expandWildcards (r, ".")) xs
     return $ map fst $ concat s
 
