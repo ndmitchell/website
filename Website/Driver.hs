@@ -5,6 +5,7 @@ module Website.Driver(
     module Website.Wildcard
     ) where
 
+import Control.Monad
 import System.Directory
 import System.FilePath
 import Website.Attrib
@@ -17,7 +18,16 @@ outdir = "publish"
 copy :: FilePath -> FilePath -> IO ()
 copy x y = do
     cp <- expandWildcards (x, outdir </> y)
-    mapM_ (uncurry copyFileBinary) cp
+    flip mapM_ cp $ \(x,y) -> do
+        let action = do
+            createDirectoryIfMissing True (takeDirectory y)
+            copyFileBinary x y
+        
+        existY <- doesFileExist y
+        if not existY then action else do
+            timeX <- getModificationTime x
+            timeY <- getModificationTime y
+            when (timeX > timeY) action
 
 
 process :: (Config -> String -> IO String) -> [(FilePath, FilePath)] -> IO ()
