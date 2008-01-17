@@ -51,16 +51,19 @@ tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = parseTags $
         then "<span class='more'>(<a href='" ++ url ++ "' class='more'>read&nbsp;more</a>)</span>"
         else "<a href='" ++ url ++ "'>" ++ text ++ "</a>"
     where
-        tag = ":" `isPrefixOf` name
+        tag   = ":" `isPrefixOf` name
         title = if tag then tail name else c !> ("pages" </> name <.> "html") !+ name
-
-        url = (c !+ "root") ++ if tag then "tags/#" ++ tail name else
-              concat [if name == "index" then "" else name
-                     ,if c !? "debug" then "/index.html" else "/"]
-        text = if null atts then title else uncurry (++) (head atts)
+        url   = if tag then urlTag c (tail name) else urlPage c name
+        text  = if null atts then title else uncurry (++) (head atts)
         
 
 tag c x = [x]
+
+
+urlTag  c x = (c !+ "root") ++ "tags/#" ++ x
+urlPage c x = concat [c !+ "root"
+                     ,if x == "index" then "" else x
+                     ,if c !? "debug" then "/index.html" else "/"]
 
 
 
@@ -73,7 +76,7 @@ custom c "catch" _ | not $ c !? "catch" = []
     "</a>"
 
 custom c "tags" _ = parseTags $ unwords $ map f $ words $ c !+ "tags"
-    where f x = "<a href='" ++ (c !+ "root") ++ "tags/#" ++ x ++ "'>" ++ x ++ "</a>"
+    where f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
 
 custom c "email" atts =
     [TagOpen "span" [("class","es_address")]
