@@ -1,7 +1,7 @@
 	[[=downloads]]
 	
 	<p id="tags">
-		<b>Tags</b>: [[=tags]]
+		<b>Tags</b>: <:tags>
 	</p>
 </div>
 
