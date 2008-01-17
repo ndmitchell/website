@@ -2,11 +2,12 @@
 module Website.Attrib(
     Attribs, Config,
     (!*), (!+), (!?), (!>),
-    readFilesAttribs, readFileAttribs,
+    readFilesAttribs, readFileAttribs, readFileContents,
     configAttribs,
     promoteConfig
     ) where
 
+import Control.Monad
 import qualified Data.Map as Map
 import System.Environment
 
@@ -59,6 +60,9 @@ readFilesAttribs files = do
         (Map.fromList $ zip files res)
         (error "You must promote a Config before using it")
 
+readFileContents :: FilePath -> IO String
+readFileContents = liftM skipFileAttribs . readFile
+
 
 readFileAttribs :: FilePath -> IO Attribs
 readFileAttribs s = addArgsAttribs .  readAttribs . takeWhile (not . null) . lines =<< readFile s
@@ -69,7 +73,7 @@ skipFileAttribs = unlines . dropWhile null . dropWhile (not . null) . lines
 
 
 getArgsAttribs :: IO Attribs
-getArgsAttribs = return . readAttribs =<< getArgs
+getArgsAttribs = liftM readAttribs getArgs
 
 
 addArgsAttribs :: Attribs -> IO Attribs
