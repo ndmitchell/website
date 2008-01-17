@@ -15,6 +15,7 @@ import System.FilePath
 
 
 data Attribs = Attribs (Map.Map String [String])
+               deriving Show
 
 data Config = Config (Map.Map FilePath Attribs) Attribs
 
