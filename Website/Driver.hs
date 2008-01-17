@@ -17,7 +17,7 @@ outdir = "publish"
 copy :: FilePath -> FilePath -> IO ()
 copy x y = do
     cp <- expandWildcards (x, outdir </> y)
-    mapM_ (uncurry copyFile) cp
+    mapM_ (uncurry copyFileBinary) cp
 
 
 process :: (Config -> String -> IO String) -> [(FilePath, FilePath)] -> IO ()
