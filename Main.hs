@@ -26,7 +26,8 @@ main = do
 
 
 rewrite :: String -> String -> Config -> String -> IO String
-rewrite prefix suffix c s = return $ renderTags $ page c2 $ parseTagsOptions popts $ prefix ++ s ++ suffix
+rewrite prefix suffix c s = putChar '.' >> return
+        (renderTags $ page c2 $ parseTagsOptions popts $ prefix ++ s ++ suffix)
     where
         c2 = c += ("root", if takeBaseName (c !+ "source") == "index" then "" else "../")
 
