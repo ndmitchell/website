@@ -12,7 +12,7 @@ isDirectory x = if hasTrailingPathSeparator x
                 else doesDirectoryExist x
 
 getDirContents x = do
-    s <- getDirectoryContents x
+    s <- getDirectoryContents $ dropTrailingPathSeparator x
     return $ filter (`notElem` [".",".."]) s
 
 getDirContentsFull x = liftM (map (x </>)) $ getDirContents x
