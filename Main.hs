@@ -39,6 +39,23 @@ rewrite prefix suffix c s = putChar '.' >> return
         entity xs = optLookupEntity parseOptions xs
 
 
+urlTag  c x = (c !+ "root") ++ "tags/#" ++ x
+
+-- is idempotent
+srcPage x = if x2 == "index" then "pages/index.html" else "pages" </> x2 <.> "html"
+    where x2 = takeBaseName x
+
+urlPage c x = concat [c !+ "root"
+                     ,if x2 == "index" then "" else x2 ++ "/"
+                     ,if c !? "debug" then "index.html" else ""]
+    where x2 = takeBaseName x
+
+titlePage c x = head $ dropWhile null [a !+ "shortname", a !+ "title", takeBaseName x]
+    where a = c !> srcPage x
+
+
+
+
 page :: Config -> [Tag] -> [Tag]
 page c (x:xs) = tag c x ++ page c xs
 page c [] = []
@@ -53,19 +70,12 @@ tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = parseTags $
         else "<a href='" ++ url ++ "'>" ++ text ++ "</a>"
     where
         tag   = ":" `isPrefixOf` name
-        title = if tag then tail name else c !> (srcPage name) !+ "title"
+        title = if tag then tail name else titlePage c name
         url   = if tag then urlTag c (tail name) else urlPage c name
         text  = if null atts then title else uncurry (++) (head atts)
         
 
 tag c x = [x]
-
-
-urlTag  c x = (c !+ "root") ++ "tags/#" ++ x
-srcPage x = if x == "index" then "pages/index.html" else "pages" </> x <.> "html"
-urlPage c x = concat [c !+ "root"
-                     ,if x == "index" then "" else x ++ "/"
-                     ,if c !? "debug" then "index.html" else ""]
 
 
 
@@ -91,12 +101,10 @@ custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
         -- (title, page, gap)
         links = [("","index",False)] ++ pick "admin" ++ gap (pick "popular") ++ [("All pages...","tags",False)]
         gap ((a,b,_):xs) = (a,b,True):xs
+        getName page def = if null def then titlePage c page else def
 
         pick tag = sort [(getName page "",page,False) | x <- configAttribs c, tag `elem` words (x !+ "tags")
                    ,let page = takeBaseName (x !+ "file"), page /= "index"]
-
-        getName page def = head $ dropWhile null [def, a !+ "shortname", a !+ "title", takeBaseName page]
-            where a = c !> srcPage page
 
         f (title,page,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++
                              "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
