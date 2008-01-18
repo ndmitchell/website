@@ -90,10 +90,7 @@ custom c "catch" _ | not $ c !? "catch" = []
 custom c "tags" _ = parseTags $ unwords $ map f $ words $ c !+ "tags"
     where f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
 
-custom c "email" atts =
-    [TagOpen "span" [("class","es_address")]
-    ,TagText $ concatMap f $ head atts
-    ,TagClose "span"]
+custom c "email" [a] = parseTags $ "<span class='es_address'>" ++ concatMap f a ++ "</span>"
     where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
 
 custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
