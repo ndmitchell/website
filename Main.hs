@@ -64,8 +64,8 @@ tag c x = [x]
 urlTag  c x = (c !+ "root") ++ "tags/#" ++ x
 srcPage x = if x == "index" then "pages/index.html" else "pages" </> x <.> "html"
 urlPage c x = concat [c !+ "root"
-                     ,if x == "index" then "" else x
-                     ,if c !? "debug" then "/index.html" else "/"]
+                     ,if x == "index" then "" else x ++ "/"
+                     ,if c !? "debug" then "index.html" else ""]
 
 
 
@@ -88,15 +88,16 @@ custom c "email" atts =
 
 custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
     where
-        links = [("index","")] ++ pick "admin" ++ [("","")] ++ pick "popular" ++ [("tags","All pages...")]
+        links = [("index","",False)] ++ pick "admin" ++ gap (pick "popular") ++ [("tags","All pages...",False)]
+        gap ((a,b,_):xs) = (a,b,True):xs
 
-        pick tag = [(x !+ "file","") | x <- configAttribs c, tag `elem` words (x !+ "tags")]
+        pick tag = [(takeBaseName (x !+ "file"),"",False) | x <- configAttribs c, tag `elem` words (x !+ "tags")]
 
-        f ("","") = "<li> </li>"
-        f (page,msg) = "<li><a href='" ++ urlPage c page ++ "'>" ++ title ++ "</a></li>"
+        f (page,msg,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++
+                           "><a href='" ++ urlPage c page ++ "'>" ++ title ++ "</a></li>"
             where
                 a = c !> srcPage page
-                title = head $ dropWhile null [msg, a !+ "shortname", a !+ "name", page]
+                title = head $ dropWhile null [msg, a !+ "shortname", a !+ "title", takeBaseName page]
 
 custom _ name _ = error $ "Custom tag not known, " ++ name
 
