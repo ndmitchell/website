@@ -80,6 +80,8 @@ tag c x = [x]
 
 
 custom :: Config -> String -> [String] -> [Tag]
+
+
 custom c "catch" _ | not $ c !? "catch" = []
                    | otherwise = parseTags $
     "<a href='" ++ ndm ++ "catch/'>" ++
@@ -87,11 +89,14 @@ custom c "catch" _ | not $ c !? "catch" = []
               "alt='Checked by Catch!' height='31' width='88' />" ++
     "</a>"
 
+
 custom c "tags" _ = parseTags $ unwords $ map f $ words $ c !+ "tags"
     where f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
 
+
 custom c "email" [a] = parseTags $ "<span class='es_address'>" ++ concatMap f a ++ "</span>"
     where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
+
 
 custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
     where
@@ -105,6 +110,7 @@ custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
 
         f (title,page,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++
                              "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
+
 
 custom _ name _ = error $ "Custom tag not known, " ++ name
 
