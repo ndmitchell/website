@@ -1,6 +1,7 @@
 
 module Main(main) where
 
+import Data.Char
 import Data.List
 import Data.Maybe
 import System.FilePath
@@ -112,5 +113,73 @@ custom c "menu" _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
                              "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
 
 
+custom c "downloads" _
+        | null res = ""
+        | otherwise = "<h2>Downloads</h2><ul>" ++
+                      (concatMap (showDownload "") $ concat $ groupDownloads res) ++
+                      "</ul>"
+    where res = getDownloads c
+
+
 custom _ name _ = error $ "Custom tag not known, " ++ name
 
+
+
+---------------------------------------------------------------------
+-- DOWNLOADS
+
+type URL = String
+data Download = Paper URL String String
+              | Release URL
+              | Manual URL String
+              | Draft URL String String
+              | Slides URL String String
+              | Darcs URL
+              | Haddock URL
+              | Blog URL
+              deriving Show
+
+downloadType :: Download -> String
+downloadType = map toLower . head . words . show
+
+download =
+    [f3 "paper" Paper
+    ,f1 "release" Release
+    ,f2 "manual" Manual
+    ,f3 "draft" Draft
+    ,f3 "slides" Slides
+    ,f1 "darcs" Darcs
+    ,f1 "haddock" Haddock
+    ,f1 "blog" Blog
+    ]
+    where
+        f1 s y = (s, \[a]     -> y a    )
+        f2 s y = (s, \[a,b]   -> y a b  )
+        f3 s y = (s, \[a,b,c] -> y a b c)
+
+
+getDownloads :: FindAttribs a => a -> [Download]
+getDownloads a = concatMap f download
+    where f (name,op) = reverse $ map (op . split '|') (a !* name)
+
+-- in order, so Paper is first and Blog is last
+groupDownloads :: [Download] -> [[Download]]
+groupDownloads xs = filter (not . null) $ map f download
+    where f (typ,_) = [x | x <- xs, downloadType x == typ]
+
+
+showDownload :: String -> Download -> String
+showDownload extra d = "<li class='" ++ downloadType d ++ "'>" ++ f d ++ [' '|not $ null extra] ++ extra ++ "</li>"
+    where
+        f (Darcs url) = "<a href='http://darcs.net/'>darcs</a> get --partial <a href='" ++ url ++ "'>" ++ url ++ "</a>"
+        f (Paper url text msg) = link (down "paper" url) text msg
+        f (Release url) = link url "Released version" ""
+        f (Manual url text) = link url text ""
+        f (Draft url text msg) = link (down "draft" url) text msg
+        f (Slides url text msg) = link (down "slides" url) text msg
+        f (Haddock url) = link url "Haddock documentation" ""
+        f (Blog url) = link url "Related Blog posts" ""
+
+        down typ url = "../downloads/" ++ typ ++ "-" ++ url
+        link url text msg = "<a href='" ++ url ++ "'>" ++ text ++ "</a>" ++
+                            if null msg then "" else " - " ++ msg
