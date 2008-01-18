@@ -63,7 +63,7 @@ page c [] = []
 
 tag :: Config -> Tag -> [Tag]
 tag c (TagOpen ('?':name) []) = [TagText $ c !+ name]
-tag c (TagOpen (':':name) atts) = custom c name (map (uncurry (++)) atts)
+tag c (TagOpen (':':name) atts) = parseTags $ custom c name (map (uncurry (++)) atts)
 tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = parseTags $
         if ("more","") `elem` atts 
         then "<span class='more'>(<a href='" ++ url ++ "' class='more'>read&nbsp;more</a>)</span>"
@@ -79,26 +79,26 @@ tag c x = [x]
 
 
 
-custom :: Config -> String -> [String] -> [Tag]
+custom :: Config -> String -> [String] -> String
 
 
-custom c "catch" _ | not $ c !? "catch" = []
-                   | otherwise = parseTags $
+custom c "catch" _ | not $ c !? "catch" = ""
+                   | otherwise =
     "<a href='" ++ ndm ++ "catch/'>" ++
         "<img style='border:0;' src='" ++ (c !+ "root") ++ "elements/valid-catch.png' " ++
               "alt='Checked by Catch!' height='31' width='88' />" ++
     "</a>"
 
 
-custom c "tags" _ = parseTags $ unwords $ map f $ words $ c !+ "tags"
+custom c "tags" _ = unwords $ map f $ words $ c !+ "tags"
     where f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
 
 
-custom c "email" [a] = parseTags $ "<span class='es_address'>" ++ concatMap f a ++ "</span>"
+custom c "email" [a] = "<span class='es_address'>" ++ concatMap f a ++ "</span>"
     where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
 
 
-custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
+custom c "menu" _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
     where
         -- (title, page, gap)
         links = [("","index",False)] ++ pick "admin" ++ gap (pick "popular") ++ [("All pages...","tags",False)]
