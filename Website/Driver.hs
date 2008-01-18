@@ -2,7 +2,8 @@
 module Website.Driver(
     copy, process,
     module Website.Attrib,
-    module Website.Wildcard
+    module Website.Wildcard,
+    module Website.Util
     ) where
 
 import Control.Monad
