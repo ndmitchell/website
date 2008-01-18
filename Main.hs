@@ -88,16 +88,18 @@ custom c "email" atts =
 
 custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
     where
-        links = [("index","",False)] ++ pick "admin" ++ gap (pick "popular") ++ [("tags","All pages...",False)]
+        -- (title, page, gap)
+        links = [("","index",False)] ++ pick "admin" ++ gap (pick "popular") ++ [("All pages...","tags",False)]
         gap ((a,b,_):xs) = (a,b,True):xs
 
-        pick tag = [(takeBaseName (x !+ "file"),"",False) | x <- configAttribs c, tag `elem` words (x !+ "tags")]
+        pick tag = sort [(getName page "",page,False) | x <- configAttribs c, tag `elem` words (x !+ "tags")
+                   ,let page = takeBaseName (x !+ "file"), page /= "index"]
 
-        f (page,msg,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++
-                           "><a href='" ++ urlPage c page ++ "'>" ++ title ++ "</a></li>"
-            where
-                a = c !> srcPage page
-                title = head $ dropWhile null [msg, a !+ "shortname", a !+ "title", takeBaseName page]
+        getName page def = head $ dropWhile null [def, a !+ "shortname", a !+ "title", takeBaseName page]
+            where a = c !> srcPage page
+
+        f (title,page,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++
+                             "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
 
 custom _ name _ = error $ "Custom tag not known, " ++ name
 
