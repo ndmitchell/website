@@ -38,6 +38,6 @@ process action xs = do
     where
         f atts (x,y) = do
             src <- readFileContents x
-            src <- action (promoteConfig atts x += ("source",x)) src
+            src <- action (promoteConfig atts x) src
             createDirectoryIfMissing True (takeDirectory y)
             writeFileBinary y src

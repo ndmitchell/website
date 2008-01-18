@@ -32,7 +32,7 @@ rewrite :: String -> String -> Config -> String -> IO String
 rewrite prefix suffix c s = putChar '.' >> return
         (renderTags $ page c2 $ parseTagsOptions popts $ prefix ++ s ++ suffix)
     where
-        c2 = c += ("root", if takeBaseName (c !+ "source") == "index" then "" else "../")
+        c2 = c += ("root", if takeBaseName (c !+ "file") == "index" then "" else "../")
 
         popts = parseOptions{optLookupEntity = entity}
         entity (':':xs) = [TagText $ c2 !+ xs]
@@ -90,7 +90,7 @@ custom c "menu" _ = parseTags $ "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
     where
         links = [("index","")] ++ pick "admin" ++ [("","")] ++ pick "popular" ++ [("tags","All pages...")]
 
-        pick tag = [(x !+ "source","") | x <- configAttribs c, tag `elem` words (x !+ "tags")]
+        pick tag = [(x !+ "file","") | x <- configAttribs c, tag `elem` words (x !+ "tags")]
 
         f ("","") = "<li> </li>"
         f (page,msg) = "<li><a href='" ++ urlPage c page ++ "'>" ++ title ++ "</a></li>"

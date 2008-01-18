@@ -80,7 +80,9 @@ readFileContents = liftM skipFileAttribs . readFile
 
 
 readFileAttribs :: FilePath -> IO Attribs
-readFileAttribs s = addArgsAttribs .  readAttribs . takeWhile (not . null) . lines =<< readFile s
+readFileAttribs s = do
+    r <- addArgsAttribs .  readAttribs . takeWhile (not . null) . lines =<< readFile s
+    return $ r += ("file",normalise s)
 
 
 skipFileAttribs :: String -> String
