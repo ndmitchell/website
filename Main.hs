@@ -53,7 +53,7 @@ tag c (TagOpen ('!':name) atts) | name /= "DOCTYPE" = parseTags $
         else "<a href='" ++ url ++ "'>" ++ text ++ "</a>"
     where
         tag   = ":" `isPrefixOf` name
-        title = if tag then tail name else c !> (srcPage name) !+ name
+        title = if tag then tail name else c !> (srcPage name) !+ "title"
         url   = if tag then urlTag c (tail name) else urlPage c name
         text  = if null atts then title else uncurry (++) (head atts)
         
