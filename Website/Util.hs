@@ -34,3 +34,8 @@ writeFileBinary file str = do
     h <- openBinaryFile file WriteMode
     hPutStr h str
     hClose h
+
+split :: Char -> String -> [String]
+split x xs = case break (== x) xs of
+                (a,_:b) -> a : split x b
+                _ -> [xs]
