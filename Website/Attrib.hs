@@ -1,6 +1,6 @@
 
 module Website.Attrib(
-    Attribs, Config,
+    Attribs, Config, FindAttribs,
     (!*), (!+), (!?), (!>),
     (+=),
     readFilesAttribs, readFileAttribs, readFileContents,
