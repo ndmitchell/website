@@ -39,7 +39,7 @@ readFileTree x = return . tagTree . parseTags =<< readFile x
 reader :: [(String,TagTree)] -> FilePath -> IO ((FilePath,[TagTree]), [(String,TagTree)])
 reader extra x = do
     src <- readFileTree x
-    return ((x,src), extra ++ concatMap f (universeTags src))
+    return ((x,src), ("file", tagStr "file" x) : extra ++ concatMap f (universeTags src))
     where
         f t@(TagBranch (':':name) _ _) = [(name,t)]
         f t@(TagLeaf (TagOpen (':':name) _)) = [(name,t)]
@@ -65,7 +65,6 @@ args = unwords . map (uncurry (++))
 c !# x = case c !* x of
             x:xs -> strTag x
             _ -> ""
-    
 
 urlTag  c x = (c !# "root") ++ "tags/#" ++ x
 
@@ -80,6 +79,9 @@ urlPage c x = concat [c !# "root"
 
 titlePage c x = head $ dropWhile null [a !# "shortname", a !# "title", takeBaseName x]
     where a = c !> srcPage x
+
+getTags c = map fst atts
+    where [TagLeaf (TagOpen _ atts)] = c !* "tags"
 
 
 reform = map TagLeaf . parseTags
@@ -120,10 +122,8 @@ tag c name _ _ | name `elem` skip = []
 tag c "get" atts _ = c !# args atts
 
 
-tag c "show-tags" _ _ = unwords $ map f $ sort $ map fst atts
-    where
-        f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
-        [TagLeaf (TagOpen _ atts)] = c !* "tags"
+tag c "show-tags" _ _ = unwords $ map f $ sort $ getTags c
+    where f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
 
 
 tag c "show-catch" _ _ | not $ c !? "catch" = ""
@@ -133,8 +133,23 @@ tag c "show-catch" _ _ | not $ c !? "catch" = ""
               "alt='Checked by Catch!' height='31' width='88' />" ++
     "</a>"
 
+
 tag c "email" a _ = "<span class='es_address'>" ++ concatMap f (args a) ++ "</span>"
     where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
+
+
+tag c "show-menu" _ _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
+    where
+        -- (title, page, gap)
+        links = [("","index",False)] ++ pick "admin" ++ gap (pick "popular") ++ [("All pages...","tags",False)]
+        gap ((a,b,_):xs) = (a,b,True):xs
+        getName page def = if null def then titlePage c page else def
+
+        pick tag = sort [(getName page "",page,False) | x <- configAttribs c, tag `elem` getTags x
+                   ,let page = takeBaseName (x !# "file"), page /= "index"]
+
+        f (title,page,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++
+                             "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
 
 
 tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) $ "<b>!" ++ name ++ "!</b>"
