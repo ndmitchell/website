@@ -2,7 +2,7 @@
 module Website.Attrib(
     Attribs, Config, FindAttrib,
     (!*), (!?), (!>), configAttribs,
-    (+=), config, attribs, promoteConfig
+    (+=), config, attribs, configWith
     ) where
 
 import qualified Data.Map as Map
@@ -14,9 +14,10 @@ import System.FilePath
 
 type Attrib a = Map.Map String [a]
 data Attribs a = Attribs {fromAttribs :: Attrib a}
-               deriving Show
+                 deriving Show
 
 data Config a = Config (Map.Map FilePath (Attribs a)) (Attribs a)
+                deriving Show
 
 
 
@@ -54,8 +55,8 @@ attribsEmpty = Attribs Map.empty
 (+=) a (k,v) = setAttrib a $ Map.insertWith (flip (++)) k [v] $ getAttrib a
 
 
-promoteConfig :: Config v -> FilePath -> Config v
-promoteConfig c@(Config x _) s = Config x (c !> s)
+configWith :: Config v -> Attribs v -> Config v
+configWith (Config x _) a = Config x a
 
 
 ---------------------------------------------------------------------
