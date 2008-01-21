@@ -133,6 +133,9 @@ tag c "show-catch" _ _ | not $ c !? "catch" = ""
               "alt='Checked by Catch!' height='31' width='88' />" ++
     "</a>"
 
+tag c "email" a _ = "<span class='es_address'>" ++ concatMap f (args a) ++ "</span>"
+    where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
+
 
 tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) $ "<b>!" ++ name ++ "!</b>"
 
