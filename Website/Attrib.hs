@@ -38,7 +38,7 @@ instance FindAttrib Config where
 -- CREATION
 
 config :: [(FilePath,[(String,v)])] -> Config v
-config xs = Config (Map.fromList [(a, attribs b) | (a,b) <- xs]) attribsEmpty
+config xs = Config (Map.fromList [(normalise a, attribs b) | (a,b) <- xs]) attribsEmpty
 
 
 -- some results may be duplicated, in this case
