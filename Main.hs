@@ -166,7 +166,7 @@ tag c "conf" att inner = "<li class='conference'>From <a href='" ++ url ++ "'>" 
 tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) $ "<b>!" ++ name ++ "!</b>"
 
 
-downloads = ["manual","release","darcs","blog","slides","draft","paper","haddock"]
+downloads = ["manual","release","darcs","blog","slides","draft","paper","haddock","video"]
 
 download c "manual" [att] _ = link (getDarcs c ++ getProject c ++ ".htm") att ""
 
@@ -182,6 +182,8 @@ download c "blog" [] _ = "<a href='" ++ url ++ "'>Related blog posts</a>"
 
 download c "haddock" u _ = "<a href='" ++ url ++ "'>Haddock documentation</a>"
     where url = head $ u ++ ["http://www.cs.york.ac.uk/fp/haddock/" ++ getProject c ++ "/"]
+
+download c "video" [url,name] _ = link url name ""
 
 download c typ (url:title:z) inner = "<a href='" ++ typ ++ "-" ++ url ++ "'>" ++ title ++ "</a>" ++
     if null z && null inner then "" else " - " ++ concat z ++ deform inner

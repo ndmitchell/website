@@ -1,14 +1,5 @@
-title=Uniplate
-tags=library haskell phd popular released
-darcs=http://www.cs.york.ac.uk/fp/darcs/uniplate/
-manual=http://www.cs.york.ac.uk/fp/darcs/uniplate/uniplate.htm|Boilerplate Removal with Uniplate
-haddock=http://www.cs.york.ac.uk/fp/haddock/uniplate/
-blog=1
-tarball=http://hackage.haskell.org/cgi-bin/hackage-scripts/package/uniplate|1.0
-paper=uniform_boilerplate_and_list_processing-30_sep_2007.pdf|Uniform Boilerplate and List Processing|presented at <a href="http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">Haskell Workshop 2007</a>
-slides=uniform_boilerplate_and_list_processing-30_sep_2007.pdf|Uniform Boilerplate and List Processing|a talk given at <a href="http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">Haskell Workshop 2007</a>, <a class="video" href="http://www.ludd.ltu.se/~pj/hw2007/uniplate.mov">video available</a>
-slides=transformation_and_analysis_of_haskell_source_code-02_jul_2007.pdf|Transformation and Analysis of Haskell Source Code|my thesis seminar
-slides=playing_with_haskell_data-18_jan_2007.pdf|Playing with Haskell Data|a talk I gave to PLASMA
+<:title Uniplate>
+<:tags library haskell phd popular released>
 
 <p>
     This library (formerly known as 'Play') provides a framework for generic traversals, and is intended to be used in a similar manner to the original <a href="http://www.cs.vu.nl/boilerplate/">Scrap Your Boilerplate</a> paper.
@@ -38,3 +29,17 @@ variables (Div  x y) = variables x ++ variables y
 variables :: Expr -> [String]
 variables x = [y | Var y <- universe x]
 </pre>
+<:downloads>
+    <:darcs>
+    <:manual "Boilerplate Removal with Uniplate">
+    <:haddock>
+    <:blog>
+    <:release>
+    <:conf "Haskell Workshop 2007" "http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">
+        <:paper "uniform_boilerplate_and_list_processing-30_sep_2007.pdf" "Uniform Boilerplate and List Processing">
+        <:slides "uniform_boilerplate_and_list_processing-30_sep_2007.pdf" "Uniform Boilerplate and List Processing">
+        <:video "http://www.ludd.ltu.se/~pj/hw2007/uniplate.mov" "Uniform Boilerplate and List Processing">
+    </:conf>
+    <:slides "transformation_and_analysis_of_haskell_source_code-02_jul_2007.pdf" "Transformation and Analysis of Haskell Source Code" "my thesis seminar">
+    <:slides "playing_with_haskell_data-18_jan_2007.pdf" "Playing with Haskell Data" "a talk I gave to PLASMA">
+</:downloads>
