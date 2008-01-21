@@ -92,8 +92,8 @@ _ =? _ = False
 skip = ["title","shortname","tags"]
 
 tree :: Config TagTree -> TagTree -> [TagTree]
-tree c (TagBranch (':':name) atts inner) = tag c name atts inner
-tree c (TagLeaf (TagOpen (':':name) atts)) = tag c name atts []
+tree c (TagBranch (':':name) atts inner) = reform $ tag c name atts inner
+tree c (TagLeaf (TagOpen (':':name) atts)) = reform $ tag c name atts []
 
 tree c (TagBranch name atts inner) = [TagBranch name (map f atts) inner]
     where
@@ -103,10 +103,15 @@ tree c x = [x]
 
 
 
-tag :: Config TagTree -> String -> [Attribute] -> [TagTree] -> [TagTree]
+tag :: Config TagTree -> String -> [Attribute] -> [TagTree] -> String
 tag c name _ _ | name `elem` skip = []
 
-tag c "get" atts _ = reform $ c !# args atts
+tag c "get" atts _ = c !# args atts
+
+tag c "show-tags" _ _ = unwords $ map f $ sort $ map fst atts
+    where
+        f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
+        [TagLeaf (TagOpen _ atts)] = c !* "tags"
 
 tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) []
 
