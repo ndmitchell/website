@@ -31,14 +31,17 @@ copy x y = do
             when (timeX > timeY) action
 
 
-process :: (Config -> String -> IO String) -> [(FilePath, FilePath)] -> IO ()
-process action xs = do
+process :: 
+    (FilePath -> IO (a, [(String,b)])) ->
+    (Config b -> a -> IO String) -> 
+    [(FilePath,FilePath)] -> IO ()
+process reader action xs = do
     xs <- concatMapM (\(x,y) -> expandWildcards (x, outdir </> y)) xs
-    atts <- readFilesAttribs (map fst xs)
+    xs <- mapM (\(from,to) -> do (src,atts) <- reader from ; return (from,to,src,atts)) xs
+    atts <- return $ config [(from, atts) | (from,_,_,atts) <- xs]
     mapM_ (f atts) xs
     where
-        f atts (x,y) = do
-            src <- readFileContents x
-            src <- action (promoteConfig atts x) src
-            createDirectoryIfMissing True (takeDirectory y)
-            writeFileBinary y src
+        f atts (from,to,src,_) = do
+            src <- action (configWith atts (atts !> from)) src
+            createDirectoryIfMissing True (takeDirectory to)
+            writeFileBinary to src
