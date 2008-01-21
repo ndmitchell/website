@@ -95,6 +95,16 @@ tree :: Config TagTree -> TagTree -> [TagTree]
 tree c (TagBranch (':':name) atts inner) = reform $ tag c name atts inner
 tree c (TagLeaf (TagOpen (':':name) atts)) = reform $ tag c name atts []
 
+tree c (TagLeaf (TagOpen ('!':name) atts)) | name /= "DOCTYPE" = reform $
+        if ("more","") `elem` atts 
+        then "<span class='more'>(<a href='" ++ url ++ "' class='more'>read&nbsp;more</a>)</span>"
+        else "<a href='" ++ url ++ "'>" ++ text ++ "</a>"
+    where
+        tag   = ":" `isPrefixOf` name
+        title = if tag then tail name else titlePage c name
+        url   = if tag then urlTag c (tail name) else urlPage c name
+        text  = if null atts then title else uncurry (++) (head atts)
+
 tree c (TagBranch name atts inner) = [TagBranch name (map f atts) inner]
     where
         f (key,'[':'R':'O':'O':'T':']':val) = (key, (c !# "root") ++ val)
@@ -106,14 +116,25 @@ tree c x = [x]
 tag :: Config TagTree -> String -> [Attribute] -> [TagTree] -> String
 tag c name _ _ | name `elem` skip = []
 
+
 tag c "get" atts _ = c !# args atts
+
 
 tag c "show-tags" _ _ = unwords $ map f $ sort $ map fst atts
     where
         f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
         [TagLeaf (TagOpen _ atts)] = c !* "tags"
 
-tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) []
+
+tag c "show-catch" _ _ | not $ c !? "catch" = ""
+                          | otherwise =
+    "<a href='" ++ ndm ++ "catch/'>" ++
+        "<img style='border:0;' src='" ++ (c !# "root") ++ "elements/valid-catch.png' " ++
+              "alt='Checked by Catch!' height='31' width='88' />" ++
+    "</a>"
+
+
+tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) $ "<b>!" ++ name ++ "!</b>"
 
 
 {-
