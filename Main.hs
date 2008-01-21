@@ -1,13 +1,16 @@
 
 module Main(main) where
 
+import Control.Monad
 import Data.Char
 import Data.List
 import Data.Maybe
 import System.FilePath
+import System.Environment
 import Text.HTML.TagSoup
 import Website.Driver
 
+ndm = "http://www-users.cs.york.ac.uk/~ndm/"
 
 main = do
     copy "downloads/*.bib;*.pdf" "downloads/"
@@ -22,46 +25,56 @@ main = do
     -- now process the actual files    
     let outloc x | takeBaseName x == "index" = "index.html"
                  | otherwise = takeBaseName x </> "index.html"
-    prefix <- readFile "elements/prefix.txt"
-    suffix <- readFile "elements/suffix.txt"
-    process (rewrite prefix suffix) [(p, outloc p) | p <- pages]
+    prefix <- readFileTree "elements/prefix.txt"
+    suffix <- readFileTree "elements/suffix.txt"
+    args <- getArgs
+    extra <- return [(x, tagStr x "") | x <- args]
+    process (reader extra) (rewrite prefix suffix) [(p, outloc p) | p <- pages]
 
-ndm = "http://www-users.cs.york.ac.uk/~ndm/"
 
 
-rewrite :: String -> String -> Config -> String -> IO String
-rewrite prefix suffix c s = putChar '.' >> return
-        (renderTags $ page c2 $ parseTagsOptions popts $ prefix ++ s ++ suffix)
+readFileTree x = return . tagTree . parseTags =<< readFile x
+
+reader :: [(String,TagTree)] -> FilePath -> IO ((FilePath,[TagTree]), [(String,TagTree)])
+reader extra x = do
+    src <- readFileTree x
+    return ((x,src), extra ++ [(name,t) | t@(TagBranch (':':name) _ _ _) <- universeTags src])
+
+
+rewrite :: [TagTree] -> [TagTree] -> Config TagTree -> (FilePath, [TagTree]) -> IO String
+rewrite prefix suffix c (file,body) = putChar '.' >> return
+        (renderTags $ flattenTree $ transformTags (tag c) $ prefix ++ body ++ suffix)
     where
-        c2 = c += ("root", if takeBaseName (c !+ "file") == "index" then "" else "../")
-
-        popts = parseOptions{optLookupEntity = entity}
-        entity (':':xs) = [TagText $ c2 !+ xs]
-        entity xs = optLookupEntity parseOptions xs
+        c2 = c += ("root",tagStr "root" root)
+        root = if takeBaseName file == "index" then "" else "../"
 
 
-urlTag  c x = (c !+ "root") ++ "tags/#" ++ x
+tagStr key val = TagBranch (':':key) [("",val) | not $ null val] False []
+
+c !# x = case c !* x of
+            TagBranch _ atts _ _:_ -> unwords $ map (uncurry (++)) atts
+            _ -> ""
+    
+
+urlTag  c x = (c !# "root") ++ "tags/#" ++ x
 
 -- is idempotent
 srcPage x = if x2 == "index" then "pages/index.html" else "pages" </> x2 <.> "html"
     where x2 = takeBaseName x
 
-urlPage c x = concat [c !+ "root"
+urlPage c x = concat [c !# "root"
                      ,if x2 == "index" then "" else x2 ++ "/"
                      ,if c !? "debug" then "index.html" else ""]
     where x2 = takeBaseName x
 
-titlePage c x = head $ dropWhile null [a !+ "shortname", a !+ "title", takeBaseName x]
+titlePage c x = head $ dropWhile null [a !# "shortname", a !# "title", takeBaseName x]
     where a = c !> srcPage x
 
 
 
+tag = undefined
 
-page :: Config -> [Tag] -> [Tag]
-page c (x:xs) = tag c x ++ page c xs
-page c [] = []
-
-
+{-
 tag :: Config -> Tag -> [Tag]
 tag c (TagOpen ('?':name) []) = [TagText $ c !+ name]
 tag c (TagOpen (':':name) atts) = parseTags $ custom c name (map (uncurry (++)) atts)
@@ -183,3 +196,4 @@ showDownload extra d = "<li class='" ++ downloadType d ++ "'>" ++ f d ++ [' '|no
         down typ url = "../downloads/" ++ typ ++ "-" ++ url
         link url text msg = "<a href='" ++ url ++ "'>" ++ text ++ "</a>" ++
                             if null msg then "" else " - " ++ msg
+-}
