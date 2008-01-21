@@ -1,110 +1,81 @@
 
 module Website.Attrib(
-    Attribs, Config, FindAttribs,
-    (!*), (!+), (!?), (!>),
-    (+=),
-    readFilesAttribs, readFileAttribs, readFileContents,
-    configAttribs,
-    promoteConfig
+    Attribs, Config, FindAttrib,
+    (!*), (!?), (!>), configAttribs,
+    (+=), config, attribs, promoteConfig
     ) where
 
-import Control.Monad
 import qualified Data.Map as Map
-import System.Environment
 import System.FilePath
 
 
-data Attribs = Attribs (Map.Map String [String])
+---------------------------------------------------------------------
+-- DATA TYPE AND CLASSES
+
+type Attrib a = Map.Map String [a]
+data Attribs a = Attribs {fromAttribs :: Attrib a}
                deriving Show
 
-data Config = Config (Map.Map FilePath Attribs) Attribs
+data Config a = Config (Map.Map FilePath (Attribs a)) (Attribs a)
 
 
 
-class FindAttribs a where
-    getAttribs :: a -> Attribs
-    setAttribs :: a -> Attribs ->  a
+class FindAttrib a where
+    getAttrib :: a v -> Attrib v
+    setAttrib :: a v -> Attrib v ->  a v
 
-instance FindAttribs Attribs where
-    getAttribs = id
-    setAttribs _ = id
+instance FindAttrib Attribs where
+    getAttrib = fromAttribs
+    setAttrib _ = Attribs
 
-instance FindAttribs Config where
-    getAttribs (Config _ x) = x
-    setAttribs (Config a _) x = Config a x
-
-
--- | Get all the associated attributes
-(!*) :: FindAttribs a => a -> String -> [String]
-a !* s = Map.findWithDefault [] s x
-    where Attribs x = getAttribs a
-
--- | Get one associated attribute (empty string on failure)
-(!+) :: FindAttribs a => a -> String -> String
-a !+ s = head $ (a !* s) ++ [""]
-
--- | Does a particular attribute exist
-(!?) :: FindAttribs a => a -> String -> Bool
-a !? s = Map.member s x
-    where Attribs x = getAttribs a
+instance FindAttrib Config where
+    getAttrib (Config a b) = getAttrib b
+    setAttrib (Config a b) x = Config a (setAttrib b x)
 
 
--- | Follow into the general attributes of a particular file
-(!>) :: Config -> FilePath -> Attribs
-(Config x _) !> s = Map.findWithDefault (Attribs Map.empty) (normalise s) x
+---------------------------------------------------------------------
+-- CREATION
+
+config :: [(FilePath,[(String,v)])] -> Config v
+config xs = Config (Map.fromList [(a, attribs b) | (a,b) <- xs]) attribsEmpty
+
+
+-- some results may be duplicated, in this case
+-- the earliest ones should be first
+attribs :: [(String,v)] -> Attribs v
+attribs xs = foldl (+=) attribsEmpty xs
+
+
+attribsEmpty = Attribs Map.empty
 
 
 -- | Add an extra value, onto the end
-(+=) :: FindAttribs a => a -> (String,String) -> a
-(+=) a (k,v) = setAttribs a $ Attribs $ Map.insertWith (flip (++)) k [v] x
-    where Attribs x = getAttribs a
+(+=) :: FindAttrib a => a v -> (String,v) -> a v
+(+=) a (k,v) = setAttrib a $ Map.insertWith (flip (++)) k [v] $ getAttrib a
 
 
-configAttribs :: Config -> [Attribs]
-configAttribs (Config x _) = Map.elems x
-
-
-promoteConfig :: Config -> FilePath -> Config
+promoteConfig :: Config v -> FilePath -> Config v
 promoteConfig c@(Config x _) s = Config x (c !> s)
 
 
-readFilesAttribs :: [FilePath] -> IO Config
-readFilesAttribs files = do
-    res <- mapM readFileAttribs files
-    return $ Config
-        (Map.fromList $ zip (map normalise files) res)
-        (error "You must promote a Config before using it")
-
-readFileContents :: FilePath -> IO String
-readFileContents = liftM skipFileAttribs . readFile
+---------------------------------------------------------------------
+-- QUERY
 
 
-readFileAttribs :: FilePath -> IO Attribs
-readFileAttribs s = do
-    r <- addArgsAttribs .  readAttribs . takeWhile (not . null) . lines =<< readFile s
-    return $ r += ("file",normalise s)
+-- | Get all the associated attributes
+(!*) :: FindAttrib a => a v -> String -> [v]
+a !* s = Map.findWithDefault [] s $ getAttrib a
 
 
-skipFileAttribs :: String -> String
-skipFileAttribs = unlines . dropWhile null . dropWhile (not . null) . lines
+-- | Does a particular attribute exist
+(!?) :: FindAttrib a => a v -> String -> Bool
+a !? s = Map.member s $ getAttrib a
 
 
-getArgsAttribs :: IO Attribs
-getArgsAttribs = liftM readAttribs getArgs
+-- | Follow into the general attributes of a particular file
+(!>) :: Config v -> FilePath -> Attribs v
+(Config x _) !> s = Map.findWithDefault attribsEmpty (normalise s) x
 
 
-addArgsAttribs :: Attribs -> IO Attribs
-addArgsAttribs (Attribs orig) = do
-    Attribs new <- getArgsAttribs
-    return $ Attribs $ Map.unionWith (++) new orig
-
-
-readAttribs :: [String] -> Attribs
-readAttribs = Attribs . foldl f Map.empty . map readAttrib
-    where f mp (a,b) = Map.insertWith (++) a [b] mp
-
-
-readAttrib :: String -> (String,String)
-readAttrib s = (a, drop 1 b)
-    where (a,b) = break (== '=') s
-
+configAttribs :: Config v -> [Attribs v]
+configAttribs (Config x _) = Map.elems x
