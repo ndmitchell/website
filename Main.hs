@@ -6,6 +6,7 @@ import Data.Char
 import Data.List
 import Data.Maybe
 import Debug.Trace
+import Safe
 import System.FilePath
 import System.Environment
 import Text.HTML.TagSoup
@@ -17,7 +18,7 @@ main = do
     copy "downloads/*.bib;*.pdf" "downloads/"
     copy "elements/" "elements/"
 
-    pages <- getDirWildcards "pages/catch2.html"
+    pages <- getDirWildcards "pages/*.html"
     
     -- first copy the associated image files
     flip mapM_ pages $ \x -> let x2 = takeBaseName x in
@@ -30,7 +31,7 @@ main = do
     suffix <- readFileTree "elements/suffix.txt"
     args <- getArgs
     extra <- return [(x, tagStr x "") | x <- args]
-    process (reader extra) (rewrite prefix suffix) [(p, outloc p) | p <- pages]
+    process (reader extra) (rewrite prefix suffix) [(p, outloc p) | p <- take 10 pages]
 
 
 
@@ -47,7 +48,7 @@ reader extra x = do
 
 
 rewrite :: [TagTree] -> [TagTree] -> Config TagTree -> (FilePath, [TagTree]) -> IO String
-rewrite prefix suffix c (file,body) = putChar '.' >> return
+rewrite prefix suffix c (file,body) = putStrLn (takeBaseName file) >> return
         (renderTags $ flattenTree $ transformTags (tree c2) $ prefix ++ body ++ suffix)
     where
         c2 = c += ("root",tagStr "root" root)
@@ -56,8 +57,8 @@ rewrite prefix suffix c (file,body) = putChar '.' >> return
 
 tagStr key val = TagLeaf $ TagOpen (':':key) [("",val) | not $ null val]
 
-strTag (TagBranch _ atts _) = head $ args atts
-strTag (TagLeaf (TagOpen _ atts)) = head $ args atts
+strTag (TagBranch _ atts _) = headDef "" $ args atts
+strTag (TagLeaf (TagOpen _ atts)) = headDef "" $ args atts
 strTag _ = ""
 
 args = map (uncurry (++))
@@ -80,8 +81,9 @@ urlPage c x = concat [c !# "root"
 titlePage c x = head $ dropWhile null [a !# "shortname", a !# "title", takeBaseName x]
     where a = c !> srcPage x
 
-getTags c = map fst atts
-    where [TagLeaf (TagOpen _ atts)] = c !* "tags"
+getTags c = case c !* "tags" of
+                [TagLeaf (TagOpen _ atts)] -> map fst atts
+                _ -> []
 
 
 reform = map TagLeaf . parseTags
@@ -92,7 +94,7 @@ deform = renderTags . flattenTree
 _ =? _ = False
 
 
-skip = ["title","shortname","tags"]
+skip = ["title","shortname","tags","catch"]
 
 tree :: Config TagTree -> TagTree -> [TagTree]
 tree c (TagBranch (':':name) atts inner) = reform $ tag c name atts inner
@@ -164,25 +166,30 @@ tag c "conf" att inner = "<li class='conference'>From <a href='" ++ url ++ "'>" 
 tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) $ "<b>!" ++ name ++ "!</b>"
 
 
-downloads = ["manual","release","darcs","blog","slides","draft","paper"]
+downloads = ["manual","release","darcs","blog","slides","draft","paper","haddock"]
 
 download c "manual" [att] _ = link (getDarcs c ++ getProject c ++ ".htm") att ""
 
-download c "release" ["hackage"] _ = link url "Released version" ""
+download c "release" [] _ = link url "Released version" ""
     where url = "http://hackage.haskell.org/cgi-bin/hackage-scripts/package/" ++ getProject c
 
-download c "darcs" [x] _ = "<a href='http://darcs.net/'>darcs</a> get --partial <a href='" ++
+download c "darcs" att _ = "<a href='http://darcs.net/'>darcs</a> get --partial <a href='" ++
                            url ++ "'>" ++ url ++ "</a>"
-    where url = nowDarcs c x
+    where url = nowDarcs c (head $ take 1 att ++ [""])
 
 download c "blog" [] _ = "<a href='" ++ url ++ "'>Related blog posts</a>"
     where url = "http://neilmitchell.blogspot.com/search/label/" ++ getProject c
 
+download c "haddock" u _ = "<a href='" ++ url ++ "'>Haddock documentation</a>"
+    where url = head $ u ++ ["http://www.cs.york.ac.uk/fp/haddock/" ++ getProject c ++ "/"]
+
 download c typ (url:title:z) inner = "<a href='" ++ typ ++ "-" ++ url ++ "'>" ++ title ++ "</a>" ++
     if null z && null inner then "" else " - " ++ concat z ++ deform inner
 
+download c typ att _ = error $ "Missed download: " ++ show (typ,att)
+
 getDarcs c = nowDarcs c (c !# "darcs")
-nowDarcs c "york" = "http://www.cs.york.ac.uk/fp/darcs/" ++ getProject c ++ "/"
+nowDarcs c "" = "http://www.cs.york.ac.uk/fp/darcs/" ++ getProject c ++ "/"
 nowDarcs c x = x
 
 getProject c = case c !# "shortname" of
