@@ -5,6 +5,7 @@ import Control.Monad
 import Data.Char
 import Data.List
 import Data.Maybe
+import Debug.Trace
 import System.FilePath
 import System.Environment
 import Text.HTML.TagSoup
@@ -16,7 +17,7 @@ main = do
     copy "downloads/*.bib;*.pdf" "downloads/"
     copy "elements/" "elements/"
 
-    pages <- getDirWildcards "pages/*.html"
+    pages <- getDirWildcards "pages/catch2.html"
     
     -- first copy the associated image files
     flip mapM_ pages $ \x -> let x2 = takeBaseName x in
@@ -43,7 +44,7 @@ reader extra x = do
 
 rewrite :: [TagTree] -> [TagTree] -> Config TagTree -> (FilePath, [TagTree]) -> IO String
 rewrite prefix suffix c (file,body) = putChar '.' >> return
-        (renderTags $ flattenTree $ transformTags (tag c) $ prefix ++ body ++ suffix)
+        (renderTags $ flattenTree $ transformTags (tag c2) $ prefix ++ body ++ suffix)
     where
         c2 = c += ("root",tagStr "root" root)
         root = if takeBaseName file == "index" then "" else "../"
@@ -51,8 +52,10 @@ rewrite prefix suffix c (file,body) = putChar '.' >> return
 
 tagStr key val = TagBranch (':':key) [("",val) | not $ null val] False []
 
+strTag (TagBranch _ atts _ _) = unwords $ map (uncurry (++)) atts
+
 c !# x = case c !* x of
-            TagBranch _ atts _ _:_ -> unwords $ map (uncurry (++)) atts
+            t@(TagBranch{}):_ -> strTag t
             _ -> ""
     
 
@@ -71,8 +74,28 @@ titlePage c x = head $ dropWhile null [a !# "shortname", a !# "title", takeBaseN
     where a = c !> srcPage x
 
 
+reform = map TagLeaf . parseTags
 
-tag = undefined
+
+(TagBranch (':':name) _ _ _) =? s = name == s
+_ =? _ = False
+
+
+skip = ["title","shortname","tags"]
+
+tag :: Config TagTree -> TagTree -> [TagTree]
+
+tag c b | b =? "get" = reform $ c !# (strTag b)
+
+
+tag c (TagBranch name atts close inner)
+    | ":" `isPrefixOf` name = if tail name `elem` skip then []
+                              else trace ("WARNING: unhandled tag, " ++ name) []
+    | otherwise = [TagBranch name (map f atts) close inner]
+    where
+        f (key,'[':'R':'O':'O':'T':']':val) = (key, (c !# "root") ++ val)
+        f x = x
+tag c x = [x]
 
 {-
 tag :: Config -> Tag -> [Tag]

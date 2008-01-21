@@ -1,7 +1,6 @@
-	<:downloads>
-	
+
 	<p id="tags">
-		<b>Tags</b>: <:tags>
+		<b>Tags</b>: <:show-tags>
 	</p>
 </div>
 
@@ -14,7 +13,7 @@
 			<a href="http://jigsaw.w3.org/css-validator/check/referer/"><img
 				style="border:0;" src="&:root;elements/valid-css.png" alt="Valid CSS!" height="31" width="88"
 			/></a>
-			<:catch>
+			<:show-catch>
 		</td>
 		<td id="bottom">
     		&copy; <!contact "Neil Mitchell"> 2004-2008.
