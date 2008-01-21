@@ -39,23 +39,31 @@ readFileTree x = return . tagTree . parseTags =<< readFile x
 reader :: [(String,TagTree)] -> FilePath -> IO ((FilePath,[TagTree]), [(String,TagTree)])
 reader extra x = do
     src <- readFileTree x
-    return ((x,src), extra ++ [(name,t) | t@(TagBranch (':':name) _ _ _) <- universeTags src])
+    return ((x,src), extra ++ concatMap f (universeTags src))
+    where
+        f t@(TagBranch (':':name) _ _) = [(name,t)]
+        f t@(TagLeaf (TagOpen (':':name) _)) = [(name,t)]
+        f _ = []
 
 
 rewrite :: [TagTree] -> [TagTree] -> Config TagTree -> (FilePath, [TagTree]) -> IO String
 rewrite prefix suffix c (file,body) = putChar '.' >> return
-        (renderTags $ flattenTree $ transformTags (tag c2) $ prefix ++ body ++ suffix)
+        (renderTags $ flattenTree $ transformTags (tree c2) $ prefix ++ body ++ suffix)
     where
         c2 = c += ("root",tagStr "root" root)
         root = if takeBaseName file == "index" then "" else "../"
 
 
-tagStr key val = TagBranch (':':key) [("",val) | not $ null val] False []
+tagStr key val = TagLeaf $ TagOpen (':':key) [("",val) | not $ null val]
 
-strTag (TagBranch _ atts _ _) = unwords $ map (uncurry (++)) atts
+strTag (TagBranch _ atts _) = args atts
+strTag (TagLeaf (TagOpen _ atts)) = args atts
+strTag _ = ""
+
+args = unwords . map (uncurry (++))
 
 c !# x = case c !* x of
-            t@(TagBranch{}):_ -> strTag t
+            x:xs -> strTag x
             _ -> ""
     
 
@@ -77,25 +85,31 @@ titlePage c x = head $ dropWhile null [a !# "shortname", a !# "title", takeBaseN
 reform = map TagLeaf . parseTags
 
 
-(TagBranch (':':name) _ _ _) =? s = name == s
+(TagBranch (':':name) _ _) =? s = name == s
 _ =? _ = False
 
 
 skip = ["title","shortname","tags"]
 
-tag :: Config TagTree -> TagTree -> [TagTree]
+tree :: Config TagTree -> TagTree -> [TagTree]
+tree c (TagBranch (':':name) atts inner) = tag c name atts inner
+tree c (TagLeaf (TagOpen (':':name) atts)) = tag c name atts []
 
-tag c b | b =? "get" = reform $ c !# (strTag b)
-
-
-tag c (TagBranch name atts close inner)
-    | ":" `isPrefixOf` name = if tail name `elem` skip then []
-                              else trace ("WARNING: unhandled tag, " ++ name) []
-    | otherwise = [TagBranch name (map f atts) close inner]
+tree c (TagBranch name atts inner) = [TagBranch name (map f atts) inner]
     where
         f (key,'[':'R':'O':'O':'T':']':val) = (key, (c !# "root") ++ val)
         f x = x
-tag c x = [x]
+tree c x = [x]
+
+
+
+tag :: Config TagTree -> String -> [Attribute] -> [TagTree] -> [TagTree]
+tag c name _ _ | name `elem` skip = []
+
+tag c "get" atts _ = reform $ c !# args atts
+
+tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) []
+
 
 {-
 tag :: Config -> Tag -> [Tag]
