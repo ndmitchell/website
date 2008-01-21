@@ -56,11 +56,11 @@ rewrite prefix suffix c (file,body) = putChar '.' >> return
 
 tagStr key val = TagLeaf $ TagOpen (':':key) [("",val) | not $ null val]
 
-strTag (TagBranch _ atts _) = args atts
-strTag (TagLeaf (TagOpen _ atts)) = args atts
+strTag (TagBranch _ atts _) = head $ args atts
+strTag (TagLeaf (TagOpen _ atts)) = head $ args atts
 strTag _ = ""
 
-args = unwords . map (uncurry (++))
+args = map (uncurry (++))
 
 c !# x = case c !* x of
             x:xs -> strTag x
@@ -85,6 +85,7 @@ getTags c = map fst atts
 
 
 reform = map TagLeaf . parseTags
+deform = renderTags . flattenTree
 
 
 (TagBranch (':':name) _ _) =? s = name == s
@@ -119,7 +120,7 @@ tag :: Config TagTree -> String -> [Attribute] -> [TagTree] -> String
 tag c name _ _ | name `elem` skip = []
 
 
-tag c "get" atts _ = c !# args atts
+tag c "get" atts _ = c !# head (args atts)
 
 
 tag c "show-tags" _ _ = unwords $ map f $ sort $ getTags c
@@ -134,7 +135,7 @@ tag c "show-catch" _ _ | not $ c !? "catch" = ""
     "</a>"
 
 
-tag c "email" a _ = "<span class='es_address'>" ++ concatMap f (args a) ++ "</span>"
+tag c "email" a _ = "<span class='es_address'>" ++ concatMap f (head (args a)) ++ "</span>"
     where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
 
 
@@ -152,8 +153,44 @@ tag c "show-menu" _ _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
                              "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
 
 
+tag c "downloads" _ inner = "<h3>Downloads</h3><ul>" ++ deform inner ++ "</ul>"
+tag c name att inner | name `elem` downloads =
+    "<li class='" ++ name ++ "'>" ++ download c name (args att) inner ++ "</li>"
+
+tag c "conf" att inner = "<li class='conference'>From <a href='" ++ url ++ "'>" ++ name ++ "</a>" ++
+                         "<ul>" ++ deform inner ++ "</ul>"
+    where [name,url] = args att
+
 tag c name _ _ = trace ("WARNING: Unhandled, " ++ name) $ "<b>!" ++ name ++ "!</b>"
 
+
+downloads = ["manual","release","darcs","blog","slides","draft","paper"]
+
+download c "manual" [att] _ = link (getDarcs c ++ getProject c ++ ".htm") att ""
+
+download c "release" ["hackage"] _ = link url "Released version" ""
+    where url = "http://hackage.haskell.org/cgi-bin/hackage-scripts/package/" ++ getProject c
+
+download c "darcs" [x] _ = "<a href='http://darcs.net/'>darcs</a> get --partial <a href='" ++
+                           url ++ "'>" ++ url ++ "</a>"
+    where url = nowDarcs c x
+
+download c "blog" [] _ = "<a href='" ++ url ++ "'>Related blog posts</a>"
+    where url = "http://neilmitchell.blogspot.com/search/label/" ++ getProject c
+
+download c typ (url:title:z) inner = "<a href='" ++ typ ++ "-" ++ url ++ "'>" ++ title ++ "</a>" ++
+    if null z && null inner then "" else " - " ++ concat z ++ deform inner
+
+getDarcs c = nowDarcs c (c !# "darcs")
+nowDarcs c "york" = "http://www.cs.york.ac.uk/fp/darcs/" ++ getProject c ++ "/"
+nowDarcs c x = x
+
+getProject c = case c !# "shortname" of
+                    [] -> takeBaseName $ c !# "file"
+                    xs -> map toLower xs
+
+link url title extra = "<a href='" ++ url ++ "'>" ++ title ++ "</a>" ++
+                       if null extra then "" else " - " ++ extra
 
 {-
 tag :: Config -> Tag -> [Tag]
