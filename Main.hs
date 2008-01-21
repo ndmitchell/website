@@ -31,7 +31,7 @@ main = do
     suffix <- readFileTree "elements/suffix.txt"
     args <- getArgs
     extra <- return [(x, tagStr x "") | x <- args]
-    process (reader extra) (rewrite prefix suffix) [(p, outloc p) | p <- take 10 pages]
+    process (reader extra) (rewrite prefix suffix) [(p, outloc p) | p <- pages]
 
 
 
@@ -170,8 +170,8 @@ downloads = ["manual","release","darcs","blog","slides","draft","paper","haddock
 
 download c "manual" [att] _ = link (getDarcs c ++ getProject c ++ ".htm") att ""
 
-download c "release" [] _ = link url "Released version" ""
-    where url = "http://hackage.haskell.org/cgi-bin/hackage-scripts/package/" ++ getProject c
+download c "release" u _ = link url "Released version" ""
+    where url = head $ u ++ ["http://hackage.haskell.org/cgi-bin/hackage-scripts/package/" ++ getProject c]
 
 download c "darcs" att _ = "<a href='http://darcs.net/'>darcs</a> get --partial <a href='" ++
                            url ++ "'>" ++ url ++ "</a>"

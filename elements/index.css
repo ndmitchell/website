@@ -143,12 +143,6 @@ a.more {
 	background-repeat: no-repeat;
 	background-position: center left;
 }
-a.video {
-	background-image: url(video.png);
-	padding-left: 18px;
-	background-repeat: no-repeat;
-	background-position: center left;
-}
 a:hover {
 	background-color: #ffb;
 }
@@ -178,3 +172,4 @@ a img {
 .haddock {list-style-image: url(haddock.png);}
 .blog {list-style-image: url(blog.png);}
 .release {list-style-image: url(release.png);}
+.video {list-style-image: url(video.png);}
