@@ -34,7 +34,6 @@ main = do
     process (reader extra) (rewrite prefix suffix) [(p, outloc p) | p <- pages]
 
 
-
 readFileTree x = return . tagTree . parseTags =<< readFile x
 
 reader :: [(String,TagTree)] -> FilePath -> IO ((FilePath,[TagTree]), [(String,TagTree)])
@@ -153,6 +152,15 @@ tag c "show-menu" _ _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
 
         f (title,page,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++
                              "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
+
+
+tag c "all-pages" _ _ =
+        "<p>" ++ concat (intersperse ", " $ map snd $ sortBy (compare `on` fst) $ map f $ configAttribs c) ++ "</p>"
+    where
+        f a = (map toLower title, "<a href=\"" ++ urlPage c file ++ "\">" ++ title ++ "</a>")
+            where
+                file = a !# "file"
+                title = titlePage c file
 
 
 tag c "downloads" _ inner = "<h3>Downloads</h3><ul>" ++ deform inner ++ "</ul>"
