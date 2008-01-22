@@ -147,20 +147,18 @@ tag c "show-menu" _ _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
         gap ((a,b,_):xs) = (a,b,True):xs
         getName page def = if null def then titlePage c page else def
 
-        pick tag = sort [(getName page "",page,False) | x <- configAttribs c, tag `elem` getTags x
-                   ,let page = takeBaseName (x !# "file"), page /= "index"]
+        pick tag = sort [(getName page "",page,False) | x <- configKeys c, tag `elem` getTags (c !> x)
+                   ,let page = takeBaseName x, page /= "index"]
 
         f (title,page,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++
                              "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
 
 
 tag c "all-pages" _ _ =
-        "<p>" ++ concat (intersperse ", " $ map snd $ sortBy (compare `on` fst) $ map f $ configAttribs c) ++ "</p>"
+        "<p>" ++ concat (intersperse ", " $ map snd $ sortBy (compare `on` fst) $ map f $ configKeys c) ++ "</p>"
     where
-        f a = (map toLower title, "<a href=\"" ++ urlPage c file ++ "\">" ++ title ++ "</a>")
-            where
-                file = a !# "file"
-                title = titlePage c file
+        f file = (map toLower title, "<a href=\"" ++ urlPage c file ++ "\">" ++ title ++ "</a>")
+            where title = titlePage c file
 
 
 tag c "downloads" _ inner = "<h3>Downloads</h3><ul>" ++ deform inner ++ "</ul>"

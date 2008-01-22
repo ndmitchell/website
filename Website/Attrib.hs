@@ -1,7 +1,7 @@
 
 module Website.Attrib(
     Attribs, Config, FindAttrib,
-    (!*), (!?), (!>), configAttribs,
+    (!*), (!?), (!>), configKeys,
     (+=), config, attribs, configWith
     ) where
 
@@ -78,5 +78,5 @@ a !? s = Map.member s $ getAttrib a
 (Config x _) !> s = Map.findWithDefault attribsEmpty (normalise s) x
 
 
-configAttribs :: Config v -> [Attribs v]
-configAttribs (Config x _) = Map.elems x
+configKeys :: Config v -> [FilePath]
+configKeys (Config x _) = Map.keys x
