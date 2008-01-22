@@ -39,3 +39,5 @@ split :: Char -> String -> [String]
 split x xs = case break (== x) xs of
                 (a,_:b) -> a : split x b
                 _ -> [xs]
+
+on f g x y = f (g x) (g y)
