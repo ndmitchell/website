@@ -9,6 +9,7 @@ import Debug.Trace
 import Safe
 import System.FilePath
 import System.Environment
+import System.IO.Unsafe
 import Text.HTML.TagSoup
 import Website.Driver
 
@@ -159,6 +160,19 @@ tag c "all-pages" _ _ =
     where
         f file = (map toLower title, "<a href=\"" ++ urlPage c file ++ "\">" ++ title ++ "</a>")
             where title = titlePage c file
+
+
+tag c "all-tags" _ _ = concatMap f tagList
+    where
+        tagList = sort [(a,b) | x <- lines $ unsafePerformIO $ readFile "tags.txt", let (a,_:b) = break (== '=') x]
+
+        f (tag,desc) = if null items then "" else
+                       "<p><b><a name='" ++ tag ++ "'>" ++ tag ++ "</b></a>: " ++ desc ++ "<br/>" ++
+                       concat (intersperse ", " items)
+            where items = concatMap (g tag) $ configKeys c
+        
+        g tag file = ["<a href='" ++ urlPage c file ++ "'>" ++ titlePage c file ++ "</a>"
+                     | tag `elem` getTags (c !> file)]
 
 
 tag c "downloads" _ inner = "<h3>Downloads</h3><ul>" ++ deform inner ++ "</ul>"
