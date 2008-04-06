@@ -8,6 +8,5 @@ popular=These are the more commonly visited pages
 phd=These topics will form part of my PhD
 program=These are programs
 regexp=These involve regular expressions
-released=These are released, and available for general purpose use
 research=These are areas of academic research
 yhc=These relate to the Yhc compiler
