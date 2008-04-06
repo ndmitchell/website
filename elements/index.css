@@ -162,6 +162,9 @@ pre a {
 a img {
 	border: 0px;
 }
+li ul li {
+   margin-left: -16px;
+}
 
 .darcs {list-style-image: url(darcs.png);}
 .slides {list-style-image: url(slides.png);}
