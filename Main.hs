@@ -54,8 +54,8 @@ populateMeta pages = do
             putChar '.'
             let base = takeBaseName file
             res <- readMetadataHead file
-            return $ ("page",file)
-                   : ("name",base)
+            return $ ("name",base)
+                   : ("page",file)
                    : ("root",if base == "index" then "" else "../")
                    : res
 
@@ -64,67 +64,98 @@ rewrite :: Metadata -> [Tag] -> [Tag] -> FilePath -> IO String
 rewrite meta prefix suffix file = do
     putChar '.'
     src <- liftM parseTags $ dropMetadataHead file
-    meta <- return meta{page = head [p | p <- pages meta, lookup "page" p == Just file]}
+    meta <- return meta{page = meta !> file}
     return $ renderTags $ stream meta $ prefix ++ src ++ suffix
 
 
+---------------------------------------------------------------------
+-- META OPERATIONS
+
 meta ! x = fromMaybe (error $ "Meta! " ++ x) $ lookup x (page meta)
 
+meta !> x = head [p | p <- pages meta, lookup "name" p == Just x2]
+    where x2 = takeBaseName x
+
+elemFst x y = x `elem` map fst y
+
+root meta = meta ! "root"
+
+urlTag meta x = root meta ++ "tags/#" ++ x
+
+urlPage meta x = concat [root meta
+                        ,if x2 == "index" then "" else x2 ++ "/"
+                        ,if "debug" `elemFst` global meta then "index.html" else ""]
+    where x2 = takeBaseName x
+
+titlePage meta x = pick "shortname" $ pick "title" $ takeBaseName x
+    where 
+        pick key def = fromMaybe def $ lookup key a
+        a = meta !> x
+
+args = map (uncurry (++))
+args1 = head . args
+
+
+---------------------------------------------------------------------
+-- REWRITE
 
 stream meta (TagOpen (':':name) atts:rest) = tag meta name atts ++ stream meta rest
+
+stream meta (TagOpen ('!':name) atts:rest) | name /= "DOCTYPE" =
+        (if "more" `elem` args atts
+        then [TagOpen "span" [("class","more")], TagText "("
+             ,TagOpen "a" [("href",url),("class","more")], TagText "read&nbsp;more"
+             ,TagClose "a", TagText ")", TagClose "span"]
+        else [TagOpen "a" [("href",url)], TagText text, TagClose "a"])
+        ++ stream meta rest
+    where
+        tag   = ":" `isPrefixOf` name
+        title = if tag then tail name else titlePage meta name
+        url   = if tag then urlTag meta (tail name) else urlPage meta name
+        text  = if null atts then title else args1 atts
+
 stream meta (TagOpen name atts:rest) = TagOpen name (map f atts) : stream meta rest
     where
-        f (x,'[':'R':'O':'O':'T':']':y) = (x, (meta ! "root") ++ y)
+        f (x,'[':'R':'O':'O':'T':']':y) = (x, root meta ++ y)
         f x = x
 
 stream meta (x:xs) = x : stream meta xs
 stream meta [] = []
 
 
+
+tag meta "email" a = [TagOpen "span" [("class","es_address")]
+                       ,TagText $ concatMap f (args1 a)
+                       ,TagClose "span"]
+    where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
+
+
 tag meta "root" _ | lookup "name" (page meta) == Just "index" = []
                   | otherwise = [TagOpen "base" [("href","..")], TagClose "base"]
 
-tag meta "get" [(x,y)] = [TagText $ meta ! (x++y)]
 
-tag meta name atts = []
+tag meta "get" a = [TagText $ meta ! args1 a]
+
+
+tag meta "show-tags" _ = concat $ intersperse [TagText " "] $ map f $ sort $ words $ meta ! "tags"
+    where f x = [TagOpen "a" [("href",urlTag meta x)], TagText x, TagClose "a"]
+
+
+tag meta "show-catch" _ | "catch" `elemFst` page meta = []
+                          | otherwise =
+    [TagOpen "a" [("href",urlPage meta "catch")]
+    ,TagOpen "img" [("style","border:0;")
+                   ,("src",root meta ++ "elements/valid-catch.png")
+                   ,("alt","Checked by Catch!"),("height","31"),("width","88")]
+    ,TagClose "img",TagClose "a"]
+
+
+tag meta name atts = error $ "Unrecognised tag: " ++ name
+
+
 
 {-
 
-
-
-
-process :: Metadata -> String -> String -> FilePath -> IO ()
-process meta prefix suffic file = do
-
-
-
-readFileTree x = return . tagTree . parseTags =<< readFile x
-
-reader :: [(String,TagTree)] -> FilePath -> IO ((FilePath,[TagTree]), [(String,TagTree)])
-reader extra x = do
-    src <- readFileTree x
-    return ((x,src), ("file", tagStr "file" x) : extra ++ concatMap f (universeTags src))
-    where
-        f t@(TagBranch (':':name) _ _) = [(name,t)]
-        f t@(TagLeaf (TagOpen (':':name) _)) = [(name,t)]
-        f _ = []
-
-
-rewrite :: [TagTree] -> [TagTree] -> Config TagTree -> (FilePath, [TagTree]) -> IO String
-rewrite prefix suffix c (file,body) = putStrLn (takeBaseName file) >> return
-        (renderTags $ flattenTree $ transformTags (tree c2) $ prefix ++ body ++ suffix)
-    where
-        c2 = c += ("root",tagStr "root" root)
-        root = if takeBaseName file == "index" then "" else "../"
-
-
-tagStr key val = TagLeaf $ TagOpen (':':key) [("",val) | not $ null val]
-
-strTag (TagBranch _ atts _) = headDef "" $ args atts
-strTag (TagLeaf (TagOpen _ atts)) = headDef "" $ args atts
-strTag _ = ""
-
-args = map (uncurry (++))
 
 c !# x = case c !* x of
             x:xs -> strTag x
@@ -184,24 +215,6 @@ tree c x = [x]
 tag :: Config TagTree -> String -> [Attribute] -> [TagTree] -> String
 tag c name _ _ | name `elem` skip = []
 
-
-tag c "get" atts _ = c !# head (args atts)
-
-
-tag c "show-tags" _ _ = unwords $ map f $ sort $ getTags c
-    where f x = "<a href='" ++ urlTag c x ++ "'>" ++ x ++ "</a>"
-
-
-tag c "show-catch" _ _ | not $ c !? "catch" = ""
-                          | otherwise =
-    "<a href='" ++ ndm ++ "catch/'>" ++
-        "<img style='border:0;' src='" ++ (c !# "root") ++ "elements/valid-catch.png' " ++
-              "alt='Checked by Catch!' height='31' width='88' />" ++
-    "</a>"
-
-
-tag c "email" a _ = "<span class='es_address'>" ++ concatMap f (head (args a)) ++ "</span>"
-    where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
 
 
 tag c "show-menu" _ _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
