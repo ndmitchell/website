@@ -204,8 +204,9 @@ toDownload x = Download key url (fromMaybe "" $ lookup "parent" x) typ entry []
 
 
 dateToSort :: String -> Sort
-dateToSort = Left
-
+dateToSort x = Right (negate $ read c, negate $ fromJust $ findIndex (== b) months, negate $ read a)
+    where [a,b,c] = words x
+months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
 
 reparentDownloads :: [Download] -> [Download]
