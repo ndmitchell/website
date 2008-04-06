@@ -1,18 +1,17 @@
 
 module Website.Driver(
     copy, process,
-    module Website.Attrib,
     module Website.Wildcard,
+    module Website.Metadata,
     module Website.Util
     ) where
 
 import Control.Monad
 import System.Directory
 import System.FilePath
-import Website.Attrib
 import Website.Wildcard
 import Website.Util
-
+import Website.Metadata
 
 outdir = "publish"
 
@@ -31,17 +30,11 @@ copy x y = do
             when (timeX > timeY) action
 
 
-process :: 
-    (FilePath -> IO (a, [(String,b)])) ->
-    (Config b -> a -> IO String) -> 
-    [(FilePath,FilePath)] -> IO ()
-process reader action xs = do
+process :: (FilePath -> IO String) -> [(FilePath,FilePath)] -> IO ()
+process rewrite xs = do
     xs <- concatMapM (\(x,y) -> expandWildcards (x, outdir </> y)) xs
-    xs <- mapM (\(from,to) -> do (src,atts) <- reader from ; return (from,to,src,atts)) xs
-    atts <- return $ config [(from, atts) | (from,_,_,atts) <- xs]
-    mapM_ (f atts) xs
+    mapM_ f xs
     where
-        f atts (from,to,src,_) = do
-            src <- action (configWith atts (atts !> from)) src
-            createDirectoryIfMissing True (takeDirectory to)
-            writeFileBinary to src
+        f (from,to) = do
+            res <- rewrite from
+            writeFileBinary to res
