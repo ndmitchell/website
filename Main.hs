@@ -57,7 +57,8 @@ populateMeta pages = do
             return $ ("name",base)
                    : ("page",file)
                    : ("root",if base == "index" then "" else "../")
-                   : res
+                   : [("shortname",res !- "title") | not $ "shortname" `elemFst` res]
+                   ++ res
 
 
 rewrite :: Metadata -> [Tag] -> [Tag] -> FilePath -> IO String
@@ -71,10 +72,13 @@ rewrite meta prefix suffix file = do
 ---------------------------------------------------------------------
 -- META OPERATIONS
 
-meta ! x = fromMaybe (error $ "Meta! " ++ x) $ lookup x (page meta)
+meta ! x = page meta !- x
+x !- y = fromMaybe (error $ "!- " ++ y) $ lookup y x
 
 meta !> x = head [p | p <- pages meta, lookup "name" p == Just x2]
     where x2 = takeBaseName x
+
+meta !>- (page,y) = (meta !> page) !- y
 
 elemFst x y = x `elem` map fst y
 
@@ -86,11 +90,6 @@ urlPage meta x = concat [root meta
                         ,if x2 == "index" then "" else x2 ++ "/"
                         ,if "debug" `elemFst` global meta then "index.html" else ""]
     where x2 = takeBaseName x
-
-titlePage meta x = pick "shortname" $ pick "title" $ takeBaseName x
-    where 
-        pick key def = fromMaybe def $ lookup key a
-        a = meta !> x
 
 args = map (uncurry (++))
 args1 = head . args
@@ -110,7 +109,7 @@ stream meta (TagOpen ('!':name) atts:rest) | name /= "DOCTYPE" =
         ++ stream meta rest
     where
         tag   = ":" `isPrefixOf` name
-        title = if tag then tail name else titlePage meta name
+        title = if tag then tail name else meta !>- (name,"title")
         url   = if tag then urlTag meta (tail name) else urlPage meta name
         text  = if null atts then title else args1 atts
 
@@ -150,7 +149,21 @@ tag meta "show-catch" _ | "catch" `elemFst` page meta = []
     ,TagClose "img",TagClose "a"]
 
 
-tag meta name atts = error $ "Unrecognised tag: " ++ name
+tag meta "show-menu" _ = [TagOpen "ul" [("id","menu")]] ++ concatMap f links ++ [TagClose "ul"]
+    where
+        -- (title, page, gap)
+        links = [("","index",False)] ++ pick "admin" ++ gap (pick "popular") ++ [("All pages...","tags",False)]
+        gap ((a,b,_):xs) = (a,b,True):xs
+
+        pick tag = sort [(p !- "shortname",name,False) | p <- pages meta, tag `elem` words (p !- "tags")
+                   ,let name = p !- "name", name /= "index"]
+
+        f (title,page,gap) = [TagOpen "li" [("style","margin-top:10px") | gap]
+                             ,TagOpen "a" [("href",urlPage meta page)], TagText title
+                             ,TagClose "a", TagClose "li"]
+
+
+tag meta name atts = [] -- error $ "Unrecognised tag: " ++ name
 
 
 
