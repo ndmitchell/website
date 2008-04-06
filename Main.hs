@@ -160,7 +160,7 @@ tag meta "show-tags" _ = unwords $ map f $ sort $ words $ meta ! "tags"
     where f x = "<a href='" ++ urlTag meta x ++ "'>" ++ x ++ "</a>"
 
 
-tag meta "show-catch" _ | "catch" `elemFst` page meta = []
+tag meta "show-catch" _ | not $ "catch" `elemFst` page meta = []
                         | otherwise =
     "<a href='" ++ urlPage meta "catch" ++ "'>" ++
         "<img style='border:0;' src='" ++ root meta ++ "elements/valid-catch.png' " ++
@@ -170,12 +170,33 @@ tag meta "show-catch" _ | "catch" `elemFst` page meta = []
 tag meta "show-menu" _ = repRoot meta $ global meta !- "menu"
 
 
-tag meta "downloads" _ = "<h2>Downloads</h2>" ++ showDownloads (reparentDownloads down)
+tag meta "all-tags" _ = concatMap f tagList
+    where
+        tagList = sort [(a,b) | x <- lines $ unsafePerformIO $ readFile "tags.txt", let (a,_:b) = break (== '=') x]
+
+        f (tag,desc) = if null items then "" else
+                       "<p><b><a name='" ++ tag ++ "'>" ++ tag ++ "</b></a>: " ++ desc ++ "<br/>" ++
+                       concat (intersperse ", " items)
+            where items = concatMap (g tag) $ pages meta
+        
+        g tag page = ["<a href='" ++ urlPage meta (page !- "name") ++ "'>" ++ (page !- "shortname") ++ "</a>"
+                     | tag `elem` words (page !- "tags")]
+
+
+tag meta "all-pages" _ =
+        "<p>" ++ concat (intersperse ", " $ map snd $ sortBy (compare `on` fst) $ map f $ pages meta) ++ "</p>"
+    where
+        f page = (map toLower title, "<a href=\"" ++ urlPage meta (page !- "name") ++ "\">" ++ title ++ "</a>")
+            where title = page !- "shortname"
+
+
+tag meta "downloads" _ | null down = ""
+        | otherwise = "<h2>Downloads</h2>" ++ showDownloads (reparentDownloads down)
     where
         name = meta ! "name"
         down = map toDownload $ filter (\x -> name `elem` words (x !- "page")) $ extra meta
 
-tag meta name atts = [] -- error $ "Unrecognised tag: " ++ name
+tag meta name atts = "<h1 style='color:red'>" ++ name ++ "</h1>" -- error $ "Unrecognised tag: " ++ name
 
 
 
@@ -308,24 +329,6 @@ tag c "show-menu" _ _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
                              "><a href='" ++ urlPage c page ++ "'>" ++ getName page title ++ "</a></li>"
 
 
-tag c "all-pages" _ _ =
-        "<p>" ++ concat (intersperse ", " $ map snd $ sortBy (compare `on` fst) $ map f $ configKeys c) ++ "</p>"
-    where
-        f file = (map toLower title, "<a href=\"" ++ urlPage c file ++ "\">" ++ title ++ "</a>")
-            where title = titlePage c file
-
-
-tag c "all-tags" _ _ = concatMap f tagList
-    where
-        tagList = sort [(a,b) | x <- lines $ unsafePerformIO $ readFile "tags.txt", let (a,_:b) = break (== '=') x]
-
-        f (tag,desc) = if null items then "" else
-                       "<p><b><a name='" ++ tag ++ "'>" ++ tag ++ "</b></a>: " ++ desc ++ "<br/>" ++
-                       concat (intersperse ", " items)
-            where items = concatMap (g tag) $ configKeys c
-        
-        g tag file = ["<a href='" ++ urlPage c file ++ "'>" ++ titlePage c file ++ "</a>"
-                     | tag `elem` getTags (c !> file)]
 
 
 tag c "downloads" _ inner = "<h3>Downloads</h3><ul>" ++ deform inner ++ "</ul>"
