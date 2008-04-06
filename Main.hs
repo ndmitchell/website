@@ -64,6 +64,7 @@ populateMeta pages = do
 url x | "http:" `isPrefixOf` x = x
       | "hackage:" `isPrefixOf` x = "http://hackage.haskell.org/cgi-bin/hackage-scripts/package/" ++ drop 8 x
       | "darcs:" `isPrefixOf` x = "http://www.cs.york.ac.uk/fp/darcs/" ++ drop 6 x
+      | "blog:" `isPrefixOf` x = "http://neilmitchell.blogspot.com/search/label/" ++ drop 5 x
       | otherwise = ndm ++ "downloads/" ++ x
 
 
@@ -179,7 +180,7 @@ tag meta name atts = [] -- error $ "Unrecognised tag: " ++ name
 
 
 -- year month day
-type Sort = Either String (Int,Int,Int)
+type Sort = (Maybe (Int,Int,Int), String)
 data Download = Download {key :: Sort, href :: String, parent :: String
                          ,icon :: String, entry :: String, children :: [Download]}
 
@@ -189,7 +190,7 @@ toDownload x = Download key url (fromMaybe "" $ lookup "parent" x) typ entry []
     where
         url = x !- "url"
         typ = x !- "type"
-        key = maybe (Left typ) dateToSort (lookup "date" x)
+        key = (liftM dateToSort $ lookup "date" x, typ) 
 
         entry | typ == "darcs" = "<a href='http://darcs.net/'>darcs</a> get --partial " ++
                                  "<a href='" ++ url ++ "'>" ++ url ++ "</a>"
@@ -203,15 +204,24 @@ toDownload x = Download key url (fromMaybe "" $ lookup "parent" x) typ entry []
                       | typ == "blog" -> "Related blog posts"    
 
 
-dateToSort :: String -> Sort
-dateToSort x = Right (negate $ read c, negate $ fromJust $ findIndex (== b) months, negate $ read a)
+dateToSort :: String -> (Int,Int,Int)
+dateToSort x = (negate $ read c, negate $ fromJust $ findIndex (== b) months, negate $ read a)
     where [a,b,c] = words x
 months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
 
+-- keep two piles, those you have processed looking for children
+-- and those you haven't
+-- assume only 1 level of nesting (for now)
 reparentDownloads :: [Download] -> [Download]
-reparentDownloads = id
-
+reparentDownloads xs = ins [] xs
+    where
+        ins done [] = reverse done
+        ins done (t:odo) = ins (t{children=d1++t1} : d2) t2
+            where
+                split = partition (\x -> parent x == href t)
+                (d1,d2) = split done
+                (t1,t2) = split odo
 
 
 showDownloads :: [Download] -> String
