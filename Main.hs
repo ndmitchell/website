@@ -27,8 +27,8 @@ main = do
         copy ("pages/" ++ x2 ++ "*.png") (x2 ++ "/")
 
     -- build up the meta data
-    prefix <- liftM parseTags $ readFile "elements/prefix.txt"
-    suffix <- liftM parseTags $ readFile "elements/suffix.txt"
+    prefix <- readFile "elements/prefix.txt"
+    suffix <- readFile "elements/suffix.txt"
     meta <- populateMeta pages
     
     -- process the files
@@ -61,13 +61,26 @@ populateMeta pages = do
                    ++ res
 
 
-rewrite :: Metadata -> [Tag] -> [Tag] -> FilePath -> IO String
+rewrite :: Metadata -> String -> String -> FilePath -> IO String
 rewrite meta prefix suffix file = do
     putChar '.'
-    src <- liftM parseTags $ dropMetadataHead file
-    meta <- return meta{page = meta !> file}
-    return $ renderTags $ stream meta $ prefix ++ src ++ suffix
+    src <- dropMetadataHead file
+    meta <- return meta{page = meta !> file, global = ("menu",menu meta) : global meta}
+    return $ stream meta $ prefix ++ src ++ suffix
 
+
+menu meta = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
+    where
+        -- (title, page, gap)
+        links = [(meta !>- ("index","shortname"),"index",False)] ++ pick "admin" ++
+                gap (pick "popular") ++ [("All pages...","tags",False)]
+        gap ((a,b,_):xs) = (a,b,True):xs
+
+        pick tag = sort [(p !- "shortname",name,False) | p <- pages meta, tag `elem` words (p !- "tags")
+                   ,let name = p !- "name", name /= "index"]
+
+        f (title,page,gap) = "<li" ++ (if gap then " style='margin-top:10px'" else "") ++ ">" ++
+                             "<a href='" ++ urlPage (noRoot meta) page ++ "'>" ++ title ++ "</a></li>"
 
 ---------------------------------------------------------------------
 -- META OPERATIONS
@@ -83,6 +96,9 @@ meta !>- (page,y) = (meta !> page) !- y
 elemFst x y = x `elem` map fst y
 
 root meta = meta ! "root"
+noRoot meta = meta{page=("root","$"):page meta}
+repRoot meta = concatMap f
+    where f x = if x == '$' then root meta else [x]
 
 urlTag meta x = root meta ++ "tags/#" ++ x
 
@@ -98,69 +114,52 @@ args1 = head . args
 ---------------------------------------------------------------------
 -- REWRITE
 
-stream meta (TagOpen (':':name) atts:rest) = tag meta name atts ++ stream meta rest
+stream meta ('<':x:xs) | x `elem` ":!" && not ("DOCTYPE" `isPrefixOf` xs || "--" `isPrefixOf` xs) =
+        (if x == ':' then tag meta name atts else link meta name atts) ++
+        stream meta (drop 1 b)
+    where
+        (a,b) = break (== '>') xs
+        (name,atts) = case parseTags ("<" ++ a ++ ">") of
+                           [TagOpen name atts] -> (name,atts)
+                           _ -> error $ "Can't parse options tag: " ++ show a
 
-stream meta (TagOpen ('!':name) atts:rest) | name /= "DOCTYPE" =
-        (if "more" `elem` args atts
-        then [TagOpen "span" [("class","more")], TagText "("
-             ,TagOpen "a" [("href",url),("class","more")], TagText "read&nbsp;more"
-             ,TagClose "a", TagText ")", TagClose "span"]
-        else [TagOpen "a" [("href",url)], TagText text, TagClose "a"])
-        ++ stream meta rest
+stream meta (x:xs) = x : stream meta xs
+stream meta [] = []
+
+
+link meta name atts
+    | "more" `elem` args atts = "<span class='more'>(<a href='" ++ url ++
+                                "' class='more'>read&nbsp;more</a>)</span>"
+    | otherwise = "<a href='" ++ url ++ "'>" ++ text ++ "</a>"
     where
         tag   = ":" `isPrefixOf` name
         title = if tag then tail name else meta !>- (name,"title")
         url   = if tag then urlTag meta (tail name) else urlPage meta name
         text  = if null atts then title else args1 atts
 
-stream meta (TagOpen name atts:rest) = TagOpen name (map f atts) : stream meta rest
-    where
-        f (x,'[':'R':'O':'O':'T':']':y) = (x, root meta ++ y)
-        f x = x
 
-stream meta (x:xs) = x : stream meta xs
-stream meta [] = []
-
-
-
-tag meta "email" a = [TagOpen "span" [("class","es_address")]
-                       ,TagText $ concatMap f (args1 a)
-                       ,TagClose "span"]
+tag meta "email" a = "<span class='es_address'>" ++ concatMap f (args1 a) ++ "</span>"
     where f x = fromMaybe [x] $ lookup x [('@'," AT "),('.'," DOT ")]
 
 
-tag meta "root" _ | lookup "name" (page meta) == Just "index" = []
-                  | otherwise = [TagOpen "base" [("href","..")], TagClose "base"]
+tag meta "root" _ = root meta
 
 
-tag meta "get" a = [TagText $ meta ! args1 a]
+tag meta "get" a = meta ! args1 a
 
 
-tag meta "show-tags" _ = concat $ intersperse [TagText " "] $ map f $ sort $ words $ meta ! "tags"
-    where f x = [TagOpen "a" [("href",urlTag meta x)], TagText x, TagClose "a"]
+tag meta "show-tags" _ = unwords $ map f $ sort $ words $ meta ! "tags"
+    where f x = "<a href='" ++ urlTag meta x ++ "'>" ++ x ++ "</a>"
 
 
 tag meta "show-catch" _ | "catch" `elemFst` page meta = []
-                          | otherwise =
-    [TagOpen "a" [("href",urlPage meta "catch")]
-    ,TagOpen "img" [("style","border:0;")
-                   ,("src",root meta ++ "elements/valid-catch.png")
-                   ,("alt","Checked by Catch!"),("height","31"),("width","88")]
-    ,TagClose "img",TagClose "a"]
+                        | otherwise =
+    "<a href='" ++ urlPage meta "catch" ++ "'>" ++
+        "<img style='border:0;' src='" ++ root meta ++ "elements/valid-catch.png' " ++
+             "alt='Checked by Catch!' height='31' width='88' /></a>"
 
 
-tag meta "show-menu" _ = [TagOpen "ul" [("id","menu")]] ++ concatMap f links ++ [TagClose "ul"]
-    where
-        -- (title, page, gap)
-        links = [("","index",False)] ++ pick "admin" ++ gap (pick "popular") ++ [("All pages...","tags",False)]
-        gap ((a,b,_):xs) = (a,b,True):xs
-
-        pick tag = sort [(p !- "shortname",name,False) | p <- pages meta, tag `elem` words (p !- "tags")
-                   ,let name = p !- "name", name /= "index"]
-
-        f (title,page,gap) = [TagOpen "li" [("style","margin-top:10px") | gap]
-                             ,TagOpen "a" [("href",urlPage meta page)], TagText title
-                             ,TagClose "a", TagClose "li"]
+tag meta "show-menu" _ = repRoot meta $ global meta !- "menu"
 
 
 tag meta name atts = [] -- error $ "Unrecognised tag: " ++ name

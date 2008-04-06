@@ -4,8 +4,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<title>Neil Mitchell - <:get title></title>
 
-		<link type="text/css" rel="stylesheet" href="[ROOT]elements/index.css" />
-		<script type="text/javascript" src="[ROOT]elements/emailscrambler.js"> </script>
+		<link type="text/css" rel="stylesheet" href="<:root>elements/index.css" />
+		<script type="text/javascript" src="<:root>elements/emailscrambler.js"> </script>
 	</head>
 	<body>
 
