@@ -24,8 +24,7 @@ page=   catch
 type=   slides
 url=    slides-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 date=   24 Sep 2005
-title=  Unfailing Haskell: A static checker for pattern matching
-where=  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a>
+title=  Unfailing Haskell: A Static Checker for Pattern Matching
 page=   catch
 parent= paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 
