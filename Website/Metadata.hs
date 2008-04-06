@@ -1,6 +1,6 @@
 
 module Website.Metadata(
-    Metadata(..),
+    Metadata(..), Data,
     readMetadataGlobal, readMetadataFile,
     readMetadataHead, dropMetadataHead
     ) where
@@ -10,7 +10,7 @@ import Data.Char
 import System.Environment
 
 
-data Metadata = Metadata {global :: Data, page :: Data, meta :: [Data], pages :: [Data]}
+data Metadata = Metadata {global :: Data, page :: Data, extra :: [Data], pages :: [Data]}
 type Data = [(String,String)]
 
 
@@ -29,22 +29,24 @@ data Line = Attrib String String | Blank | Indent String
 readMetadataFile :: FilePath -> IO [Data]
 readMetadataFile file = do
     src <- readFile file
-    return $ filter (not . null) $ f $ map classify $ lines src
+    return $ collate [] $ join $ map classify $ lines src
     where
+        -- classify each line by what it is
         classify xs | all isSpace xs = Blank
+        classify ('%':xs) = Blank
         classify (x:xs) | isSpace x = Indent (trim xs)
         classify xs = uncurry Attrib (divide xs)
 
-        f (Attrib x y:Indent z:rest) = f (Attrib x (y ++ "\n" ++ z) : rest)
-        f (Attrib x y:rest) = let (r:rs) = f b in ((x,a):r) : rs
-            where (a,b) = g rest
-        f (Blank:rest) = [] : f rest
-        f [] = [[]]
+        -- joint Attrib:Indent and Indent:Blank:Indent
+        join (a:Indent b:Indent c:rest) = join (a:Indent (b ++ "\n" ++ c):rest)
+        join (a:Indent b:Blank:Indent c:rest) = join (a:Indent (b ++ "\n\n" ++ c):rest)
+        join (Attrib a b:Indent c:rest) = Attrib a (b ++ "\n" ++ c) : join rest
+        join (x:xs) = x : join xs
+        join [] = [Blank]
 
-        g (Indent x:Blank:Indent y:rest) = g $ Indent (x ++ "\n\n" ++ y) : rest
-        g (Indent x:Indent y:rest) = g $ Indent (x ++ "\n" ++ y) : rest
-        g (Indent x:rest) = ("\n" ++ x,rest)
-        g rest = ("",rest)
+        collate seen (Blank:xs) = [reverse $ seen | not $ null seen] ++ collate [] xs
+        collate seen (Attrib a b:xs) = collate ((a,b):seen) xs
+        collate [] [] = []
 
 
 readMetadataHead :: FilePath -> IO Data
