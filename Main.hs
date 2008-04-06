@@ -13,6 +13,7 @@ import System.IO.Unsafe
 import Text.HTML.TagSoup
 import Website.Driver
 
+
 ndm = "http://www-users.cs.york.ac.uk/~ndm/"
 
 main = do
@@ -25,14 +26,76 @@ main = do
     flip mapM_ pages $ \x -> let x2 = takeBaseName x in
         copy ("pages/" ++ x2 ++ "*.png") (x2 ++ "/")
 
-    -- now process the actual files    
+    -- build up the meta data
+    prefix <- liftM parseTags $ readFile "elements/prefix.txt"
+    suffix <- liftM parseTags $ readFile "elements/suffix.txt"
+    meta <- populateMeta pages
+    
+    -- process the files
     let outloc x | takeBaseName x == "index" = "index.html"
                  | otherwise = takeBaseName x </> "index.html"
-    prefix <- readFileTree "elements/prefix.txt"
-    suffix <- readFileTree "elements/suffix.txt"
-    args <- getArgs
-    extra <- return [(x, tagStr x "") | x <- args]
-    process (reader extra) (rewrite prefix suffix) [(p, outloc p) | p <- pages]
+    putStr "Processing files  "
+    process (rewrite meta prefix suffix) [(p, outloc p) | p <- pages]
+
+
+populateMeta pages = do
+    putStr "Reading meta data "
+    let files = ["downloads" </> x </> "metadata.txt" | x <- ["","paper","slides"]]
+    global <- readMetadataGlobal
+    meta <- liftM (map (map f) . concat) $ mapM readMetadataFile files
+    pages <- mapM g pages
+    putStrLn ""
+    return $ Metadata global [] meta pages
+    where
+        f ("url",x) | not $ "http:" `isPrefixOf` x = ("url", ndm ++ "downloads/" ++ x)
+        f x = x
+
+        g file = do
+            putChar '.'
+            let base = takeBaseName file
+            res <- readMetadataHead file
+            return $ ("page",file)
+                   : ("name",base)
+                   : ("root",if base == "index" then "" else "../")
+                   : res
+
+
+rewrite :: Metadata -> [Tag] -> [Tag] -> FilePath -> IO String
+rewrite meta prefix suffix file = do
+    putChar '.'
+    src <- liftM parseTags $ dropMetadataHead file
+    meta <- return meta{page = head [p | p <- pages meta, lookup "page" p == Just file]}
+    return $ renderTags $ stream meta $ prefix ++ src ++ suffix
+
+
+meta ! x = fromMaybe (error $ "Meta! " ++ x) $ lookup x (page meta)
+
+
+stream meta (TagOpen (':':name) atts:rest) = tag meta name atts ++ stream meta rest
+stream meta (TagOpen name atts:rest) = TagOpen name (map f atts) : stream meta rest
+    where
+        f (x,'[':'R':'O':'O':'T':']':y) = (x, (meta ! "root") ++ y)
+        f x = x
+
+stream meta (x:xs) = x : stream meta xs
+stream meta [] = []
+
+
+tag meta "root" _ | lookup "name" (page meta) == Just "index" = []
+                  | otherwise = [TagOpen "base" [("href","..")], TagClose "base"]
+
+tag meta "get" [(x,y)] = [TagText $ meta ! (x++y)]
+
+tag meta name atts = []
+
+{-
+
+
+
+
+process :: Metadata -> String -> String -> FilePath -> IO ()
+process meta prefix suffic file = do
+
 
 
 readFileTree x = return . tagTree . parseTags =<< readFile x
@@ -220,3 +283,4 @@ getProject c = case c !# "shortname" of
 
 link url title extra = "<a href='" ++ url ++ "'>" ++ title ++ "</a>" ++
                        if null extra then "" else " - " ++ extra
+-}
