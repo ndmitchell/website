@@ -28,14 +28,6 @@ title=  Unfailing Haskell: A Static Checker for Pattern Matching
 page=   catch
 parent= paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 
-type=   slides
-url=    slides-termination_checking_for_a_lazy_functional_language-21_dec_2004.pdf
-date=   21 Dec 2004
-title=  Termination checking for a lazy functional language
-where=  my first year literature review seminar
-page=   catch
-
-
 % FIRSTIFY
 
 type=   slides
@@ -44,3 +36,12 @@ date=   06 Apr 2007
 title=  First Order Haskell
 where=  <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
 page=   firstify
+
+% THESIS
+
+type=   slides
+url=    slides-termination_checking_for_a_lazy_functional_language-21_dec_2004.pdf
+date=   21 Dec 2004
+title=  Termination checking for a lazy functional language
+where=  my first year literature review seminar
+page=   thesis
