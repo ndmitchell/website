@@ -17,7 +17,6 @@
 		</td>
 		<td id="bottom">
     		&copy; <!contact "Neil Mitchell"> 2004-2008.
-    			<!-- , design &copy; <a href="http://www-users.york.ac.uk/~srms500/">Siti Saleh</a> 2005. -->
     	</td>
     </tr>
 </table>
