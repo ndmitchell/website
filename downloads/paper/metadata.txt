@@ -87,7 +87,7 @@ text=
 
 
 type=   paper
-paper=  catch
+page=   catch
 author= Neil Mitchell and Colin Runciman
 title=  A Static Checker for Safe Pattern Matching in Haskell
 date=   01 Feb 2007

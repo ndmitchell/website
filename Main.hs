@@ -47,7 +47,7 @@ populateMeta pages = do
     putStrLn ""
     return $ Metadata global [] meta pages
     where
-        f ("url",x) | not $ "http:" `isPrefixOf` x = ("url", ndm ++ "downloads/" ++ x)
+        f (y,x) | y `elem` ["url","parent"] = (y, url x)
         f x = x
 
         g file = do
@@ -59,6 +59,13 @@ populateMeta pages = do
                    : ("root",if base == "index" then "" else "../")
                    : [("shortname",res !- "title") | not $ "shortname" `elemFst` res]
                    ++ res
+
+
+url x | "http:" `isPrefixOf` x = x
+      | "hackage:" `isPrefixOf` x = "http://hackage.haskell.org/cgi-bin/hackage-scripts/package/" ++ drop 8 x
+      | "darcs:" `isPrefixOf` x = "http://www.cs.york.ac.uk/fp/darcs/" ++ drop 6 x
+      | otherwise = ndm ++ "downloads/" ++ x
+
 
 
 rewrite :: Metadata -> String -> String -> FilePath -> IO String
@@ -86,7 +93,7 @@ menu meta = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
 -- META OPERATIONS
 
 meta ! x = page meta !- x
-x !- y = fromMaybe (error $ "!- " ++ y) $ lookup y x
+x !- y = fromMaybe (error $ "!- " ++ y ++ "\n" ++ show x) $ lookup y x
 
 meta !> x = head [p | p <- pages meta, lookup "name" p == Just x2]
     where x2 = takeBaseName x
@@ -162,7 +169,54 @@ tag meta "show-catch" _ | "catch" `elemFst` page meta = []
 tag meta "show-menu" _ = repRoot meta $ global meta !- "menu"
 
 
+tag meta "downloads" _ = "<h2>Downloads</h2>" ++ showDownloads (reparentDownloads down)
+    where
+        name = meta ! "name"
+        down = map toDownload $ filter (\x -> name `elem` words (x !- "page")) $ extra meta
+
 tag meta name atts = [] -- error $ "Unrecognised tag: " ++ name
+
+
+
+-- year month day
+type Sort = Either String (Int,Int,Int)
+data Download = Download {key :: Sort, href :: String, parent :: String
+                         ,icon :: String, entry :: String, children :: [Download]}
+
+
+toDownload :: Data -> Download
+toDownload x = Download key url (fromMaybe "" $ lookup "parent" x) typ entry []
+    where
+        url = x !- "url"
+        typ = x !- "type"
+        key = maybe (Left typ) dateToSort (lookup "date" x)
+
+        entry | typ == "darcs" = "<a href='http://darcs.net/'>darcs</a> get --partial " ++
+                                 "<a href='" ++ url ++ "'>" ++ url ++ "</a>"
+              | otherwise = "<a href='" ++ url ++ "'>" ++ title ++ "</a>" ++
+                            maybe [] (" - from " ++) (lookup "where" x) ++
+                            maybe [] (" - " ++) (lookup "note" x)
+
+        title = case lookup "title" x of
+                    Just y -> y
+                    _ | typ == "release" -> "Released on Hackage"
+                      | typ == "blog" -> "Related blog posts"    
+
+
+dateToSort :: String -> Sort
+dateToSort = Left
+
+
+
+reparentDownloads :: [Download] -> [Download]
+reparentDownloads = id
+
+
+
+showDownloads :: [Download] -> String
+showDownloads [] = []
+showDownloads xs = "<ul>" ++ concatMap f (sortBy (compare `on` key) xs) ++ "</ul>"
+    where f x = "<li class='" ++ icon x ++ "'>" ++ entry x ++ showDownloads (children x) ++ "</li>"
 
 
 

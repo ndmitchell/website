@@ -1,4 +1,6 @@
 
+    <:downloads>
+
 	<p id="tags">
 		<b>Tags</b>: <:show-tags>
 	</p>

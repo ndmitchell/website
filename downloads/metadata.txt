@@ -1,0 +1,21 @@
+
+% CATCH STUFF
+
+type=   manual
+url=    darcs:catch/catch.htm
+title=  Catch: A User Manual
+page=   catch
+parent= hackage:catch
+
+type=   darcs
+url=    darcs:catch
+page=   catch
+parent= hackage:catch
+
+type=   release
+url=    hackage:catch
+page=   catch
+
+type=   blog
+url=    blog:catch
+page=   catch
