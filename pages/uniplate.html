@@ -29,17 +29,3 @@ variables (Div  x y) = variables x ++ variables y
 variables :: Expr -> [String]
 variables x = [y | Var y <- universe x]
 </pre>
-<:downloads>
-    <:darcs>
-    <:manual "Boilerplate Removal with Uniplate">
-    <:haddock>
-    <:blog>
-    <:release>
-    <:conf "Haskell Workshop 2007" "http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">
-        <:paper "uniform_boilerplate_and_list_processing-30_sep_2007.pdf" "Uniform Boilerplate and List Processing">
-        <:slides "uniform_boilerplate_and_list_processing-30_sep_2007.pdf" "Uniform Boilerplate and List Processing">
-        <:video "http://www.ludd.ltu.se/~pj/hw2007/uniplate.mov" "Uniform Boilerplate and List Processing">
-    </:conf>
-    <:slides "transformation_and_analysis_of_haskell_source_code-02_jul_2007.pdf" "Transformation and Analysis of Haskell Source Code" "my thesis seminar">
-    <:slides "playing_with_haskell_data-18_jan_2007.pdf" "Playing with Haskell Data" "a talk I gave to PLASMA">
-</:downloads>

@@ -217,6 +217,7 @@ downloadTypes = let (*) = (,) in
     ,"manual" * "Manuals"
     ,"draft" * "Draft Papers"
     ,"slides" * "Presentation Slides"
+    ,"video" * "Videos"
     ,"darcs" * "Darcs Repositories"
     ,"haddock" * "Haddock Documentation"
     ,"blog" * "Blog Postings"
@@ -252,7 +253,7 @@ toDownload x = Download key url (fromMaybe "" $ lookup "parent" x) typ entry []
 
         title = case lookup "title" x of
                     Just y -> y
-                    _ | typ == "release" -> "Released on Hackage"
+                    _ | typ == "release" -> "Released version"
                       | typ == "blog" -> "Related blog posts"
                       | typ == "haddock" -> "Haddock documentation"
 
