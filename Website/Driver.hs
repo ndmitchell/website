@@ -37,4 +37,5 @@ process rewrite xs = do
     where
         f (from,to) = do
             res <- rewrite from
+            createDirectoryIfMissing True (takeDirectory to)
             writeFileBinary to res
