@@ -108,7 +108,9 @@ noRoot meta = meta{page=("root","$"):page meta}
 repRoot meta = concatMap f
     where f x = if x == '$' then root meta else [x]
 
-urlTag meta x = root meta ++ "tags/#" ++ x
+urlTag meta x = root meta ++ "tags/" ++
+                (if "debug" `elemFst` global meta then "index.html" else "") ++
+                "#" ++ x
 
 urlPage meta x = concat [root meta
                         ,if x2 == "index" then "" else x2 ++ "/"
