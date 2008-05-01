@@ -96,7 +96,7 @@ menu meta = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
 meta ! x = page meta !- x
 x !- y = fromMaybe (error $ "!- " ++ y ++ "\n" ++ show x) $ lookup y x
 
-meta !> x = head [p | p <- pages meta, lookup "name" p == Just x2]
+meta !> x = headNote ("!>, " ++ x) [p | p <- pages meta, lookup "name" p == Just x2]
     where x2 = takeBaseName x
 
 meta !>- (page,y) = (meta !> page) !- y
@@ -177,7 +177,7 @@ tag meta "all-tags" _ = concatMap f tagList
         tagList = sort [(a,b) | x <- lines $ unsafePerformIO $ readFile "tags.txt", let (a,_:b) = break (== '=') x]
 
         f (tag,desc) = if null items then "" else
-                       "<p><b><a name='" ++ tag ++ "'>" ++ tag ++ "</b></a>: " ++ desc ++ "<br/>" ++
+                       "<p><b><a name='" ++ tag ++ "'></a>" ++ tag ++ "</b>: " ++ desc ++ "<br/>" ++
                        concat (intersperse ", " items)
             where items = concatMap (g tag) $ pages meta
         
@@ -198,7 +198,29 @@ tag meta "downloads" _ | null down = ""
         name = meta ! "name"
         down = map toDownload $ filter (\x -> name `elem` words (x !- "page")) $ extra meta
 
+tag meta "all-downloads" _ = concatMap g groups 
+    where
+        groups = sortBy (compare `on` f) $ groupBy ((==) `on` icon) $ sortBy (compare `on` icon) items
+        items = map (toDownloadPage meta) $ extra meta
+        f (x:_) = fromMaybe maxBound $ findIndex ((==) (icon x) . fst) downloads
+        
+        downloads = let (*) = (,) in
+            ["paper" * "Papers"
+            ,"release" * "Releases"
+            ,"manual" * "Manuals"
+            ,"draft" * "Draft Papers"
+            ,"slides" * "Presentation Slides"
+            ,"darcs" * "Darcs Repositories"
+            ,"haddock" * "Haddock Documentation"
+            ,"blog" * "Blog Postings"
+            ]
+
+        g xs = "<h2>" ++ downloads !- icon (head xs) ++ "</h2>" ++ showDownloads xs
+
+
+
 tag meta name atts = "<h1 style='color:red'>" ++ name ++ "</h1>" -- error $ "Unrecognised tag: " ++ name
+
 
 
 
@@ -206,7 +228,15 @@ tag meta name atts = "<h1 style='color:red'>" ++ name ++ "</h1>" -- error $ "Unr
 type Sort = (Maybe (Int,Int,Int), String)
 data Download = Download {key :: Sort, href :: String, parent :: String
                          ,icon :: String, entry :: String, children :: [Download]}
+                deriving Show
 
+
+toDownloadPage meta x = res{entry = entry res ++ " (<a href=\"" ++ url ++ "\">" ++ title ++ "</a>)"}
+    where
+        res = toDownload x
+        url = urlPage meta name
+        title = meta !>- (name, "shortname")
+        name = head $ words $ x !- "page"
 
 toDownload :: Data -> Download
 toDownload x = Download key url (fromMaybe "" $ lookup "parent" x) typ entry []

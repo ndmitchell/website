@@ -125,7 +125,7 @@ date=   30 Nov 2006
 where=  PLASMA
 
 
-*page=  pasta
+*page=  totalpasta
 
 url=    slides-total_pasta-23_mar_2005.pdf
 title=  Total Pasta
