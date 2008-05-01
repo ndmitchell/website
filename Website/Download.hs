@@ -14,14 +14,14 @@ import Website.Driver
 
 type Date = (Int, Int, Int)
 
-data Download = Download {
-    date :: Maybe Date, -- ^ Date on which the item was given
-    typ :: DownloadType, -- ^ Type of item
-    url :: URL, -- ^ Where it is
-    parent :: URL, -- ^ Its parent URL
-    dlEntry :: String, -- ^ The text
-    dlPage :: String, -- ^ The page it is on
-    children :: [Download] -- ^ Any children
+data Download = Download
+    {date :: Maybe Date      -- ^ Date on which the item was given
+    ,typ :: DownloadType     -- ^ Type of item
+    ,url :: URL              -- ^ Where it is
+    ,parent :: URL           -- ^ Its parent URL
+    ,dlEntry :: String       -- ^ The text
+    ,dlPage :: String        -- ^ The page it is on
+    ,children :: [Download]  -- ^ Any children
     } deriving Show
 
 instance Eq Download where
