@@ -1,47 +1,155 @@
-% CATCH
+*type=  slides
 
-type=   slides
+
+*page=  catch
+
 url=    slides-detecting_pattern_match_failures_in_haskell-26_nov_2007.pdf
 title=  Detecting Pattern-Match Failures in Haskell
 date=   26 Nov 2007
 where=  <a href="http://metacomp.comlab.ox.ac.uk/">The Oxford Centre for Metacomputation</a>
-page=   catch
 
-type=   slides
 url=    slides-catch-06_apr_2006.pdf
-date=   06 Apr 2006
 title=  Catch, A Practical Tool
+date=   06 Apr 2006
 where=  <a href="http://www.bctcs.ac.uk/">BCTCS 2006</a>
-page=   catch
 
-type=   slides
-url=    slides-catch-16_mar_2006.pdf
-date=   16 Mar 2006
-title=  Catch, Lazy Termination
-where=  PLASMA
-page=   catch
-
-type=   slides
 url=    slides-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
-date=   24 Sep 2005
 title=  Unfailing Haskell: A Static Checker for Pattern Matching
-page=   catch
+date=   24 Sep 2005
+where=  where=  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a>
 parent= paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 
-% FIRSTIFY
 
-type=   slides
+*page=  firstify
+
 url=    slides-first_order_haskell-06_apr_2007.pdf
-date=   06 Apr 2007
 title=  First Order Haskell
+date=   06 Apr 2007
 where=  <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
-page=   firstify
 
-% THESIS
 
-type=   slides
+*page=  thesis
+
+url=    slides-transformation_and_analysis_of_haskell_source_code-02_jul_2007.pdf
+title=  Transformation and Analysis of Haskell Source Code
+date=   02 Jul 2007
+where=  my thesis seminar
+
+url=    slides-catch-16_mar_2006.pdf
+title=  Catch, Lazy Termination
+date=   16 Mar 2006
+where=  PLASMA
+
 url=    slides-termination_checking_for_a_lazy_functional_language-21_dec_2004.pdf
-date=   21 Dec 2004
 title=  Termination checking for a lazy functional language
+date=   21 Dec 2004
 where=  my first year literature review seminar
-page=   thesis
+
+
+*page=  teaching
+
+url=    slides-ada_generics-07_mar_2007.pdf
+title=  Ada: Generics
+date=   07 Mar 2007
+where=  the Algorithms and Data Structures course
+
+
+*page=  parsing
+
+url=    slides-a_new_parser-17_nov_2004.pdf
+title=  A New Parser
+date=   17 Nov 2004
+where=  PLASMA
+
+
+*page=  derive
+
+url=    slides-deriving_generic_functions_by_example-26_oct_2007.pdf
+title=  Deriving Generic Functions by Example
+date=   26 Oct 2007
+where=  <a href="http://www.cs.york.ac.uk/yds/">York Doctoral Symposium 2007</a>
+parent= paper-deriving_generic_functions_by_example-26_oct_2007.pdf
+
+
+*page=  firstify
+
+url=    slides-first_order_haskell-06_apr_2007.pdf
+title=  First Order Haskell
+date=   06 Apr 2007
+where=  <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
+
+
+*page=  hat
+
+url=    slides-hat_windows_and_wimp-05_oct_2006.pdf
+title=  Hat: Windows and WIMP
+date=   05 Oct 2006
+where=  <a href="http://www.haskell.org/hat/">Hat</a> Day 2006 (Kent)
+
+url=    slides-hat_visual-27_may_2005.pdf
+title=  Hat Visual
+date=   27 May 2005
+where=  <a href="http://www.haskell.org/hat/">Hat</a> Day 2005 (York)
+parent= paper-hatday-28_oct_2005.pdf
+
+
+*page=  hoogle
+
+url=    slides-hoogle-08_dec_2005.pdf
+title=  Hoogle
+date=   08 Dec 2005
+where=  PLASMA
+
+
+*page=  supero
+
+url=    slides-supero_making_haskell_faster-27_sep_2007.pdf
+title=  Supero: Making Haskell Faster
+date=   27 Sep 2007
+where=  <a href="http://proglang.informatik.uni-freiburg.de/IFL2007/">IFL 2007</a>
+parent= paper-supero_making_haskell_faster-27_sep_2007.pdf
+
+url=    slides-faster_haskell-10_aug_2007.pdf
+title=  Faster Haskell
+date=   10 Aug 2007
+where=  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2007">Anglo Haskell 2007</a>
+
+url=    slides-fastest_lambda_first-30_may_2007.pdf
+title=  Fastest Lambda First
+date=   30 May 2007
+where=  PLASMA
+
+url=    slides-haskell_with_go_faster_stripes-30_nov_2006.pdf
+title=  Haskell With Go Faster Stripes
+date=   30 Nov 2006
+where=  PLASMA
+
+
+*page=  pasta
+
+url=    slides-total_pasta-23_mar_2005.pdf
+title=  Total Pasta
+date=   23 Mar 2005
+where=  <a href="http://www.bctcs.ac.uk/">BCTCS 2005</a>
+
+
+*page=  uniplate
+
+url=    slides-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
+title=  Uniform Boilerplate and List Processing
+date=   30 Sep 2007
+where=  <a href="http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">Haskell Workshop 2007</a>
+parent= paper-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
+
+url=    slides-playing_with_haskell_data-18_jan_2007.pdf
+title=  Playing with Haskell Data
+date=   18 Jan 2007
+where=  PLASMA
+
+
+*page=  yhc
+
+url=    slides-yhc_past_present_future-10_aug_2007.pdf
+title=  Yhc: Past, Present, Future
+date=   10 Aug 2007
+where=  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2007">Anglo Haskell 2007</a>

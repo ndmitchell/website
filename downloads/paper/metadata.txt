@@ -1,9 +1,13 @@
-type=   paper
+*type=	paper
+
 page=   derive
-title=  Deriving Generic Functions by Example
-where=  <a href="http://www.cs.york.ac.uk/yds/">York Doctoral Symposium 2007</a>
 url=    paper-deriving_generic_functions_by_example-26_oct_2007.pdf
+title=  Deriving Generic Functions by Example
 date=   26 Oct 2007
+where=  <a href="http://www.cs.york.ac.uk/yds/">York Doctoral Symposium 2007</a>
+@pages=55-62
+@publisher=Tech. Report YCS-2007-421, Dept. of Computer Science, University of York, UK
+@editor=Jan Tobias M\"{u}uhlberg and Juan Ignacio Perna
 text=
     A function is said to be generic if it operates over values of
     any data type. For example, a generic equality function can test pairs of
@@ -16,18 +20,20 @@ text=
     type and the implementation. We have used our method in the Derive
     tool, allowing the implementation of 60% of the generic functions to be
     inferred.
-@pages=55-62
-@publisher=Tech. Report YCS-2007-421, Dept. of Computer Science, University of York, UK
-@editor=Jan Tobias M\"{u}uhlberg and Juan Ignacio Perna
 
 
-type=   paper
 page=   uniplate
+url=    paper-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
 title=  Uniform Boilerplate and List Processing
-author= Neil Mitchell and Colin Runciman
 date=   30 Sep 2007
 where=  <a href="http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">Haskell Workshop 2007</a>
-url=    paper-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
+author= Neil Mitchell and Colin Runciman
+@booktitle=Haskell '07: Proceedings of the ACM SIGPLAN workshop on Haskell workshop
+@pages=49-60
+@location=Freiburg, Germany
+@doi=http://doi.acm.org/10.1145/1291201.1291208
+@publisher=ACM
+@isbn=978-1-59593-674-5
 text=
     Generic traversals over recursive data structures are often referred
     to as boilerplate code. The definitions of functions involving such
@@ -39,21 +45,19 @@ text=
     just one type. We present the design of a new library exploiting
     this assumption. Our library allows concise expression of traversals
     with competitive performance.
-@booktitle=Haskell '07: Proceedings of the ACM SIGPLAN workshop on Haskell workshop
-@pages=49-60
-@location=Freiburg, Germany
-@doi=http://doi.acm.org/10.1145/1291201.1291208
-@publisher=ACM
-@isbn=978-1-59593-674-5
 
 
-type=   paper
 page=   supero
-title=  Supero: Making Haskell Faster
-author= Neil Mitchell and Colin Runciman
-date=   27 Sep 2007
 url=    paper-supero_making_haskell_faster-27_sep_2007.pdf
+title=  Supero: Making Haskell Faster
+date=   27 Sep 2007
 where=  <a href="http://proglang.informatik.uni-freiburg.de/IFL2007/">IFL 2007</a>
+author= Neil Mitchell and Colin Runciman
+@booktitle=IFL 2007: Draft Proceedings of the 19th International Symposium on Implementation and Application of Functional Languages
+@location=Freiburg, Germany
+@publisher=Tech. Report No. 12-07 of the Computing Laboratory, University of Kent, UK
+@editor=Olaf Chitil
+@pages=334-349
 text=
     Haskell is a functional language, with features such as higher
     order functions and lazy evaluation, which allow succinct programs. These
@@ -61,38 +65,35 @@ text=
     and widely used optimising compiler. This paper presents a whole-program
     approach to optimisation, which produces speed improvements
     of between 10% and 60% when used with GHC, on eight benchmarks.
-@booktitle=IFL 2007: Draft Proceedings of the 19th International Symposium on Implementation and Application of Functional Languages
-@location=Freiburg, Germany
-@publisher=Tech. Report No. 12-07 of the Computing Laboratory, University of Kent, UK
-@editor=Olaf Chitil
-@pages=334-349
 
 
-type=   paper
 page=   yhc
-title=  Yhc.Core - from Haskell to Core
-author= Dimitry Golubovsky and Neil Mitchell and Matthew Naylor
-where=  The <a href="http://www.haskell.org/haskellwiki/The_Monad.Reader">Monad.Reader</a>
-date=   30 Apr 2007
 url=    paper-yhc_core-30_apr_2007.pdf
+title=  Yhc.Core - from Haskell to Core
+date=   30 Apr 2007
+where=  The <a href="http://www.haskell.org/haskellwiki/The_Monad.Reader">Monad.Reader</a>
+author= Dimitry Golubovsky and Neil Mitchell and Matthew Naylor
+@at=article
+@journal=The Monad.Reader
+@number=7
+@pages=45-61
 text=
     The Yhc compiler is a hot-bed of new and interesting ideas. We present Yhc.Core
     - one of the most popular libraries from Yhc. We describe what we think makes
     Yhc.Core special, and how people have used it in various projects including an
     evaluator, and a Javascript code generator.
-@at=article
-@journal=The Monad.Reader
-@number=7
-@pages=45-61
 
 
-type=   paper
 page=   catch
-author= Neil Mitchell and Colin Runciman
-title=  A Static Checker for Safe Pattern Matching in Haskell
-where=  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a> post proceedings
-date=   01 Feb 2007
 url=    paper-a_static_checker_for_safe_pattern_matching_in_haskell-01_feb_2007.pdf
+title=  A Static Checker for Safe Pattern Matching in Haskell
+date=   01 Feb 2007
+where=  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a> post proceedings
+author= Neil Mitchell and Colin Runciman
+@publisher=Intellect
+@booktitle=Trends in Functional Programming
+@volume=6
+@isbn=978-1-84150-176-5
 text=
     A Haskell program may fail at runtime with a pattern-match error if
     the program has any incomplete (non-exhaustive) patterns in definitions or case
@@ -100,19 +101,16 @@ text=
     to exist, yet ensures that a pattern-match error does not occur. It describes a
     constraint language that can be used to reason about pattern matches, along with
     mechanisms to propagate these constraints between program components.
-@publisher=Intellect
-@booktitle=Trends in Functional Programming
-@volume=6
-@isbn=978-1-84150-176-5
 
 
-type=   paper
 page=   catch
+url=    paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 title=  Unfailing Haskell: A Static Checker for Pattern Matching
+date=   24 Sep 2005
 where=  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a>
 author= Neil Mitchell and Colin Runciman
-date=   24 Sep 2005
-url=    paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
+@booktitle=Proceedings of the Sixth Symposium on Trends in Functional Programming
+@pages=313-328
 text=
     A Haskell program may fail at runtime with a pattern-match error if the program has
     any incomplete (non-exhaustive) patterns in definitions or case alternatives. This paper
@@ -120,30 +118,28 @@ text=
     that a pattern-match error does not occur. It describes a constraint language that can
     be used to reason about pattern matches, along with mechanisms to propagate these
     constraints between program components.
-@booktitle=Proceedings of the Sixth Symposium on Trends in Functional Programming
-@pages=313-328
 
 
-type=   paper
 page=   hat
+url=    paper-hatday-28_oct_2005.pdf
 title=  Visual Hat
 date=   28 Oct 2005
-url=    paper-hatday-28_oct_2005.pdf
-text=
-    This paper describes a new approach to visualizing
-    the data contained in Hat traces. The aim is to cater for Windows
-    users who are more familiar with graphical debugging tools.
 @booktitle=Hat Day 2005: work in progress on the Hat tracing system for Haskell
 @pages=23-26
 @publisher=Tech. Report YCS-2005-395, Dept. of Computer Science, University of York, UK
 @editor=Colin Runciman
+text=
+    This paper describes a new approach to visualizing
+    the data contained in Hat traces. The aim is to cater for Windows
+    users who are more familiar with graphical debugging tools.
 
 
-type=   paper
 page=   thesis
+url=    paper-qualifying_dissertation-30_jun_2005.pdf
 title=  Qualifying Dissertation: Unfailing Haskell
 date=   30 Jun 2005
-url=    paper-qualifying_dissertation-30_jun_2005.pdf
+@at=misc
+@institution=University of York
 text=
     Programs written in Haskell may fail at runtime with either a
     pattern match error, or with non-termination. Both of these can be
@@ -165,5 +161,3 @@ text=
     The proposal deals with future work to be done. It gives an
     approximate timetable for the design and implementation of a static
     checker for termination and pattern match errors.
-@at=misc
-@institution=University of York

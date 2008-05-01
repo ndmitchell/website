@@ -29,7 +29,7 @@ data Line = Attrib String String | Blank | Indent String
 readMetadataFile :: FilePath -> IO [Data]
 readMetadataFile file = do
     src <- readFile file
-    return $ collate [] $ join $ map classify $ lines src
+    return $ collate [] [] $ join $ map classify $ lines src
     where
         -- classify each line by what it is
         classify xs | all isSpace xs = Blank
@@ -44,9 +44,12 @@ readMetadataFile file = do
         join (x:xs) = x : join xs
         join [] = [Blank]
 
-        collate seen (Blank:xs) = [reverse $ seen | not $ null seen] ++ collate [] xs
-        collate seen (Attrib a b:xs) = collate ((a,b):seen) xs
-        collate [] [] = []
+        collate def seen (Blank:xs) = [def ++ reverse seen | not $ null seen] ++ collate def [] xs
+        collate def seen (Attrib ('*':a) b:xs) = collate (addDef def a b) seen xs
+        collate def seen (Attrib a b:xs) = collate def ((a,b):seen) xs
+        collate def [] [] = []
+
+        addDef def a b = filter ((/=) a . fst) def ++ [(a,b) | b /= ""]
 
 
 readMetadataHead :: FilePath -> IO Data

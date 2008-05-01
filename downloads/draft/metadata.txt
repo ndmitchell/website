@@ -1,4 +1,5 @@
-draft
+*type=  draft
+
 pages=  parsing
 title=  Parser Design
 url=    draft-parser_design-17_nov_2004.pdf
