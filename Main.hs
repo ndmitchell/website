@@ -40,7 +40,7 @@ main = do
 
 populateMeta pages = do
     putStr "Reading meta data "
-    let files = ["downloads" </> x </> "metadata.txt" | x <- ["","paper","slides"]]
+    let files = ["downloads" </> x </> "metadata.txt" | x <- ["","paper","slides","draft"]]
     global <- readMetadataGlobal
     meta <- liftM (map (map f) . concat) $ mapM readMetadataFile files
     pages <- mapM g pages

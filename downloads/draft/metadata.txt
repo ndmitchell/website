@@ -1,7 +1,7 @@
 *type=  draft
 
-pages=  parsing
-title=  Parser Design
+page=   parsing
 url=    draft-parser_design-17_nov_2004.pdf
+title=  Parser Design
 date=   17 Nov 2004
-note=   Very early notes on my ideas regarding parsing.
+note=   very early notes on my ideas regarding parsing.

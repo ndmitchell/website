@@ -20,14 +20,6 @@ where=  where=  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a>
 parent= paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 
 
-*page=  firstify
-
-url=    slides-first_order_haskell-06_apr_2007.pdf
-title=  First Order Haskell
-date=   06 Apr 2007
-where=  <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
-
-
 *page=  thesis
 
 url=    slides-transformation_and_analysis_of_haskell_source_code-02_jul_2007.pdf

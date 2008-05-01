@@ -136,3 +136,100 @@ parent=	paper-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
 
 type=	release
 url=	http://cvs.haskell.org/Hugs/pages/downloading.htm
+
+
+*page=	binarydefer
+
+type=	manual
+url=	darcs:binarydefer/binarydefer.htm
+title=	Deferred Binary Serialisation
+
+type=	darcs
+url=	darcs:binarydefer
+
+type=	haddock
+url=	haddock:binarydefer/Data-Binary-Defer.html
+
+
+*page=	drhaskell
+
+type=	darcs
+url=	darcs:drhaskell
+
+
+*page=	firstify
+
+type=	darcs
+url=	darcs:firstify
+
+type=	release
+url=	hackage:firstify
+
+
+*page=	guihaskell
+
+type=	darcs
+url=	darcs:guihaskell
+
+
+*page=	hat
+
+type=	release
+url=	http://www.cs.york.ac.uk/fp/temp/hat-win32-05_jul_2006.zip
+
+
+*page=	proplang
+
+type=	darcs
+url=	darcs:proplang
+
+
+*page=	proposition
+
+type=	darcs
+url=	darcs:proposition
+
+type=	haddock
+url=	haddock:proposition/Data-Proposition.html
+
+
+*page=	safe
+
+type=	release
+url=	hackage:Safe
+
+type=	darcs
+url=	darcs:safe
+parent=	hackage:Safe
+
+type=	haddock
+url=	haddock:Safe/Safe.html
+parent=	hackage:Safe
+
+
+*page=	tex2hs
+
+type=	darcs
+url=	darcs:tex2hs
+
+
+*page=	winhaskell
+
+type=	darcs
+url=	darcs:winhaskell
+
+
+*page=	yhc
+
+type=	manual
+url=	http://www.haskell.org/haskellwiki/Yhc
+title=	Yhc Manual (wiki)
+
+type=	darcs
+url=	http://darcs.haskell.org/yhc/
+
+type=	haddock
+url=	http://www.cs.york.ac.uk/fp/yhc/snapshot/docs/
+
+type=	blog
+url=	http://yhc06.blogspot.com/
