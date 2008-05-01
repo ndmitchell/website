@@ -2,9 +2,17 @@
 module Website.Util where
 
 import Control.Monad
+import Data.Maybe
 import System.Directory
 import System.FilePath
 import System.IO
+
+
+type URL = String
+
+(!#) :: [(String,a)] -> String -> a
+(!#) xs y = fromMaybe (error $ "!# failed, looking for " ++ show y ++ " in " ++ show (map fst xs)) $
+            lookup y xs
 
 
 isDirectory x = if hasTrailingPathSeparator x
