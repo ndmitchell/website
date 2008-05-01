@@ -65,6 +65,7 @@ url x | "http:" `isPrefixOf` x = x
       | "hackage:" `isPrefixOf` x = "http://hackage.haskell.org/cgi-bin/hackage-scripts/package/" ++ drop 8 x
       | "darcs:" `isPrefixOf` x = "http://www.cs.york.ac.uk/fp/darcs/" ++ drop 6 x
       | "blog:" `isPrefixOf` x = "http://neilmitchell.blogspot.com/search/label/" ++ drop 5 x
+      | "haddock:" `isPrefixOf` x = "http://www.cs.york.ac.uk/fp/haddock/" ++ drop 8 x
       | otherwise = ndm ++ "downloads/" ++ x
 
 
@@ -202,30 +203,28 @@ tag meta "all-downloads" _ = concatMap g groups
     where
         groups = sortBy (compare `on` f) $ groupBy ((==) `on` icon) $ sortBy (compare `on` icon) items
         items = map (toDownloadPage meta) $ extra meta
-        f (x:_) = fromMaybe maxBound $ findIndex ((==) (icon x) . fst) downloads
-        
-        downloads = let (*) = (,) in
-            ["paper" * "Papers"
-            ,"release" * "Releases"
-            ,"manual" * "Manuals"
-            ,"draft" * "Draft Papers"
-            ,"slides" * "Presentation Slides"
-            ,"darcs" * "Darcs Repositories"
-            ,"haddock" * "Haddock Documentation"
-            ,"blog" * "Blog Postings"
-            ]
-
-        g xs = "<h2>" ++ downloads !- icon (head xs) ++ "</h2>" ++ showDownloads xs
+        f (x:_) = fromJust $ findIndex ((==) (icon x) . fst) downloadTypes
+        g xs = "<h2>" ++ downloadTypes !- icon (head xs) ++ "</h2>" ++ showDownloads xs
 
 
 
 tag meta name atts = "<h1 style='color:red'>" ++ name ++ "</h1>" -- error $ "Unrecognised tag: " ++ name
 
 
+downloadTypes = let (*) = (,) in
+    ["paper" * "Papers"
+    ,"release" * "Releases"
+    ,"manual" * "Manuals"
+    ,"draft" * "Draft Papers"
+    ,"slides" * "Presentation Slides"
+    ,"darcs" * "Darcs Repositories"
+    ,"haddock" * "Haddock Documentation"
+    ,"blog" * "Blog Postings"
+    ]
 
 
 -- year month day
-type Sort = (Maybe (Int,Int,Int), String)
+type Sort = (Maybe (Int,Int,Int), Int)
 data Download = Download {key :: Sort, href :: String, parent :: String
                          ,icon :: String, entry :: String, children :: [Download]}
                 deriving Show
@@ -243,7 +242,7 @@ toDownload x = Download key url (fromMaybe "" $ lookup "parent" x) typ entry []
     where
         url = x !- "url"
         typ = x !- "type"
-        key = (liftM dateToSort $ lookup "date" x, typ) 
+        key = (liftM dateToSort $ lookup "date" x, fromJust $ findIndex ((==) typ . fst) downloadTypes) 
 
         entry | typ == "darcs" = "<a href='http://darcs.net/'>darcs</a> get --partial " ++
                                  "<a href='" ++ url ++ "'>" ++ url ++ "</a>"
@@ -254,7 +253,8 @@ toDownload x = Download key url (fromMaybe "" $ lookup "parent" x) typ entry []
         title = case lookup "title" x of
                     Just y -> y
                     _ | typ == "release" -> "Released on Hackage"
-                      | typ == "blog" -> "Related blog posts"    
+                      | typ == "blog" -> "Related blog posts"
+                      | typ == "haddock" -> "Haddock documentation"
 
 
 dateToSort :: String -> (Int,Int,Int)
