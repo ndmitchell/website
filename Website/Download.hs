@@ -56,10 +56,11 @@ showDownloadTypeTitle x = case x of
 
 
 readDownload :: Data -> Download
-readDownload x = Download date typ url (fromMaybe "" $ lookup "parent" x)
+readDownload x = Download date typ url parent
                  entry page (fromMaybe "" $ lookup "text" x) bibtex []
     where
         page = x !# "page"
+        parent = fromMaybe "" $ lookup "parent" x
         url = x !# "url"
         typ = readDownloadType $ x !# "type"
         date = liftM dateToSort $ lookup "date" x 
@@ -76,7 +77,7 @@ readDownload x = Download date typ url (fromMaybe "" $ lookup "parent" x)
                       | typ == Blog    -> "Related blog posts"
                       | typ == Haddock -> "Haddock documentation"
 
-        bibtex | typ `notElem` [Paper,Manual,Draft,Slides] = ""
+        bibtex | typ `notElem` [Paper,Manual,Draft,Slides] || parent /= "" = ""
                | otherwise = unlines $ ("@" ++ at ++ "{mitchell:" ++ key) :
                                        map showBibLine items ++ ["}"]
             where
