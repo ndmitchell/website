@@ -193,4 +193,5 @@ li ul li {
 	margin-left: 25px;
     background-color: #eee;
     font-family: monospace;
+    overflow: auto;
 }
