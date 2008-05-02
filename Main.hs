@@ -175,7 +175,7 @@ tag meta "all-tags" _ = concatMap f tagList
 tag meta "all-pages" _ =
         "<p>" ++ concat (intersperse ", " $ map snd $ sortBy (compare `on` fst) $ map f $ pgAll meta) ++ "</p>"
     where
-        f (name,page) = (map toLower title, "<a href=\"" ++ urlPage meta name ++ "\">" ++ title ++ "</a>")
+        f (name,page) = (map toLower title, "<a href='" ++ urlPage meta name ++ "'>" ++ title ++ "</a>")
             where title = pgTitle page
 
 
@@ -184,6 +184,11 @@ tag meta "downloads" _ | null down = ""
     where
         down = pgDownloads meta 
 
-tag meta "all-downloads" _ = showDownloadGroup $ concatMap (pgDownloads . snd) $ pgAll meta
+
+tag meta "all-downloads" _ = showDownloadGroup $ concatMap f $ pgAll meta
+    where
+        f (name,page) = map (\dl -> dl{dlText = dlText dl ++ extra}) $ pgDownloads page
+            where extra = " (<a href='" ++ urlPage meta name ++ "'>" ++ pgTitle page ++ "</a>)"
+
 
 tag meta name atts = error $ "Unrecognised tag: " ++ name
