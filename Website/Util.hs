@@ -15,6 +15,10 @@ type URL = String
             lookup y xs
 
 
+(!?) :: [(String,a)] -> String -> Bool
+(!?) xs y = y `elem` map fst xs
+
+
 isDirectory x = if hasTrailingPathSeparator x
                 then return True
                 else doesDirectoryExist x
