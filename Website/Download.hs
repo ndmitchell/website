@@ -1,6 +1,6 @@
 
 module Website.Download(
-    Download(dlEntry, dlPage), readDownload,
+    Download(dlText, dlPage), readDownload,
     showDownloadGroup, showDownloadTree
     ) where
 
@@ -19,7 +19,7 @@ data Download = Download
     ,typ :: DownloadType     -- ^ Type of item
     ,url :: URL              -- ^ Where it is
     ,parent :: URL           -- ^ Its parent URL
-    ,dlEntry :: String       -- ^ The text
+    ,dlText :: String       -- ^ The text
     ,dlPage :: String        -- ^ The page it is on
     ,children :: [Download]  -- ^ Any children
     } deriving Show
@@ -112,6 +112,6 @@ showDownloads :: [Download] -> String
 showDownloads [] = []
 showDownloads xs = "<ul>" ++ concatMap f (sort xs) ++ "</ul>"
     where f x = "<li class='" ++ map toLower (show (typ x)) ++ "'>" ++
-                dlEntry x ++ showDownloads (children x) ++ "</li>"
+                dlText x ++ showDownloads (children x) ++ "</li>"
 
 
