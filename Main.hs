@@ -5,7 +5,6 @@ import Control.Monad
 import Data.Char
 import Data.List
 import Data.Maybe
-import Debug.Trace
 import Safe
 import System.FilePath
 import System.Environment
