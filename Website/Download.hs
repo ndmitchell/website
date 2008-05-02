@@ -80,14 +80,17 @@ readDownload x = Download date typ url (fromMaybe "" $ lookup "parent" x)
                | otherwise = unlines $ ("@" ++ at ++ "{mitchell:" ++ key) :
                                        map showBibLine items ++ ["}"]
             where
-                at = fromMaybe "inproceedings" $ lookup "@at" x
+                (at,ex) | typ == Manual = ("manual",[])
+                        | typ == Draft = ("unpublished",[("note","Draft")])
+                        | typ == Slides = ("misc",[("note","Presentation")])
+                        | otherwise = (fromMaybe "inproceedings" $ lookup "@at" x, [])
                 items = filter (not . null . snd)
                         [("title", x !# "title")
                         ,("author", fromMaybe "Neil Mitchell" $ lookup "author" x)
                         ,("year", maybe "" (\(a,b,c) -> show (negate a)) date)
                         ,("month", maybe "" (\(a,b,c) -> months !! negate b) date)
                         ,("day", maybe "" (\(a,b,c) -> show (negate c)) date)
-                        ] ++
+                        ] ++ ex ++
                         [(a,b) | ('@':a,b) <- x, a /= "at"] ++
                         [("url", "\\verb'" ++ url ++ "'")]
 
