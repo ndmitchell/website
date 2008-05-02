@@ -1,23 +1,17 @@
 
 module Website.Metadata(
     Metadata(..), Data,
-    readMetadataGlobal, readMetadataFile,
+    readMetadataFile,
     readMetadataHead, dropMetadataHead
     ) where
 
 import Control.Arrow
 import Data.Char
-import System.Environment
 
 
 data Metadata = Metadata {global :: Data, page :: Data, extra :: [Data], pages :: [Data]}
 type Data = [(String,String)]
 
-
-readMetadataGlobal :: IO Data
-readMetadataGlobal = do
-    xs <- getArgs
-    return $ map divide xs
 
 divide = (trim *** trim . drop 1) . break (== '=')
 
