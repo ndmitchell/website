@@ -8,6 +8,7 @@ import Control.Monad
 import Data.Char
 import Data.List
 import Data.Maybe
+import Text.HTML.TagSoup
 import Safe
 import System.FilePath
 import Website.Driver
@@ -77,13 +78,14 @@ readDownload x = Download date typ url parent
                       | typ == Blog    -> "Related blog posts"
                       | typ == Haddock -> "Haddock documentation"
 
-        bibtex | typ `notElem` [Paper,Manual,Draft,Slides] || parent /= "" = ""
+        bibtex | typ `notElem` [Paper,Manual,Draft,Slides] = ""
+               | parent /= "" && typ == Slides = ""
                | otherwise = unlines $ ("@" ++ at ++ "{mitchell:" ++ key) :
                                        map showBibLine items ++ ["}"]
             where
                 (at,ex) | typ == Manual = ("manual",[])
                         | typ == Draft = ("unpublished",[("note","Draft")])
-                        | typ == Slides = ("misc",[("note","Presentation")])
+                        | typ == Slides = ("misc",[("note","Presentation" ++ whereText)])
                         | otherwise = (fromMaybe "inproceedings" $ lookup "@at" x, [])
                 items = filter (not . null . snd)
                         [("title", x !# "title")
@@ -97,7 +99,7 @@ readDownload x = Download date typ url parent
 
                 key = map toLower page ++ keyDate
                 keyDate = maybe "" (\(a,b,c) -> concatMap ((:) '_' . show . negate) [a,b-1,c]) date
-
+                whereText = maybe [] (\x -> " from " ++ innerText (parseTags x)) $ lookup "where" x
 
 showBibLine (a,b) = "    ," ++ a ++ replicate (14 - length a) ' ' ++ " = \"" ++ b ++ "\""
 
