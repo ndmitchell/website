@@ -7,7 +7,7 @@ date=   26 Oct 2007
 where=  <a href="http://www.cs.york.ac.uk/yds/">York Doctoral Symposium 2007</a>
 @pages=55-62
 @publisher=Tech. Report YCS-2007-421, Dept. of Computer Science, University of York, UK
-@editor=Jan Tobias M\"{u}uhlberg and Juan Ignacio Perna
+@editor=Jan Tobias M\"{u}hlberg and Juan Ignacio Perna
 text=
     A function is said to be generic if it operates over values of
     any data type. For example, a generic equality function can test pairs of
