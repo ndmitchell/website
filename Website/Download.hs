@@ -57,8 +57,9 @@ showDownloadTypeTitle x = case x of
 
 readDownload :: Data -> Download
 readDownload x = Download date typ url (fromMaybe "" $ lookup "parent" x)
-                 entry (x !# "page") (fromMaybe "" $ lookup "text" x) "bibtex" []
+                 entry page (fromMaybe "" $ lookup "text" x) bibtex []
     where
+        page = x !# "page"
         url = x !# "url"
         typ = readDownloadType $ x !# "type"
         date = liftM dateToSort $ lookup "date" x 
@@ -75,6 +76,27 @@ readDownload x = Download date typ url (fromMaybe "" $ lookup "parent" x)
                       | typ == Blog    -> "Related blog posts"
                       | typ == Haddock -> "Haddock documentation"
 
+        bibtex | typ `notElem` [Paper,Manual,Draft,Slides] = ""
+               | otherwise = unlines $ ("@" ++ at ++ "{mitchell:" ++ key) :
+                                       map showBibLine items ++ ["}"]
+            where
+                at = fromMaybe "inproceedings" $ lookup "@at" x
+                items = filter (not . null . snd)
+                        [("title", x !# "title")
+                        ,("author", fromMaybe "Neil Mitchell" $ lookup "author" x)
+                        ,("year", maybe "" (\(a,b,c) -> show (negate a)) date)
+                        ,("month", maybe "" (\(a,b,c) -> months !! negate b) date)
+                        ,("day", maybe "" (\(a,b,c) -> show (negate c)) date)
+                        ] ++
+                        [(a,b) | ('@':a,b) <- x, a /= "at"] ++
+                        [("url", "\\verb'" ++ url ++ "'")]
+
+                key = map toLower page ++ keyDate
+                keyDate = maybe "" (\(a,b,c) -> concatMap ((:) '_' . show . negate) [a,b-1,c]) date
+
+
+showBibLine (a,b) = "    ," ++ a ++ replicate (14 - length a) ' ' ++ " = \"" ++ b ++ "\""
+
 
 showDownloadTree :: [Download] -> String
 showDownloadTree = showDownloads . reparentDownloads
@@ -88,14 +110,13 @@ showDownloadGroup =
         f xs@(x:_) = "<h2>" ++ showDownloadTypeTitle (typ x) ++ "</h2>" ++ showDownloads xs
 
 
-
-
 -- year month day
 
 dateToSort :: String -> (Int,Int,Int)
-dateToSort x = (negate $ read c, negate $ fromJust $ findIndex (== b) months, negate $ read a)
+dateToSort x = (negate $ read c, negate $ fromJust $ findIndex (isPrefixOf b) months, negate $ read a)
     where [a,b,c] = words x
-months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+months = ["January","February","March","April","May","June"
+         ,"July","August","September","October","November","December"]
 
 
 -- keep two piles, those you have processed looking for children
@@ -144,8 +165,8 @@ showBibtex x | null $ bibtex x = ""
     where
         uid = urlToId (url x)
 
-        f ('$':'\\':'b':'o':'t':'$':xs) = "_|_" ++ f xs
-        f ('\n':'\n':xs) = "<br/><br/>" ++ f xs
+        f (' ':' ':xs) = "&nbsp;" ++ f (' ':xs)
+        f ('\n':xs) = "<br/>" ++ f xs
         f (x:xs) = x : f xs
         f [] = []
 
@@ -157,7 +178,7 @@ showHide item uid = f True ++ f False
               " id='" ++ item ++ "_" ++ name ++ "_" ++ uid ++ "'" ++
               ">(<a class='more'" ++
               " href=\"javascript:" ++ item ++ "_" ++ name ++ "('" ++ uid ++ "')\">" ++
-              (if b then item else "hide " ++ item) ++
+              (if b then item else "hide&nbsp;" ++ item) ++
               "</a>)</span>"
             where name = if b then "show" else "hide"
 
