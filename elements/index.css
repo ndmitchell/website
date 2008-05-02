@@ -176,3 +176,21 @@ li ul li {
 .blog {list-style-image: url(blog.png);}
 .release {list-style-image: url(release.png);}
 .video {list-style-image: url(video.png);}
+
+.abstract {
+	border: 2px solid #808;
+	padding: 1px;
+	padding-left: 5px;
+	margin: 10px;
+	margin-left: 25px;
+    background-color: #edf;
+}
+.bibtex {
+	border: 2px solid gray;
+	padding: 1px;
+	padding-left: 5px;
+	margin: 10px;
+	margin-left: 25px;
+    background-color: #eee;
+    font-family: monospace;
+}

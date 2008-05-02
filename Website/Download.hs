@@ -9,6 +9,7 @@ import Data.Char
 import Data.List
 import Data.Maybe
 import Safe
+import System.FilePath
 import Website.Driver
 
 
@@ -19,8 +20,10 @@ data Download = Download
     ,typ :: DownloadType     -- ^ Type of item
     ,url :: URL              -- ^ Where it is
     ,parent :: URL           -- ^ Its parent URL
-    ,dlText :: String       -- ^ The text
+    ,dlText :: String        -- ^ The text
     ,dlPage :: String        -- ^ The page it is on
+    ,abstract :: String      -- ^ The abstract (may be blank)
+    ,bibtex :: String        -- ^ The bibtex entry (may be blank)
     ,children :: [Download]  -- ^ Any children
     } deriving Show
 
@@ -53,7 +56,8 @@ showDownloadTypeTitle x = case x of
 
 
 readDownload :: Data -> Download
-readDownload x = Download date typ url (fromMaybe "" $ lookup "parent" x) entry (x !# "page") []
+readDownload x = Download date typ url (fromMaybe "" $ lookup "parent" x)
+                 entry (x !# "page") (fromMaybe "" $ lookup "text" x) "bibtex" []
     where
         url = x !# "url"
         typ = readDownloadType $ x !# "type"
@@ -112,6 +116,54 @@ showDownloads :: [Download] -> String
 showDownloads [] = []
 showDownloads xs = "<ul>" ++ concatMap f (sort xs) ++ "</ul>"
     where f x = "<li class='" ++ map toLower (show (typ x)) ++ "'>" ++
-                dlText x ++ showDownloads (children x) ++ "</li>"
+                dlText x ++ showAbstract x ++ showBibtex x ++
+                showDownloads (children x)++ "</li>"
 
 
+showAbstract :: Download -> String
+showAbstract x | null $ abstract x = ""
+               | otherwise = " " ++
+    showHide "abstract" uid ++
+    "<div id='abstract_text_" ++ uid ++ "' class='abstract' style='display:none;'>" ++
+    f (abstract x) ++ "</div>"
+    where
+        uid = urlToId (url x)
+
+        f ('$':'\\':'b':'o':'t':'$':xs) = "_|_" ++ f xs
+        f ('\n':'\n':xs) = "<br/><br/>" ++ f xs
+        f (x:xs) = x : f xs
+        f [] = []
+
+
+showBibtex :: Download -> String
+showBibtex x | null $ bibtex x = ""
+             | otherwise = " " ++
+    showHide "bibtex" uid ++
+    "<div id='bibtex_text_" ++ uid ++ "' class='bibtex' style='display:none;'>" ++
+    f (bibtex x) ++ "</div>"
+    where
+        uid = urlToId (url x)
+
+        f ('$':'\\':'b':'o':'t':'$':xs) = "_|_" ++ f xs
+        f ('\n':'\n':xs) = "<br/><br/>" ++ f xs
+        f (x:xs) = x : f xs
+        f [] = []
+
+
+showHide item uid = f True ++ f False
+    where
+        f b = "<span class='more'" ++
+              (if b then "" else " style='display:none'") ++
+              " id='" ++ item ++ "_" ++ name ++ "_" ++ uid ++ "'" ++
+              ">(<a class='more'" ++
+              " href=\"javascript:" ++ item ++ "_" ++ name ++ "('" ++ uid ++ "')\">" ++
+              (if b then item else "hide " ++ item) ++
+              "</a>)</span>"
+            where name = if b then "show" else "hide"
+
+
+urlToId :: URL -> String
+urlToId = map f . takeBaseName
+    where
+        f x | isAlphaNum x = x
+            | otherwise = '_'
