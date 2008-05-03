@@ -13,7 +13,7 @@ import Website.Wildcard
 import Website.Util
 import Website.Metadata
 
-outdir = "publish"
+outdir = "web"
 
 copy :: FilePath -> FilePath -> IO ()
 copy x y = do
