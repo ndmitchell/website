@@ -20,7 +20,7 @@ ndm = "http://www-users.cs.york.ac.uk/~ndm/"
 
 main :: IO ()
 main = do
-    copy "downloads/*.bib;*.pdf" "downloads/"
+    copy "downloads/*.pdf" "downloads/"
     copy "elements/" "elements/"
 
     files <- getDirWildcards "pages/*.html"
@@ -34,6 +34,11 @@ main = do
     suffix <- readFile "elements/suffix.txt"
     args <- getArgs
     pages <- populatePages ("debug" `elem` args) files
+
+    -- output some bibtex
+    let dls = concatMap (pgDownloads . snd) pages
+    newFile "downloads/neil_mitchell.bib" (showBibtexPapers dls)
+    newFile "downloads/neil_mitchell_slides.bib" (showBibtexSlides dls)
     
     -- process the files
     let outloc x | takeBaseName x == "index" = "index.html"

@@ -1,6 +1,6 @@
 
 module Website.Driver(
-    copy, process,
+    copy, process, newFile,
     module Website.Wildcard,
     module Website.Metadata,
     module Website.Util
@@ -28,6 +28,13 @@ copy x y = do
             timeX <- getModificationTime x
             timeY <- getModificationTime y
             when (timeX > timeY) action
+
+
+newFile :: FilePath -> String -> IO ()
+newFile file src = do
+    let dest = outdir </> file
+    createDirectoryIfMissing True (takeDirectory dest)
+    writeFileBinary dest src
 
 
 process :: (FilePath -> IO String) -> [(FilePath,FilePath)] -> IO ()

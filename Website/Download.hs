@@ -1,7 +1,8 @@
 
 module Website.Download(
     Download(dlText, dlPage), readDownload,
-    showDownloadGroup, showDownloadTree
+    showDownloadGroup, showDownloadTree,
+    showBibtexPapers, showBibtexSlides
     ) where
 
 import Control.Monad
@@ -97,7 +98,8 @@ readDownload x = Download date typ url parent
                         [(a,b) | ('@':a,b) <- x, a /= "at"] ++
                         [("url", "\\verb'" ++ url ++ "'")]
 
-                key = map toLower page ++ keyDate
+                key = map toLower page ++ keyText ++ keyDate
+                keyText = if typ == Manual then "_manual" else ""
                 keyDate = maybe "" (\(a,b,c) -> concatMap ((:) '_' . show . negate) [a,b-1,c]) date
                 whereText = maybe [] (\x -> " from " ++ innerText (parseTags x)) $ lookup "where" x
 
@@ -194,3 +196,11 @@ urlToId = map f . takeBaseName
     where
         f x | isAlphaNum x = x
             | otherwise = '_'
+
+
+showBibtexPapers, showBibtexSlides :: [Download] -> String
+showBibtexPapers = bibtexFile (/= Slides)
+showBibtexSlides = bibtexFile (== Slides)
+
+
+bibtexFile test = unlines . map bibtex . sort . filter (not . null . bibtex) . filter (test . typ)
