@@ -104,8 +104,11 @@ readDownload x = Download date typ url parent
                 whereText = maybe [] (\x -> " from " ++ innerText (parseTags x)) $ lookup "where" x
                 noteText = maybe [] (\x -> ", " ++ innerText (parseTags x)) $ lookup "note" x
 
-showBibLine (a,b) = "    ," ++ a ++ replicate (14 - length a) ' ' ++ " = \"" ++ b ++ "\""
-
+showBibLine (a,b) = "    ," ++ a ++ replicate (14 - length a) ' ' ++ " = \"" ++ if a == "pages" then f b else b ++ "\""
+    where
+        f (x:'-':y:xs) | isDigit x && isDigit y = x:'-':'-':y : f xs
+        f (x:xs) = x : f xs
+        f [] = []
 
 -- capitalise the title in some way
 capitalise :: String -> String
