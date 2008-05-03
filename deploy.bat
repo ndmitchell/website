@@ -1,1 +1,1 @@
-cp -rf h:/work/website/publish/* w:/
+scp -r web ndm@venice.cs.york.ac.uk:/usr/ndm 
