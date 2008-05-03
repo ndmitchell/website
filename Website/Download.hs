@@ -89,7 +89,7 @@ readDownload x = Download date typ url parent
                         | typ == Slides = ("misc",[("note","Presentation" ++ whereText)])
                         | otherwise = (fromMaybe "inproceedings" $ lookup "@at" x, [])
                 items = filter (not . null . snd)
-                        [("title", x !# "title")
+                        [("title", capitalise $ x !# "title")
                         ,("author", fromMaybe "Neil Mitchell" $ lookup "author" x)
                         ,("year", maybe "" (\(a,b,c) -> show (negate a)) date)
                         ,("month", maybe "" (\(a,b,c) -> months !! negate b) date)
@@ -104,6 +104,20 @@ readDownload x = Download date typ url parent
                 whereText = maybe [] (\x -> " from " ++ innerText (parseTags x)) $ lookup "where" x
 
 showBibLine (a,b) = "    ," ++ a ++ replicate (14 - length a) ' ' ++ " = \"" ++ b ++ "\""
+
+
+-- capitalise the title in some way
+capitalise :: String -> String
+capitalise str = unwords (f True x : map (f False) xs)
+    where
+        (x:xs) = words str
+
+        f first (x:xs) | ":" `isSuffixOf` xs = f first (x : take (length xs - 1) xs) ++ ":"
+                       | (any isUpper xs && '-' `notElem` xs)
+                       || (not first && (x:xs) `elem` names) = "{" ++ x:xs ++ "}"
+                       | otherwise = x:xs
+
+names = ["Haskell","Uniplate","Hat","Windows","Pasta"]
 
 
 showDownloadTree :: [Download] -> String
