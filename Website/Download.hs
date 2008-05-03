@@ -85,7 +85,7 @@ readDownload x = Download date typ url parent
                                        map showBibLine items ++ ["}"]
             where
                 (at,ex) | typ == Manual = ("manual",[])
-                        | typ == Draft = ("unpublished",[("note","Draft")])
+                        | typ == Draft = ("unpublished",[("note","Draft" ++ noteText)])
                         | typ == Slides = ("misc",[("note","Presentation" ++ whereText)])
                         | otherwise = (fromMaybe "inproceedings" $ lookup "@at" x, [])
                 items = filter (not . null . snd)
@@ -102,6 +102,7 @@ readDownload x = Download date typ url parent
                 keyText = if typ == Manual then "_manual" else ""
                 keyDate = maybe "" (\(a,b,c) -> concatMap ((:) '_' . show . negate) [a,b-1,c]) date
                 whereText = maybe [] (\x -> " from " ++ innerText (parseTags x)) $ lookup "where" x
+                noteText = maybe [] (\x -> ", " ++ innerText (parseTags x)) $ lookup "note" x
 
 showBibLine (a,b) = "    ," ++ a ++ replicate (14 - length a) ' ' ++ " = \"" ++ b ++ "\""
 
