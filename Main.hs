@@ -33,7 +33,7 @@ main = do
         return ()
      else if "check" `elem` args then do
         files <- getDirWildcards "pages/*.html"
-        let urls = map (ndm ++) $ "" : map takeBaseName files
+        let urls = [ndm ++ x | x <- "" : map takeBaseName files, x /= "index"]
         check urls
      else
         generate ("debug" `elem` args)
