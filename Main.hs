@@ -6,10 +6,12 @@ import Data.Char
 import Data.List
 import Data.Maybe
 import Safe
+import System.Cmd
 import System.FilePath
 import System.Environment
 import System.IO.Unsafe
 import Text.HTML.TagSoup
+import Website.Check
 import Website.Driver
 import Website.Page
 import Website.Download
@@ -18,8 +20,27 @@ import Website.Download
 ndm = "http://www-users.cs.york.ac.uk/~ndm/"
 
 
+known = ["push","debug","check"]
+
 main :: IO ()
 main = do
+    args <- getArgs
+    let bad = filter (`notElem` known) args
+    when (bad /= []) $
+        error $ "Unknown arguments: " ++ unwords bad
+    if "push" `elem` args then do
+        system "scp -r web ndm@venice.cs.york.ac.uk:/usr/ndm"
+        return ()
+     else if "check" `elem` args then do
+        files <- getDirWildcards "pages/*.html"
+        let urls = map (ndm ++) $ "" : map takeBaseName files
+        check urls
+     else
+        generate ("debug" `elem` args)
+
+
+generate :: Bool -> IO ()
+generate debug = do
     copy "elements/" "elements/"
 
     files <- getDirWildcards "pages/*.html"
@@ -31,8 +52,7 @@ main = do
     -- build up the meta data
     prefix <- readFile "elements/prefix.txt"
     suffix <- readFile "elements/suffix.txt"
-    args <- getArgs
-    pages <- populatePages ("debug" `elem` args) files
+    pages <- populatePages debug files
 
     -- output some bibtex
     let dls = concatMap (pgDownloads . snd) pages
