@@ -20,7 +20,6 @@ ndm = "http://www-users.cs.york.ac.uk/~ndm/"
 
 main :: IO ()
 main = do
-    copy "downloads/*.pdf" "downloads/"
     copy "elements/" "elements/"
 
     files <- getDirWildcards "pages/*.html"
@@ -61,7 +60,10 @@ populatePages debug pages = do
 
 populateDownloads :: IO [Download]
 populateDownloads = do
-    let files = ["downloads" </> x </> "metadata.txt" | x <- ["","paper","slides","draft"]]
+    let dirs = ["","paper","slides","draft"]
+    mapM_ (\x -> copy ("downloads" </> x </> "*.pdf") "downloads/") dirs
+    
+    let files = ["downloads" </> x </> "metadata.txt" | x <- dirs]
     liftM (map (readDownload . map f) . concat) $ mapM readMetadataFile files
     where
         f (y,x) | y `elem` ["url","parent"] = (y, url x)
