@@ -124,7 +124,7 @@ args1 = head . args
 ---------------------------------------------------------------------
 -- REWRITE
 
-stream meta ('<':x:xs) | x `elem` ":!" && not ("DOCTYPE" `isPrefixOf` xs || "--" `isPrefixOf` xs) =
+stream meta ('<':x:xs) | x `elem` ":!" && not (any (`isPrefixOf` xs) ["DOCTYPE","--","["]) =
         (if x == ':' then tag meta name atts else link meta name atts) ++
         stream meta (drop 1 b)
     where
