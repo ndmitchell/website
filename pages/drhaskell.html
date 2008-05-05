@@ -17,7 +17,7 @@ tags=program haskell yhc
 module Test where
 
 substitute1 :: Eq a => a -> [a] -> [a] -> [a]
-substitute1 e l1 l2= [c | c <- check_elem l1]
+substitute1 e l1 l2= [c | c &lt;- check_elem l1]
    where check_elem [] = l1
          check_elem (x:xs) = if x == e then (l2 ++ xs) else [x] ++ check_elem xs
 
@@ -59,7 +59,7 @@ I can apply concat_map in subst4 (17:1-17:54)
 	Step 2 is to get a working copy of Dr Haskell, either from the darcs repo above (note, you'll need a
 	source release of Yhc to compile Dr Haskell, since it requires some Yhc libraries), or download a
 	Windows binary <a href="http://www.cs.york.ac.uk/fp/release/drhaskell-08-nov-2006.zip">here</a>, and extract all the files.
-<p>
+</p>
 
 <h2>Use</h2>
 

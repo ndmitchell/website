@@ -27,5 +27,5 @@ variables (Div  x y) = variables x ++ variables y
 </p>
 <pre>
 variables :: Expr -> [String]
-variables x = [y | Var y <- universe x]
+variables x = [y | Var y &lt;- universe x]
 </pre>
