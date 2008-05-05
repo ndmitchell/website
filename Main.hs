@@ -172,7 +172,7 @@ tag meta "all-tags" _ = concatMap f tagList
 
         f (tag,desc) = if null items then "" else
                        "<p><b><a name='" ++ tag ++ "'></a>" ++ tag ++ "</b>: " ++ desc ++ "<br/>" ++
-                       concat (intersperse ", " items)
+                       concat (intersperse ", " items) ++ "</p>"
             where items = concatMap (g tag) $ pgAll meta
         
         g tag (name,page) = ["<a href='" ++ urlPage meta name ++ "'>" ++ pgTitle page ++ "</a>"
