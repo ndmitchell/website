@@ -9,7 +9,7 @@ note=   very early notes on my ideas regarding parsing.
 
 page=    supero
 url=    draft-supero-10_dec_2007.pdf
-title=    A Supercompile for Core Haskell
+title=    A Supercompiler for Core Haskell
 author=    Neil Mitchell and Colin Runciman
 date=    10 Dec 2007
 note=    submitted to the post proceedings of <a href="http://proglang.informatik.uni-freiburg.de/IFL2007/">IFL 2007</a>
