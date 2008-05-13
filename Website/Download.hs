@@ -36,7 +36,7 @@ instance Ord Download where
     compare d1 d2 = compare (date d1, typ d1) (date d2, typ d2)
 
 
-data DownloadType = Paper | Release | Manual | Draft | Slides | Video | Darcs | Haddock | Blog
+data DownloadType = Paper | Draft | Release | Manual | Slides | Video | Darcs | Haddock | Blog
                      deriving (Read, Show, Enum, Ord, Eq, Bounded)
 
 allDownloadType :: [(String, DownloadType)]
