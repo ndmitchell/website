@@ -196,15 +196,15 @@ url=	haddock:proposition/Data-Proposition.html
 *page=	safe
 
 type=	release
-url=	hackage:Safe
+url=	hackage:safe
 
 type=	darcs
 url=	darcs:safe
-parent=	hackage:Safe
+parent=	hackage:safe
 
 type=	haddock
-url=	haddock:Safe/Safe.html
-parent=	hackage:Safe
+url=	haddock:safe/Safe.html
+parent=	hackage:safe
 
 
 *page=	tex2hs

@@ -3,5 +3,23 @@ tags=library haskell released
 catch
 
 <p>
-	A library for increasing the safety of your code, by wrapping Prelude functions that potentially crash.
+	A library for increasing the safety of your code, by wrapping Prelude functions that potentially crash. These functions can be used to reduce the number of unsafe pattern matches in a program. These functions can be used in conjunction with <!catch>.
 </p>
+<p>
+	Each unsafe function has up to four additional forms. For example, with <tt>tail</tt>:
+</p>
+<ul>
+	<li><tt>tail :: [a] -> [a]</tt>, crashes on <tt>tail []</tt></li>
+	<li><tt>tailNote :: <b>String</b> -> [a] -> [a]</tt>, takes an extra argument which supplements the error message</li>
+	<li><tt>takeDef :: <b>[a]</b> -> [a] -> [a]</tt>, takes a default to return on errors</li>
+	<li><tt>tailMay :: [a] -> <b>Maybe</b> [a]</tt>, wraps the result in a <tt>Maybe</tt></li>
+	<li><tt>tailSafe :: [a] -> [a]</tt>, returns some sensible default if possible, <tt>[]</tt> in the case of <tt>tail</tt></li>
+</ul>
+<p>
+	This library also introduces three brand new functions:
+</p>
+<ul>
+	<li><tt>at</tt>, synonym for <tt>(!!)</tt></li>
+	<li><tt>lookupJust</tt>, defined as <tt>lookupJust k = fromJust . lookup k</tt></li>
+	<li><tt>abort</tt>, same as <tt>error</tt>, but for a deliberate and intentional program abort</li>
+</ul>
