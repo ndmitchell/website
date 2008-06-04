@@ -1,5 +1,25 @@
 *type=	paper
 
+page=   supero
+url=    paper-a_supercompiler_for_core_haskell-01_may_2008.pdf
+title=  A Supercompiler for Core Haskell
+date=   01 May 2008
+where=  <a href="http://proglang.informatik.uni-freiburg.de/IFL2007/">IFL 2007</a> post proceedings
+author= Neil Mitchell and Colin Runciman
+@pages=147-164
+@booktitle=IFL 2007
+@editor=Olaf Chitil et al.
+@series=LNCS
+@volume=3015
+@publisher=Springer-Verlag
+text=
+    Haskell is a functional language, with features such as higher
+    order functions and lazy evaluation, which allow succinct programs. These
+    high-level features present many challenges for optimising compilers. We
+    report practical experiments using novel variants of supercompilation,
+    with special attention to let bindings and the generalisation technique.
+
+
 page=   derive
 url=    paper-deriving_generic_functions_by_example-26_oct_2007.pdf
 title=  Deriving Generic Functions by Example

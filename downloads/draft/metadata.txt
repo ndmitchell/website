@@ -22,22 +22,6 @@ date=   17 Nov 2004
 note=   very early notes on my ideas regarding parsing.
 
 
-page=   supero
-url=    draft-supero-10_dec_2007.pdf
-title=  A Supercompiler for Core Haskell
-author= Neil Mitchell and Colin Runciman
-date=   10 Dec 2007
-note=   submitted to the post proceedings of <a href="http://proglang.informatik.uni-freiburg.de/IFL2007/">IFL 2007</a>
-text=
-    Haskell is a functional language, with features such as higher
-    order functions and lazy evaluation, which allow succinct programs. These
-    high-level features present many challenges for optimising compilers. We
-    report practical experiments using novel variants of supercompilation,
-    with special attention to let bindings and the generalisation technique.
-    Results include runtime reductions of up to 55% when our supercompiler
-    is used in conjunction with GHC.
-
-
 page=   catch
 url=    draft-catch-02_apr_2008.pdf
 title=  Not All Patterns, But Enough - an automatic verifier for partial but sufficient pattern matching
