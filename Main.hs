@@ -20,7 +20,7 @@ import Website.Download
 ndm = "http://www-users.cs.york.ac.uk/~ndm/"
 
 
-known = ["push","debug","check"]
+known = ["push","build","debug","check"]
 
 main :: IO ()
 main = do
@@ -35,8 +35,17 @@ main = do
         files <- getDirWildcards "pages/*.html"
         let urls = [ndm ++ x | x <- "" : map takeBaseName files, x /= "index"]
         check urls
-     else
-        generate ("debug" `elem` args)
+     else if "debug" `elem` args then do
+        generate True
+     else if "build" `elem` args then do
+        generate False
+     else putStr $ unlines
+        ["No command give, expected one of:"
+        ," * build - build the website in release mode"
+        ," * debug - build the website in debug mode"
+        ," * push  - upload the website (do after build)"
+        ," * check - run HTML validation (do after push)"
+        ]
 
 
 generate :: Bool -> IO ()
