@@ -92,6 +92,17 @@ parent= paper-hatday-28_oct_2005.pdf
 
 *page=  hoogle
 
+url=    slides-hoogle_fast_type_searching-09_aug_2008.pdf
+title=  Hoogle: Fast Type Searching
+date=   09 Aug 2008
+where=  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2008">AngloHaskell 2008</a>
+
+type=   audio
+url=    http://www.wellquite.org/non-blog/AngloHaskell2008/neil%20mitchell.ogg
+title=  Hoogle: Fast Type Searching
+date=   09 Aug 2008
+parent= slides-hoogle_fast_type_searching-09_aug_2008.pdf
+
 url=    slides-hoogle-08_dec_2005.pdf
 title=  Hoogle
 date=   08 Dec 2005
