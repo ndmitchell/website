@@ -138,6 +138,12 @@ date=   30 Sep 2007
 where=  <a href="http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">Haskell Workshop 2007</a>
 parent= paper-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
 
+type=   video
+url=    http://www.ludd.ltu.se/~pj/hw2007/uniplate.mov
+title=  Uniform Boilerplate and List Processing
+date=   30 Sep 2007
+parent= paper-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
+
 url=    slides-playing_with_haskell_data-18_jan_2007.pdf
 title=  Playing with Haskell Data
 date=   18 Jan 2007
