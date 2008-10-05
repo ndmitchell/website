@@ -10,7 +10,7 @@ author= Neil Mitchell and Colin Runciman
 @booktitle=IFL 2007
 @editor=Olaf Chitil et al.
 @series=LNCS
-@volume=3015
+@volume=5083
 @publisher=Springer-Verlag
 text=
     Haskell is a functional language, with features such as higher
