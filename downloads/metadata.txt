@@ -64,7 +64,7 @@ title=	Hoogle Manual (wiki)
 parent=	hackage:hoogle
 
 type=	darcs
-url=	darcs:hoogle
+url=	http://code.haskell.org/hoogle
 parent=	hackage:hoogle
 
 type=	blog
