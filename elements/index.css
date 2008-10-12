@@ -176,8 +176,6 @@ li ul li {
 .blog {list-style-image: url(blog.png);}
 .release {list-style-image: url(release.png);}
 .video {list-style-image: url(video.png);}
-.audio {list-style-image: url(audio.png);}
-.bug {list-style-image: url(bug.png);}
 
 .abstract {
 	border: 2px solid #808;
