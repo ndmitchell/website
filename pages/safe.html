@@ -11,7 +11,7 @@ catch
 <ul>
 	<li><tt>tail :: [a] -> [a]</tt>, crashes on <tt>tail []</tt></li>
 	<li><tt>tailNote :: <b>String</b> -> [a] -> [a]</tt>, takes an extra argument which supplements the error message</li>
-	<li><tt>takeDef :: <b>[a]</b> -> [a] -> [a]</tt>, takes a default to return on errors</li>
+	<li><tt>tailDef :: <b>[a]</b> -> [a] -> [a]</tt>, takes a default to return on errors</li>
 	<li><tt>tailMay :: [a] -> <b>Maybe</b> [a]</tt>, wraps the result in a <tt>Maybe</tt></li>
 	<li><tt>tailSafe :: [a] -> [a]</tt>, returns some sensible default if possible, <tt>[]</tt> in the case of <tt>tail</tt></li>
 </ul>
