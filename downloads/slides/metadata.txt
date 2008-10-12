@@ -51,6 +51,11 @@ title=  Termination checking for a lazy functional language
 date=   21 Dec 2004
 where=  my first year literature review seminar
 
+url=    slides-transformation_and_analysis_of_functional_programs-14_jul_2008.pdf
+title=  Transformation and Analysis of Functional Programs
+date=   14 Jul 2008
+where=  my viva presentation
+
 
 *page=  teaching
 
