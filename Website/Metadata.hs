@@ -38,7 +38,7 @@ readMetadataFile file = do
         join (x:xs) = x : join xs
         join [] = [Blank]
 
-        collate def seen (Blank:xs) = [reverse seen ++ def | not $ null seen] ++ collate def [] xs
+        collate def seen (Blank:xs) = [def ++ reverse seen | not $ null seen] ++ collate def [] xs
         collate def seen (Attrib ('*':a) b:xs) = collate (addDef def a b) seen xs
         collate def seen (Attrib a b:xs) = collate def ((a,b):seen) xs
         collate def [] [] = []
