@@ -1,5 +1,5 @@
 
-*page=	catch
+*page=  catch
 
 type=   release
 url=    hackage:catch
@@ -13,217 +13,247 @@ type=   darcs
 url=    darcs:catch
 parent= hackage:catch
 
+type=   bug
+url=    bug:Catch
+parent= hackage:catch
+
 type=   blog
 url=    blog:catch
 
 
-*page=	derive
+*page=  derive
 
-type=	release
-url=	hackage:derive
+type=   release
+url=    hackage:derive
 
-type=	manual
-url=	darcs:derive/derive.htm
-title=	Data.Derive: A User Manual
-parent=	hackage:derive
+type=   manual
+url=    darcs:derive/derive.htm
+title=  Data.Derive: A User Manual
+parent= hackage:derive
 
-type=	darcs
-url=	darcs:derive
-parent=	hackage:derive
+type=   darcs
+url=    darcs:derive
+parent= hackage:derive
 
-type=	haddock
-url=	haddock:derive
-parent=	hackage:derive
+type=   bug
+url=    bug:Derive
+parent= hackage:derive
 
+type=   haddock
+url=    haddock:derive
+parent= hackage:derive
 
-*page=	filepath
 
-type=	release
-url=	hackage:filepath
+*page=  filepath
 
-type=	darcs
-url=	http://darcs.haskell.org/packages/filepath/
-parent=	hackage:filepath
+type=   release
+url=    hackage:filepath
 
-type=	blog
-url=	blog:filepath
+type=   darcs
+url=    http://darcs.haskell.org/packages/filepath/
+parent= hackage:filepath
 
-type=	haddock
-url=	http://haskell.org/ghc/docs/latest/html/libraries/filepath/System-FilePath-Posix.html
-parent=	hackage:filepath
+type=   blog
+url=    blog:filepath
 
+type=   haddock
+url=    http://haskell.org/ghc/docs/latest/html/libraries/filepath/System-FilePath-Posix.html
+parent= hackage:filepath
 
-*page=	hoogle
 
-type=	release
-url=	hackage:hoogle
+*page=  hoogle
 
-type=	manual
-url=	http://www.haskell.org/haskellwiki/Hoogle
-title=	Hoogle Manual (wiki)
-parent=	hackage:hoogle
+type=   release
+url=    hackage:hoogle
 
-type=	darcs
-url=	http://code.haskell.org/hoogle
-parent=	hackage:hoogle
+type=   manual
+url=    http://www.haskell.org/haskellwiki/Hoogle
+title=  Hoogle Manual (wiki)
+parent= hackage:hoogle
 
-type=	blog
-url=	blog:hoogle
+type=   darcs
+url=    http://code.haskell.org/hoogle
+parent= hackage:hoogle
 
+type=   bug
+url=    bug:Hoogle
+parent= hackage:hoogle
 
-*page=	supero
+type=   blog
+url=    blog:hoogle
 
-type=	blog
-url=	blog:supero
 
-type=	darcs
-url=	darcs:supero
+*page=  supero
 
+type=   blog
+url=    blog:supero
 
-*page=	tagsoup
+type=   darcs
+url=    darcs:supero
 
-type=	blog
-url=	blog:tagsoup
 
-type=	release
-url=	hackage:tagsoup
+*page=  tagsoup
 
-type=	darcs
-url=	darcs:tagsoup
-parent=	hackage:tagsoup
+type=   blog
+url=    blog:tagsoup
 
-type=	manual
-url=	darcs:tagsoup/tagsoup.htm
-title=	Drinking TagSoup by Example
-parent=	hackage:tagsoup
+type=   release
+url=    hackage:tagsoup
 
-type=	haddock
-url=	haddock:tagsoup/Text-HTML-TagSoup.html
-parent=	hackage:tagsoup
+type=   darcs
+url=    darcs:tagsoup
+parent= hackage:tagsoup
 
+type=   bug
+url=    bug:TagSoup
+parent= hackage:tagsoup
 
-*page=	thesis
+type=   manual
+url=    darcs:tagsoup/tagsoup.htm
+title=  Drinking TagSoup by Example
+parent= hackage:tagsoup
 
-type=	darcs
-url=	darcs:ndm/thesis
+type=   haddock
+url=    haddock:tagsoup/Text-HTML-TagSoup.html
+parent= hackage:tagsoup
 
 
-*page=	uniplate
+*page=  thesis
 
-type=	release
-url=	hackage:uniplate
+type=   darcs
+url=    darcs:ndm/thesis
 
-type=	darcs
-url=	darcs:uniplate
-parent=	hackage:uniplate
 
-type=	manual
-url=	darcs:uniplate/uniplate.htm
-title=	Boilerplate Removal with Uniplate
-parent=	hackage:uniplate
+*page=  uniplate
 
-type=	blog
-url=	blog:uniplate
+type=   release
+url=    hackage:uniplate
 
+type=   darcs
+url=    darcs:uniplate
+parent= hackage:uniplate
 
-*page=	winhugs
+type=   bug
+url=    bug:Uniplate
+parent= hackage:uniplate
 
-type=	release
-url=	http://cvs.haskell.org/Hugs/pages/downloading.htm
+type=   manual
+url=    darcs:uniplate/uniplate.htm
+title=  Boilerplate Removal with Uniplate
+parent= hackage:uniplate
 
+type=   blog
+url=    blog:uniplate
 
-*page=	binarydefer
 
-type=	manual
-url=	darcs:binarydefer/binarydefer.htm
-title=	Deferred Binary Serialisation
+*page=  winhugs
 
-type=	darcs
-url=	darcs:binarydefer
+type=   release
+url=    http://cvs.haskell.org/Hugs/pages/downloading.htm
 
-type=	haddock
-url=	haddock:binarydefer/Data-Binary-Defer.html
 
+*page=  binarydefer
 
-*page=	drhaskell
+type=   manual
+url=    darcs:binarydefer/binarydefer.htm
+title=  Deferred Binary Serialisation
 
-type=	darcs
-url=	darcs:drhaskell
+type=   darcs
+url=    darcs:binarydefer
 
+type=   haddock
+url=    haddock:binarydefer/Data-Binary-Defer.html
 
-*page=	firstify
 
-type=	darcs
-url=	darcs:firstify
+*page=  drhaskell
 
-type=	release
-url=	hackage:firstify
+type=   darcs
+url=    darcs:drhaskell
 
+type=   bug
+url=    bug:DrHaskell
 
-*page=	guihaskell
 
-type=	darcs
-url=	darcs:guihaskell
+*page=  firstify
 
+type=   darcs
+url=    darcs:firstify
 
-*page=	hat
+type=   release
+url=    hackage:firstify
 
-type=	release
-url=	http://www.cs.york.ac.uk/fp/temp/hat-win32-05_jul_2006.zip
+type=   bug
+url=    bug:Firstify
+parent= hackage:firstify
 
 
-*page=	proplang
+*page=  guihaskell
 
-type=	darcs
-url=	darcs:proplang
+type=   darcs
+url=    darcs:guihaskell
 
 
-*page=	proposition
+*page=  hat
 
-type=	darcs
-url=	darcs:proposition
+type=   release
+url=    http://www.cs.york.ac.uk/fp/temp/hat-win32-05_jul_2006.zip
 
-type=	haddock
-url=	haddock:proposition/Data-Proposition.html
 
+*page=  proplang
 
-*page=	safe
+type=   darcs
+url=    darcs:proplang
 
-type=	release
-url=	hackage:safe
 
-type=	darcs
-url=	darcs:safe
-parent=	hackage:safe
+*page=  proposition
 
-type=	haddock
-url=	haddock:safe/Safe.html
-parent=	hackage:safe
+type=   darcs
+url=    darcs:proposition
 
+type=   haddock
+url=    haddock:proposition/Data-Proposition.html
 
-*page=	tex2hs
 
-type=	darcs
-url=	darcs:tex2hs
+*page=  safe
 
+type=   release
+url=    hackage:safe
 
-*page=	winhaskell
+type=   darcs
+url=    darcs:safe
+parent= hackage:safe
 
-type=	darcs
-url=	darcs:winhaskell
+type=   haddock
+url=    haddock:safe/Safe.html
+parent= hackage:safe
 
 
-*page=	yhc
+*page=  tex2hs
 
-type=	manual
-url=	http://www.haskell.org/haskellwiki/Yhc
-title=	Yhc Manual (wiki)
+type=   darcs
+url=    darcs:tex2hs
 
-type=	darcs
-url=	http://darcs.haskell.org/yhc/
 
-type=	haddock
-url=	http://www.cs.york.ac.uk/fp/yhc/snapshot/docs/
+*page=  winhaskell
 
-type=	blog
-url=	http://yhc06.blogspot.com/
+type=   darcs
+url=    darcs:winhaskell
+
+
+*page=  yhc
+
+type=   manual
+url=    http://www.haskell.org/haskellwiki/Yhc
+title=  Yhc Manual (wiki)
+
+type=   darcs
+url=    http://darcs.haskell.org/yhc/
+
+type=   bug
+url=    http://code.google.com/p/yhc/issues/list
+
+type=   haddock
+url=    http://www.cs.york.ac.uk/fp/yhc/snapshot/docs/
+
+type=   blog
+url=    http://yhc06.blogspot.com/
