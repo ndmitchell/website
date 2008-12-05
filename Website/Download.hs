@@ -36,7 +36,7 @@ instance Ord Download where
     compare d1 d2 = compare (date d1, typ d1) (date d2, typ d2)
 
 
-data DownloadType = Paper | Draft | Release | Manual | Slides | Video | Darcs | Haddock | Blog
+data DownloadType = Paper | Draft | Release | Manual | Slides | Video | Audio | Darcs | Haddock | Blog | Bug
                      deriving (Read, Show, Enum, Ord, Eq, Bounded)
 
 allDownloadType :: [(String, DownloadType)]
@@ -53,6 +53,7 @@ showDownloadTypeTitle x = case x of
     Darcs   -> "Darcs Repositories"
     Haddock -> "Haddock Documentation"
     Blog    -> "Blog Postings"
+    Bug     -> "Bug Trackers"
     _ -> show x ++ "s"
 
 
@@ -78,6 +79,7 @@ readDownload x = Download date typ url parent
                     _ | typ == Release -> "Released version"
                       | typ == Blog    -> "Related blog posts"
                       | typ == Haddock -> "Haddock documentation"
+                      | typ == Bug     -> "Bug tracker"
 
         bibtex | typ `notElem` [Paper,Manual,Draft,Slides] = ""
                | parent /= "" && typ == Slides = ""
