@@ -28,24 +28,30 @@ main = do
     let bad = filter (`notElem` known) args
     when (bad /= []) $
         error $ "Unknown arguments: " ++ unwords bad
-    if "push" `elem` args then do
-        system "scp -r web ndm@venice.cs.york.ac.uk:/usr/ndm"
-        return ()
-     else if "check" `elem` args then do
-        files <- getDirWildcards "pages/*.html"
-        let urls = [ndm ++ x | x <- "" : map takeBaseName files, x /= "index"]
-        check urls
-     else if "debug" `elem` args then do
-        generate True
-     else if "build" `elem` args then do
-        generate False
-     else putStr $ unlines
+
+    when (null args) $ putStr $ unlines
         ["No command give, expected one of:"
         ," * build - build the website in release mode"
         ," * debug - build the website in debug mode"
         ," * push  - upload the website (do after build)"
         ," * check - run HTML validation (do after push)"
         ]
+
+    if "debug" `elem` args then do
+        generate True
+     else if "build" `elem` args then do
+        generate False
+     else
+        return ()
+
+    when ("push" `elem` args) $ do
+        system "scp -r web ndm@venice.cs.york.ac.uk:/usr/ndm"
+        return ()
+
+    when ("check" `elem` args) $ do
+        files <- getDirWildcards "pages/*.html"
+        let urls = [ndm ++ x | x <- "" : map takeBaseName files, x /= "index"]
+        check urls
 
 
 generate :: Bool -> IO ()
