@@ -5,7 +5,7 @@
 		<title>Neil Mitchell - <:title></title>
 
 		<link type="text/css" rel="stylesheet" href="<:root>elements/index.css" />
-        <link type="image/png" rel="icon" href="<:root>elements/favicon.png">
+        <link type="image/png" rel="icon" href="<:root>elements/favicon.png" />
 		<script type="text/javascript" src="<:root>elements/index.js"> </script>
 		<script type="text/javascript" src="<:root>elements/emailscrambler.js"> </script>
 	</head>
