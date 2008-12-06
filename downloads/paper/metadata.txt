@@ -1,5 +1,23 @@
 *type=	paper
 
+page=   hoogle
+url=    paper-hoogle_overview-19_nov_2008.pdf
+title=  Hoogle Overview
+date=   19 Nov 2008
+where=  The <a href="http://www.haskell.org/haskellwiki/The_Monad.Reader">Monad.Reader</a>
+author= Neil Mitchell
+@at=article
+@journal=The Monad.Reader
+@number=12
+@pages=27-35
+text=
+    This article gives an overview of the Hoogle tool. We describe the history of Hoogle,
+    the improvements that have been made this summer, and plans for future features.
+    Finally, we discuss the design guidelines of Hoogle 4 - which may be of interest
+    both to budding Hoogle developers and other Haskell projects. This article does not
+    cover the theoretical background of Hoogle.
+
+
 page=   supero
 url=    paper-a_supercompiler_for_core_haskell-01_may_2008.pdf
 title=  A Supercompiler for Core Haskell
