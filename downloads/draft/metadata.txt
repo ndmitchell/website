@@ -39,20 +39,3 @@ text=
     applied to a range of programs, and our techniques seem to scale
     well. Throughout the paper, methods are represented much as we
     have implemented them in practice, again in Haskell.
-
-
-page=   firstify
-url=    draft-firstify-02_apr_2008.pdf
-title=  Losing Functions without Gaining Data - a new method for defunctionalisation
-author= Neil Mitchell and Colin Runciman
-date=   02 Apr 2008
-note=   submitted to <a href="http://www.icfpconference.org/icfp2008/">ICFP 2008</a>
-text=
-    We describe an automated transformation which takes a higherorder
-    program, and a produces an equivalent first-order program.
-    Unlike Reynolds style defunctionalisation, it does not introduce
-    any new data types, and the results are more amenable to subsequent
-    analysis operations. Our transformation is implemented, and
-    works on a Core language to which Haskell programs can be reduced.
-    Our method cannot always succeed in removing all functional
-    values, but in practice it is remarkably successful.
