@@ -79,6 +79,7 @@ generate debug = do
                  | otherwise = takeBaseName x </> "index.html"
     putStr "Processing files  "
     process (rewrite pages prefix suffix) [(p, outloc p) | p <- files]
+    putStrLn ""
 
 
 populatePages :: Bool -> [FilePath] -> IO [(String,Page)]
