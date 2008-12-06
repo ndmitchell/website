@@ -20,22 +20,3 @@ url=    draft-parser_design-17_nov_2004.pdf
 title=  Parser Design
 date=   17 Nov 2004
 note=   very early notes on my ideas regarding parsing.
-
-
-page=   catch
-url=    draft-catch-02_apr_2008.pdf
-title=  Not All Patterns, But Enough - an automatic verifier for partial but sufficient pattern matching
-author= Neil Mitchell and Colin Runciman
-date=   02 Apr 2008
-note=   submitted to <a href="http://www.icfpconference.org/icfp2008/">ICFP 2008</a>
-text=
-    We describe an automated analysis of Haskell 98 programs to
-    check statically that, despite the possible use of partial (or nonexhaustive)
-    pattern matching, no pattern-match failure can occur.
-    Our method is an iterative backward analysis using a novel form
-    of pattern-constraint to represent sets of data values. The analysis
-    is defined for a core first-order language to which Haskell 98
-    programs are reduced. Our analysis tool has been successfully
-    applied to a range of programs, and our techniques seem to scale
-    well. Throughout the paper, methods are represented much as we
-    have implemented them in practice, again in Haskell.

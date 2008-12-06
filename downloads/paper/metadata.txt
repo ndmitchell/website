@@ -1,5 +1,30 @@
 *type=	paper
 
+page=   catch
+url=    paper-not_all_patterns_but_enough-25_sep_2008.pdf
+title=  Not All Patterns, But Enough - an automatic verifier for partial but sufficient pattern matching
+date=   25 Sep 2008
+where=  <a href="http://www.haskell.org/haskell-symposium/2008/">Haskell Symposium 2008</a>
+author= Neil Mitchell and Colin Runciman
+@booktitle=Haskell '08: Proceedings of the first ACM SIGPLAN symposium on Haskell
+@pages=49-60
+@location=Victoria, BC, Canada
+@doi=http://doi.acm.org/10.1145/1411286.1411293
+@publisher=ACM
+@isbn=978-1-60558-064-7
+text=
+    We describe an automated analysis of Haskell 98 programs to
+    check statically that, despite the possible use of partial (or nonexhaustive)
+    pattern matching, no pattern-match failure can occur.
+    Our method is an iterative backward analysis using a novel form
+    of pattern-constraint to represent sets of data values. The analysis
+    is defined for a core first-order language to which Haskell 98
+    programs are reduced. Our analysis tool has been successfully
+    applied to a range of programs, and our techniques seem to scale
+    well. Throughout the paper, methods are represented much as we
+    have implemented them in practice, again in Haskell.
+
+
 page=   hoogle
 url=    paper-hoogle_overview-19_nov_2008.pdf
 title=  Hoogle Overview
@@ -66,7 +91,7 @@ title=  Uniform Boilerplate and List Processing
 date=   30 Sep 2007
 where=  <a href="http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">Haskell Workshop 2007</a>
 author= Neil Mitchell and Colin Runciman
-@booktitle=Haskell '07: Proceedings of the ACM SIGPLAN workshop on Haskell workshop
+@booktitle=Haskell '07: Proceedings of the ACM SIGPLAN workshop on Haskell
 @pages=49-60
 @location=Freiburg, Germany
 @doi=http://doi.acm.org/10.1145/1291201.1291208

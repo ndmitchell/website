@@ -3,6 +3,20 @@
 
 *page=  catch
 
+url=    slides-not_all_patterns_but_enough-25_sep_2008.pdf
+title=  Not All Patterns, But Enough
+date=   25 Sep 2008
+where=  <a href="http://www.haskell.org/haskell-symposium/2008/">Haskell Symposium 2008</a>
+parent= paper-not_all_patterns_but_enough-25_sep_2008.pdf
+
+type=   video
+url=    http://video.google.com/videoplay?docid=8250544235079789504
+title=  Not All Patterns, But Enough
+date=   25 Sep 2008
+parent= paper-not_all_patterns_but_enough-25_sep_2008.pdf
+
+
+
 url=    slides-detecting_pattern_match_failures_in_haskell-26_nov_2007.pdf
 title=  Detecting Pattern-Match Failures in Haskell
 date=   26 Nov 2007
