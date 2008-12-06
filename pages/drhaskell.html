@@ -31,13 +31,13 @@ Why not:
 
 darcs-2.1.2\src\CommandLine.lhs:103:1: Use fewer brackets
 Found:
-  ftable ++ (map (\ (c, x) -> (toUpper c, urlEncode x)) ftable)
+  ftable ++ (map (\ (c, x) -&gt; (toUpper c, urlEncode x)) ftable)
 Why not:
-  ftable ++ map (\ (c, x) -> (toUpper c, urlEncode x)) ftable
+  ftable ++ map (\ (c, x) -&gt; (toUpper c, urlEncode x)) ftable
 
 darcs-2.1.2\src\Darcs\Patch\ReadMonads.hs:61:29: Use const
 Found:
-  \ _ -> Nothing
+  \ _ -&gt; Nothing
 Why not:
   const Nothing
 
