@@ -36,19 +36,12 @@ main = do
         ," * push  - upload the website (do after build)"
         ," * check - run HTML validation (do after push)"
         ]
-
-    if "debug" `elem` args then do
-        generate True
-     else if "build" `elem` args then do
-        generate False
-     else
-        return ()
-
-    when ("push" `elem` args) $ do
-        system "scp -r web ndm@venice.cs.york.ac.uk:/usr/ndm"
-        return ()
-
-    when ("check" `elem` args) $ do
+    let iff x y = when (x `elem` args) (y >> return ())
+    
+    iff "build" $ generate False
+    iff "debug" $ generate True
+    iff "push" $ system "scp -r web ndm@venice.cs.york.ac.uk:/usr/ndm"
+    iff "check" $ do
         files <- getDirWildcards "pages/*.html"
         let urls = [ndm ++ x | x <- "" : map takeBaseName files, x /= "index"]
         check urls
