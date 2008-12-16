@@ -52,6 +52,12 @@ Found:
   take 1 path == "~"
 Why not:
   (1 == length "~") && ("~" `isPrefixOf` path)
+
+darcs-2.1.2\src\Darcs\Patch\Test.lhs:306:1: Use a more efficient monadic variant
+Found:
+  mapM (delete_line (fn2fp f) line) old
+Why not:
+  mapM_ (delete_line (fn2fp f) line) old
 </pre>
 
 <p>
