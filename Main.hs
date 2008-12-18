@@ -210,10 +210,11 @@ tag meta "all-tags" _ = concatMap f tagList
 
 
 tag meta "all-pages" _ =
-        "<p>" ++ concat (intersperse ", " $ map snd $ sortBy (compare `on` fst) $ map f $ pgAll meta) ++ "</p>"
+        "<p>" ++ concat (intersperse ", " $ map snd $ sortBy (compare `on` fst) $ map f $ filter g $ pgAll meta) ++ "</p>"
     where
         f (name,page) = (map toLower title, "<a href='" ++ urlPage meta name ++ "'>" ++ title ++ "</a>")
             where title = pgTitle page
+        g (name,page) = "hide" `notElem` pgTags page
 
 
 tag meta "downloads" _ | null down = ""
