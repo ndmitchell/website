@@ -173,6 +173,10 @@ url=    darcs:hlint
 type=   bug
 url=    bug:HLint
 
+type=   manual
+url=    darcs:hlint/hlint.htm
+title=	HLint Manual
+
 
 *page=  firstify
 
