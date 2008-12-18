@@ -165,13 +165,13 @@ type=   haddock
 url=    haddock:binarydefer/Data-Binary-Defer.html
 
 
-*page=  drhaskell
+*page=  hlint
 
 type=   darcs
-url=    darcs:drhaskell
+url=    darcs:hlint
 
 type=   bug
-url=    bug:DrHaskell
+url=    bug:HLint
 
 
 *page=  firstify
