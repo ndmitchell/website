@@ -51,7 +51,7 @@ darcs-2.1.2\src\Ssh.hs:155:17: Use isPrefixOf, and then remove the (==) test
 Found:
   take 1 path == "~"
 Why not:
-  (1 == length "~") && ("~" `isPrefixOf` path)
+  (1 == length "~") &amp;&amp; ("~" `isPrefixOf` path)
 
 darcs-2.1.2\src\Darcs\Patch\Test.lhs:306:1: Use a more efficient monadic variant
 Found:
