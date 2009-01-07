@@ -177,6 +177,9 @@ type=   manual
 url=    darcs:hlint/hlint.htm
 title=	HLint Manual
 
+type=   release
+url=    hackage:hlint
+
 
 *page=  firstify
 

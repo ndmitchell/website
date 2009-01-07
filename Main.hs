@@ -54,8 +54,9 @@ generate debug = do
     files <- getDirWildcards "pages/*.html"
     
     -- first copy the associated image files
-    flip mapM_ files $ \x -> let x2 = takeBaseName x in
+    flip mapM_ files $ \x -> let x2 = takeBaseName x in do
         copy ("pages/" ++ x2 ++ "*.png") (x2 ++ "/")
+        copy ("pages/" ++ x2 ++ "*.htm") (x2 ++ "/")
 
     -- build up the meta data
     prefix <- readFile "elements/prefix.txt"

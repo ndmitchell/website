@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>HLint report</title>
+<script type='text/javascript'>
+var hints = {};
+var files = {};
+var items = [];
+
+var link_sel = 1;
+var link_count = 0;
+
+// <CONTENT>
+idea("Use a string literal","CommandLine.lhs",46,1,"[' ', '\\t', '\"', '%']","\" \\t\\\"%\"");
+idea("Eta reduce","CommandLine.lhs",49,1,"quotedArg ftable\n  = between (char '\"') (char '\"') $ quoteContent ftable","quotedArg = between (char '\"') (char '\"') . quoteContent");
+idea("Use a string literal","CommandLine.lhs",51,29,"['\"', '\\\\', '%']","\"\\\"\\\\%\"");
+idea("Use fewer brackets","CommandLine.lhs",51,29,"escape <|> (try $ format ftable) <|>\n  (many1 (noneOf ['\"', '\\\\', '%']))","escape <|> (try $ format ftable) <|>\n  many1 (noneOf ['\"', '\\\\', '%'])");
+idea("Eta reduce","CommandLine.lhs",91,1,"parseCmd ftable s = parse (commandline ftable) \"\" s","parseCmd ftable = parse (commandline ftable) \"\"");
+idea("Use concatMap","CommandLine.lhs",94,1,"concat $ map escapeC s","concatMap escapeC s");
+idea("Use fewer brackets","CommandLine.lhs",103,1,"ftable ++ (map (\\ (c, x) -> (toUpper c, urlEncode x)) ftable)","ftable ++ map (\\ (c, x) -> (toUpper c, urlEncode x)) ftable");
+idea("Use replicate","Crypt/SHA256.hs",23,1,"take 64 $ repeat 'x'","replicate 64 'x'");
+idea("Eta reduce","Darcs/ArgumentDefaults.lhs",134,11,"gda' defs = concatMap (choose_option opt) defs","gda' = concatMap (choose_option opt)");
+idea("Use a string literal","Darcs/Arguments.lhs",434,1,"['h']","\"h\"");
+idea("Use a string literal","Darcs/Arguments.lhs",472,1,"['v']","\"v\"");
+idea("Use a string literal","Darcs/Arguments.lhs",472,1,"['q']","\"q\"");
+idea("Use a string literal","Darcs/Arguments.lhs",544,1,"['m']","\"m\"");
+idea("Eta reduce","Darcs/Arguments.lhs",560,11,"mp s = OnePattern (patch_match s)","mp = OnePattern . patch_match");
+idea("Eta reduce","Darcs/Arguments.lhs",578,11,"uptop s = UpToPattern (patch_match s)","uptop = UpToPattern . patch_match");
+idea("Eta reduce","Darcs/Arguments.lhs",586,11,"fromp s = AfterPattern (patch_match s)","fromp = AfterPattern . patch_match");
+idea("Use a string literal","Darcs/Arguments.lhs",590,1,"['t']","\"t\"");
+idea("Use a string literal","Darcs/Arguments.lhs",592,1,"['t']","\"t\"");
+idea("Use a string literal","Darcs/Arguments.lhs",595,1,"['p']","\"p\"");
+idea("Use a string literal","Darcs/Arguments.lhs",597,1,"['p']","\"p\"");
+idea("Eta reduce","Darcs/Arguments.lhs",602,9,"mp s = OnePattern (patch_match s)","mp = OnePattern . patch_match");
+idea("Eta reduce","Darcs/Arguments.lhs",605,9,"mp s = SeveralPattern (patch_match s)","mp = SeveralPattern . patch_match");
+idea("Use a string literal","Darcs/Arguments.lhs",613,1,"['n']","\"n\"");
+idea("Use a string literal","Darcs/Arguments.lhs",618,1,"['n']","\"n\"");
+idea("Use a string literal","Darcs/Arguments.lhs",662,1,"['l']","\"l\"");
+idea("Use a string literal","Darcs/Arguments.lhs",731,1,"['A']","\"A\"");
+idea("Use liftM","Darcs/Arguments.lhs",757,1,"get_preflist \"author\" >>= return . firstNotBlank","liftM firstNotBlank (get_preflist \"author\")");
+idea("Use liftM","Darcs/Arguments.lhs",757,1,"get_global \"author\" >>= return . firstNotBlank","liftM firstNotBlank (get_global \"author\")");
+idea("Use a string literal","Darcs/Arguments.lhs",785,1,"['s']","\"s\"");
+idea("Use a string literal","Darcs/Arguments.lhs",788,1,"['u']","\"u\"");
+idea("Use a string literal","Darcs/Arguments.lhs",790,1,"['u']","\"u\"");
+idea("Use a string literal","Darcs/Arguments.lhs",820,1,"['o']","\"o\"");
+idea("Use a string literal","Darcs/Arguments.lhs",825,1,"['O']","\"O\"");
+idea("Use a string literal","Darcs/Arguments.lhs",839,1,"['d']","\"d\"");
+idea("Use a string literal","Darcs/Arguments.lhs",844,1,"['r']","\"r\"");
+idea("Use a string literal","Darcs/Arguments.lhs",917,1,"['t']","\"t\"");
+idea("Use a string literal","Darcs/Arguments.lhs",941,1,"['f']","\"f\"");
+idea("Use fewer brackets","Darcs/Arguments.lhs",1044,12,"if XMLOutput `elem` opts then\n  (text \"<patches>\" $$ vcat (mapFL (to_xml . info) patches) $$\n     text \"</patches>\")\n  else (vsep $ mapFL (showFriendly opts) patches)","if XMLOutput `elem` opts then\n  text \"<patches>\" $$ vcat (mapFL (to_xml . info) patches) $$\n    text \"</patches>\"\n  else vsep $ mapFL (showFriendly opts) patches");
+idea("Use a string literal","Darcs/Arguments.lhs",1088,1,"['i']","\"i\"");
+idea("Use a string literal","Darcs/Arguments.lhs",1091,1,"['a']","\"a\"");
+idea("Use fewer brackets","Darcs/Arguments.lhs",1122,49,"return $ map drop_dotslash $ (skip_boring $ list_slurpy s) \\\\\n  (list_slurpy regs)","return $ map drop_dotslash $ (skip_boring $ list_slurpy s) \\\\\n  list_slurpy regs");
+idea("Use fewer brackets","Darcs/Arguments.lhs",1129,1,"(map drop_dotslash . list_slurpy) `fmap`\n  (withRepository [] slurp_pending)","(map drop_dotslash . list_slurpy) `fmap`\n  withRepository [] slurp_pending");
+idea("Use (:)","Darcs/Arguments.lhs",1146,1,"(\" \" ++ arg)","' ' : arg");
+idea("Use (:)","Darcs/Arguments.lhs",1149,1,"(\" \" ++ arg)","' ' : arg");
+idea("Use (:)","Darcs/Arguments.lhs",1152,1,"(\" \" ++ arg)","' ' : arg");
+idea("Use fewer brackets","Darcs/Arguments.lhs",1193,1,"s : (flagsToSiblings l)","s : flagsToSiblings l");
+idea("Use a string literal","Darcs/Arguments.lhs",1242,1,"['0']","\"0\"");
+idea("Eta reduce","Darcs/Bug.lhs",17,1,"_bug fetchUrl bs s = _bugDoc fetchUrl bs (text s)","_bug fetchUrl bs = _bugDoc fetchUrl bs . text");
+idea("Eta reduce","Darcs/ColorPrinter.lhs",28,1,"traceDoc d = trace (show d)","traceDoc = trace . show");
+idea("Use liftM","Darcs/ColorPrinter.lhs",95,3,"safeGetEnv s >>= return . (/= \"0\")","liftM (/= \"0\") (safeGetEnv s)");
+idea("Use fewer brackets","Darcs/ColorPrinter.lhs",199,1,"if (poIsprint po) then isPrint c else\n  isPrintableAscii c || c >= '\\128' && po8bit po","if poIsprint po then isPrint c else\n  isPrintableAscii c || c >= '\\128' && po8bit po");
+idea("Use const","Darcs/ColorPrinter.lhs",236,29,"\\ _ -> make_bold","const make_bold");
+idea("Eta reduce","Darcs/Commands/Add.lhs",285,1,"get_parentdir f = reverse $ drop 1 $ dropWhile (/= '/') $ reverse f","get_parentdir = reverse . drop 1 . dropWhile (/= '/') . reverse");
+idea("Use fewer brackets","Darcs/Commands/Annotate.lhs",160,9,"return $ patch2patchinfo `unseal2` (match_patch opts r)","return $ patch2patchinfo `unseal2` match_patch opts r");
+idea("Use fewer brackets","Darcs/Commands/Annotate.lhs",249,3,"y ++ (strReplace x y zs)","y ++ strReplace x y zs");
+idea("Use fewer brackets","Darcs/Commands/Annotate.lhs",250,3,"z : (strReplace x y zs)","z : strReplace x y zs");
+idea("Use when","Darcs/Commands/Annotate.lhs",327,1,"if wheni `elem` old_pis then\n  do putAnn $ text \"Following line added by \" <> showPatchInfo wheni\n     putLine ' ' l\n  else return ()","when (wheni `elem` old_pis) $\n  (do putAnn $ text \"Following line added by \" <> showPatchInfo wheni\n      putLine ' ' l)");
+idea("Eta reduce","Darcs/Commands/Annotate.lhs",351,1,"putAnn s = putDocLn $ prefix \"# \" s","putAnn = putDocLn . prefix \"# \"");
+idea("Use when","Darcs/Commands/Annotate.lhs",368,1,"if wheni `elem` old_pis then\n  putDocLn $ text \"<normal_line>\" $$ text \"<added_by>\" $$\n    to_xml wheni\n    $$ text \"</added_by>\"\n    $$ escapeXML (unpackPS l)\n    $$ text \"</normal_line>\"\n  else return ()","when (wheni `elem` old_pis) $\n  (putDocLn $ text \"<normal_line>\" $$ text \"<added_by>\" $$\n     to_xml wheni\n     $$ text \"</added_by>\"\n     $$ escapeXML (unpackPS l)\n     $$ text \"</normal_line>\")");
+idea("Eta reduce","Darcs/Commands/Check.lhs",101,7,"putVerbose s = when (Verbose `elem` opts) $ putDocLn s","putVerbose = when (Verbose `elem` opts) . putDocLn");
+idea("Eta reduce","Darcs/Commands/Check.lhs",102,7,"putInfo s = when (not $ Quiet `elem` opts) $ putDocLn s","putInfo = when (not $ Quiet `elem` opts) . putDocLn");
+idea("Eta reduce","Darcs/Commands/Diff.lhs",246,1,"changelog pis = vcat $ map human_friendly pis","changelog = vcat . map human_friendly");
+idea("Use fewer brackets","Darcs/Commands/Dist.lhs",95,31,"(formerdir)","formerdir");
+idea("Use fewer brackets","Darcs/Commands/Dist.lhs",95,31,"toFilePath tempdir ++ \"/\" ++ (basename distname)","toFilePath tempdir ++ \"/\" ++ basename distname");
+idea("Use when","Darcs/Commands/Mv.lhs",183,1,"if slurp_hasdir (fp2fn old) work then\n  do debugMessage $ unwords [\"renameDirectory\", old, new]\n     renameDirectory old new\n  else return ()","when (slurp_hasdir (fp2fn old) work) $\n  (do debugMessage $ unwords [\"renameDirectory\", old, new]\n      renameDirectory old new)");
+idea("Use isPrefixOf, and then remove the (==) test","Darcs/Commands/Optimize.lhs",110,1,"take 4 (just_name pinfo) == \"TAG \"","(4 == length \"TAG \") && (\"TAG \" `isPrefixOf` just_name pinfo)");
+idea("Eta reduce","Darcs/Commands/Optimize.lhs",187,1,"mymatch r = match_name $ matchRegex (mkRegex r)","mymatch = match_name . matchRegex . mkRegex");
+idea("Eta reduce","Darcs/Commands/Optimize.lhs",189,1,"match_name ch pinfo = isJust $ ch (just_name pinfo)","match_name ch = isJust . ch . just_name");
+idea("Use fewer brackets","Darcs/Commands/Optimize.lhs",250,1,"if (siblings == []) then\n  putStrLn \"No siblings -- no relinking done.\" else\n  do when (Relink `elem` opts) $\n       do debugMessage \"Relinking patches...\"\n          patches <- (liftM list_slurpy_files)\n                       (slurp $ darcsdir ++ \"/patches\")\n          maybeRelinkFiles siblings patches (darcsdir ++ \"/patches\")\n     when (RelinkPristine `elem` opts) $\n       do pristine <- identifyPristine\n          case (pristineDirectory pristine) of\n              (Just d) -> do debugMessage \"Relinking pristine tree...\"\n                             c <- slurp_recorded repository\n                             maybeRelinkFiles siblings (list_slurpy_files c) d\n              Nothing -> return ()\n     debugMessage \"Done relinking.\"\n     return ()","if siblings == [] then putStrLn \"No siblings -- no relinking done.\"\n  else\n  do when (Relink `elem` opts) $\n       do debugMessage \"Relinking patches...\"\n          patches <- (liftM list_slurpy_files)\n                       (slurp $ darcsdir ++ \"/patches\")\n          maybeRelinkFiles siblings patches (darcsdir ++ \"/patches\")\n     when (RelinkPristine `elem` opts) $\n       do pristine <- identifyPristine\n          case (pristineDirectory pristine) of\n              (Just d) -> do debugMessage \"Relinking pristine tree...\"\n                             c <- slurp_recorded repository\n                             maybeRelinkFiles siblings (list_slurpy_files c) d\n              Nothing -> return ()\n     debugMessage \"Done relinking.\"\n     return ()");
+idea("Use fewer brackets","Darcs/Commands/Optimize.lhs",258,34,"(liftM list_slurpy_files) (slurp $ darcsdir ++ \"/patches\")","liftM list_slurpy_files (slurp $ darcsdir ++ \"/patches\")");
+idea("Use fewer brackets","Darcs/Commands/Optimize.lhs",250,1,"case (pristineDirectory pristine) of\n    (Just d) -> do debugMessage \"Relinking pristine tree...\"\n                   c <- slurp_recorded repository\n                   maybeRelinkFiles siblings (list_slurpy_files c) d\n    Nothing -> return ()","case pristineDirectory pristine of\n    (Just d) -> do debugMessage \"Relinking pristine tree...\"\n                   c <- slurp_recorded repository\n                   maybeRelinkFiles siblings (list_slurpy_files c) d\n    Nothing -> return ()");
+idea("Use (:)","Darcs/Commands/Put.lhs",50,1,"[applyas] ++ network_options","applyas : network_options");
+idea("Eta reduce","Darcs/Commands/Put.lhs",69,7,"putInfo s = when (not am_quiet) $ putStrLn s","putInfo = when (not am_quiet) . putStrLn");
+idea("Use fewer brackets","Darcs/Commands/Put.lhs",67,1,"(command_command initialize) initopts","command_command initialize initopts");
+idea("Eta reduce","Darcs/Commands/Repair.lhs",111,7,"putVerbose s = when (Verbose `elem` opts) $ putDocLn s","putVerbose = when (Verbose `elem` opts) . putDocLn");
+idea("Eta reduce","Darcs/Commands/Repair.lhs",112,7,"putInfo s = when (not $ Quiet `elem` opts) $ putDocLn s","putInfo = when (not $ Quiet `elem` opts) . putDocLn");
+idea("Use fewer brackets","Darcs/Commands/Repair.lhs",169,17,"if ((i :: Int) + 1 < 100) then i + 1 else 0","if (i :: Int) + 1 < 100 then i + 1 else 0");
+idea("Use const","Darcs/Commands/ShowFiles.lhs",91,27,"\\ _ -> []","const []");
+idea("Use fewer brackets","Darcs/Commands/ShowFiles.lhs",98,10,"(to_list opts) `fmap` withRepository opts slurp","to_list opts `fmap` withRepository opts slurp");
+idea("Eta reduce","Darcs/Commands/ShowRepo.lhs",116,1,"showInfoXML t i = show $ tag (safeTag t) $ stringToHtml i","showInfoXML t = show . tag (safeTag t) . stringToHtml");
+idea("Use fewer brackets","Darcs/Commands/ShowRepo.lhs",121,1,"\"num_\" ++ (safeTag cs)","\"num_\" ++ safeTag cs");
+idea("Use fewer brackets","Darcs/Commands/ShowRepo.lhs",127,1,"(replicate (14 - length (t)) ' ') ++ t","replicate (14 - length (t)) ' ' ++ t");
+idea("Use fewer brackets","Darcs/Commands/ShowRepo.lhs",127,1,"(t)","t");
+idea("Use fewer brackets","Darcs/Commands/ShowRepo.lhs",127,1,"'\\n' : (replicate 16 ' ')","'\\n' : replicate 16 ' '");
+idea("Use print","Darcs/Commands/TransferMode.lhs",75,17,"putStrLn $ show $ lengthPS c","print (lengthPS c)");
+idea("Use print","Darcs/Commands/TransferMode.lhs",79,17,"putStrLn $ show e","print e");
+idea("Eta reduce","Darcs/Commands.lhs",123,1,"extract_commands cs\n  = concatMap\n      (\\ x ->\n         case x of\n             Command_data cmd_d -> [cmd_d]\n             _ -> [])\n      cs","extract_commands\n  = concatMap\n      (\\ x ->\n         case x of\n             Command_data cmd_d -> [cmd_d]\n             _ -> [])");
+idea("Eta reduce","Darcs/Commands.lhs",124,1,"extract_hidden_commands cs\n  = concatMap\n      (\\ x ->\n         case x of\n             Hidden_command cmd_d -> [cmd_d]\n             _ -> [])\n      cs","extract_hidden_commands\n  = concatMap\n      (\\ x ->\n         case x of\n             Hidden_command cmd_d -> [cmd_d]\n             _ -> [])");
+idea("Eta reduce","Darcs/Commands.lhs",176,1,"nodefaults _ _ xs = return xs","nodefaults _ _ = return");
+idea("Use fewer brackets","Darcs/Commands.lhs",250,1,"(usageInfo\n   (\"Usage: darcs \" ++ command_name super ++ \" SUBCOMMAND ... \" ++\n      \"\\n\\n\"\n      ++ command_description super\n      ++ \"\\n\\nSubcommands:\\n\"\n      ++ usage_helper (get_subcommands super)\n      ++ \"\\nOptions:\")\n   (option_from_darcsoption rootDirectory help))\n  ++ \"\\n\"","usageInfo\n  (\"Usage: darcs \" ++ command_name super ++ \" SUBCOMMAND ... \" ++\n     \"\\n\\n\"\n     ++ command_description super\n     ++ \"\\n\\nSubcommands:\\n\"\n     ++ usage_helper (get_subcommands super)\n     ++ \"\\nOptions:\")\n  (option_from_darcsoption rootDirectory help)\n  ++ \"\\n\"");
+idea("Use fewer brackets","Darcs/Commands.lhs",314,11,"(command_argdefaults cmd) specops","command_argdefaults cmd specops");
+idea("Use fewer brackets","Darcs/Commands.lhs",331,14,"(command_command cmd) (fixFlag : os)","command_command cmd (fixFlag : os)");
+idea("Eta reduce","Darcs/Commands.lhs",390,8,"isin f fs = any (`isa` f) fs","isin f = any (`isa` f)");
+idea("Use fewer brackets","Darcs/Commands.lhs",420,1,"get_command_help_core msuper cmd ++ \"\\n\\nSee darcs help \" ++\n  (maybe \"\" (\\ c -> command_name c ++ \" \") msuper)","get_command_help_core msuper cmd ++ \"\\n\\nSee darcs help \" ++\n  maybe \"\" (\\ c -> command_name c ++ \" \") msuper");
+idea("Use fewer brackets","Darcs/Commands.lhs",444,24,"\"\\n\\nSubcommands:\\n\" ++ (usage_helper s)","\"\\n\\nSubcommands:\\n\" ++ usage_helper s");
+idea("Use fewer brackets","Darcs/Commands.lhs",475,7,"fail $ \"Command \" ++ (command_name super)","fail $ \"Command \" ++ command_name super");
+idea("Use when","Darcs/CommandsAux.lhs",53,1,"if check_is_on && or (mapFL has_malicious_path patches) then\n  fail \"Malicious path\" else return ()","when (check_is_on && or (mapFL has_malicious_path patches)) $\n  fail \"Malicious path\"");
+idea("Eta reduce","Darcs/CommandsAux.lhs",65,1,"malicious_patches to_check\n  = filter (unseal2 has_malicious_path) to_check","malicious_patches = filter (unseal2 has_malicious_path)");
+idea("Eta reduce","Darcs/CommandsAux.lhs",100,5,"contains_any a b = not . null $ intersect a b","contains_any a = not . null . intersect a");
+idea("Use fewer brackets","Darcs/Compat.hs",50,11,"fp ++ (showHexLen 6 (r .&. 16777215 :: Int))","fp ++ showHexLen 6 (r .&. 16777215 :: Int)");
+idea("Eta reduce","Darcs/Diff.lhs",103,1,"mk_filepath fps = concat $ intersperse \"/\" $ reverse fps","mk_filepath = concat . intersperse \"/\" . reverse");
+idea("Use fewer brackets","Darcs/Diff.lhs",165,19,"if summary then id else (bin_patch f nilPS (get_filecontents s))","if summary then id else bin_patch f nilPS (get_filecontents s)");
+idea("Use fewer brackets","Darcs/Diff.lhs",232,19,"(bin_patch f (get_filecontents s) nilPS) . (rmfile f :>:)","bin_patch f (get_filecontents s) nilPS . (rmfile f :>:)");
+idea("Use isPrefixOf, and then remove the (==) test","Darcs/FilePathUtils.hs",38,1,"(take 1 $ reverse dir) == \"/\"","(1 == length \"/\") && (\"/\" `isPrefixOf` reverse dir)");
+idea("Eta reduce","Darcs/FilePathUtils.hs",66,1,"just_dir d = reverse $ takeWhile (/= '/') $ reverse d","just_dir = reverse . takeWhile (/= '/') . reverse");
+idea("Eta reduce","Darcs/FilePathUtils.hs",73,1,"do_norm f = fn2fp $ norm_path $ fp2fn f","do_norm = fn2fp . norm_path . fp2fn");
+idea("Eta reduce","Darcs/IO.lhs",75,5,"mReadBinFile f = liftM unpackPS $ mReadFilePS f","mReadBinFile = liftM unpackPS . mReadFilePS");
+idea("Eta reduce","Darcs/IO.lhs",84,5,"mWriteBinFile fn s = mWriteFilePS fn $ packString s","mWriteBinFile fn = mWriteFilePS fn . packString");
+idea("Eta reduce","Darcs/IO.lhs",87,5,"mWriteFilePSs f ss = mWriteFilePS f (unlinesPS ss)","mWriteFilePSs f = mWriteFilePS f . unlinesPS");
+idea("Eta reduce","Darcs/IO.lhs",91,5,"mWriteDoc f d = mWriteFilePS f (renderPS d)","mWriteDoc f = mWriteFilePS f . renderPS");
+idea("Eta reduce","Darcs/IO.lhs",150,5,"runTM io = TIO io","runTM = TIO");
+idea("Eta reduce","Darcs/IO.lhs",156,5,"runTM io = SIO io","runTM = SIO");
+idea("Eta reduce","Darcs/IO.lhs",170,5,"fail s = runTM $ fail s","fail = runTM . fail");
+idea("Eta reduce","Darcs/IO.lhs",171,5,"return x = runTM $ return x","return = runTM . return");
+idea("Eta reduce","Darcs/IO.lhs",175,5,"fail s = runTM $ fail s","fail = runTM . fail");
+idea("Eta reduce","Darcs/IO.lhs",176,5,"return x = runTM $ return x","return = runTM . return");
+idea("Eta reduce","Darcs/IO.lhs",186,5,"mDoesDirectoryExist d = runTM $ mDoesDirectoryExist d","mDoesDirectoryExist = runTM . mDoesDirectoryExist");
+idea("Eta reduce","Darcs/IO.lhs",187,5,"mDoesFileExist f = runTM $ mDoesFileExist f","mDoesFileExist = runTM . mDoesFileExist");
+idea("Eta reduce","Darcs/IO.lhs",188,5,"mInCurrentDirectory i j = runTM $ mInCurrentDirectory i (runIO j)","mInCurrentDirectory i = runTM . mInCurrentDirectory i . runIO");
+idea("Eta reduce","Darcs/IO.lhs",190,5,"mReadBinFile f = runTM $ mReadBinFile f","mReadBinFile = runTM . mReadBinFile");
+idea("Eta reduce","Darcs/IO.lhs",191,5,"mReadFilePS f = runTM $ mReadFilePS f","mReadFilePS = runTM . mReadFilePS");
+idea("Eta reduce","Darcs/IO.lhs",193,5,"mDoesDirectoryExist d = runTM $ mDoesDirectoryExist d","mDoesDirectoryExist = runTM . mDoesDirectoryExist");
+idea("Eta reduce","Darcs/IO.lhs",194,5,"mDoesFileExist f = runTM $ mDoesFileExist f","mDoesFileExist = runTM . mDoesFileExist");
+idea("Eta reduce","Darcs/IO.lhs",195,5,"mInCurrentDirectory i j = runTM $ mInCurrentDirectory i (runIO j)","mInCurrentDirectory i = runTM . mInCurrentDirectory i . runIO");
+idea("Eta reduce","Darcs/IO.lhs",197,5,"mReadBinFile f = runTM $ mReadBinFile f","mReadBinFile = runTM . mReadBinFile");
+idea("Eta reduce","Darcs/IO.lhs",198,5,"mReadFilePS f = runTM $ mReadFilePS f","mReadFilePS = runTM . mReadFilePS");
+idea("Eta reduce","Darcs/IO.lhs",202,6,"mSetFileExecutable f e = warning $ mSetFileExecutable f e","mSetFileExecutable f = warning . mSetFileExecutable f");
+idea("Eta reduce","Darcs/IO.lhs",203,6,"mWriteBinFile f s = warning $ mWriteBinFile f s","mWriteBinFile f = warning . mWriteBinFile f");
+idea("Eta reduce","Darcs/IO.lhs",204,6,"mWriteFilePS f s = warning $ mWriteFilePS f s","mWriteFilePS f = warning . mWriteFilePS f");
+idea("Eta reduce","Darcs/IO.lhs",207,6,"mRemoveFile f = warning $ mRemoveFile f","mRemoveFile = warning . mRemoveFile");
+idea("Use fewer brackets","Darcs/IO.lhs",217,32,"if (map toLower x == map toLower y) then backupByCopying y else\n  backupByRenaming y","if map toLower x == map toLower y then backupByCopying y else\n  backupByRenaming y");
+idea("Eta reduce","Darcs/IO.lhs",234,6,"mSetFileExecutable f e = warning $ mSetFileExecutable f e","mSetFileExecutable f = warning . mSetFileExecutable f");
+idea("Eta reduce","Darcs/IO.lhs",235,6,"mWriteBinFile f s = warning $ mWriteBinFile f s","mWriteBinFile f = warning . mWriteBinFile f");
+idea("Eta reduce","Darcs/IO.lhs",236,6,"mWriteFilePS f s = warning $ mWriteFilePS f s","mWriteFilePS f = warning . mWriteFilePS f");
+idea("Eta reduce","Darcs/IO.lhs",239,6,"mRemoveFile f = warning $ mRemoveFile f","mRemoveFile = warning . mRemoveFile");
+idea("Use fewer brackets","Darcs/IO.lhs",249,32,"if (map toLower x == map toLower y) then backupByCopying y else\n  backupByRenaming y","if map toLower x == map toLower y then backupByCopying y else\n  backupByRenaming y");
+idea("Eta reduce","Darcs/IO.lhs",266,1,"backup f = backupByRenaming $ fn2fp f","backup = backupByRenaming . fn2fp");
+idea("Use const","Darcs/Lock.lhs",75,55,"\\ _ -> job","const job");
+idea("Use when","Darcs/Lock.lhs",82,13,"if l then releaseLock s else return ()","when l $ releaseLock s");
+idea("Eta reduce","Darcs/Lock.lhs",108,1,"releaseLock s = removeFileMayNotExist s","releaseLock = removeFileMayNotExist");
+idea("Use liftM","Darcs/Lock.lhs",182,1,"firstJustIO\n  [readBinFile (darcsdir ++ \"/prefs/tmpdir\") >>= return .\n     Just . head . words\n     >>= chkdir,\n   maybeGetEnv \"DARCS_TMPDIR\" >>= chkdir,\n   getTemporaryDirectory >>= chkdir . Just,\n   getCurrentDirectorySansDarcs, return $ Just \".\"]\n  >>= return\n  . fromJust","liftM fromJust\n  (firstJustIO\n     [readBinFile (darcsdir ++ \"/prefs/tmpdir\") >>= return .\n        Just . head . words\n        >>= chkdir,\n      maybeGetEnv \"DARCS_TMPDIR\" >>= chkdir,\n      getTemporaryDirectory >>= chkdir . Just,\n      getCurrentDirectorySansDarcs, return $ Just \".\"])");
+idea("Use liftM","Darcs/Lock.lhs",182,1,"readBinFile (darcsdir ++ \"/prefs/tmpdir\") >>= return .\n  Just . head . words","liftM (Just . head . words)\n  (readBinFile (darcsdir ++ \"/prefs/tmpdir\"))");
+idea("Use liftM","Darcs/Lock.lhs",190,11,"doesDirectoryExist d >>= return .\n  \\ e -> if e then Just (d ++ \"/\") else Nothing","liftM (\\ e -> if e then Just (d ++ \"/\") else Nothing)\n  (doesDirectoryExist d)");
+idea("Eta reduce","Darcs/Lock.lhs",307,1,"gzWriteDocFile f d = gzWriteAtomicFilePSs f $ renderPSs d","gzWriteDocFile f = gzWriteAtomicFilePSs f . renderPSs");
+idea("Use isPrefixOf, and then remove the (==) test","Darcs/Match.lhs",182,11,"take 4 n == \"TAG \"","(4 == length \"TAG \") && (\"TAG \" `isPrefixOf` n)");
+idea("Use const","Darcs/Match.lhs",243,17,"\\ _ -> True","const True");
+idea("Use fewer brackets","Darcs/Match.lhs",260,17,"(unseal myhead) $ dropn (a - 1) ps","unseal myhead $ dropn (a - 1) ps");
+idea("Use fewer brackets","Darcs/Match.lhs",393,1,"case (slurpFunc $ Right s) of\n    Left err -> fail err\n    Right (_, ret) -> return $ concat ret","case slurpFunc $ Right s of\n    Left err -> fail err\n    Right (_, ret) -> return $ concat ret");
+idea("Use fewer brackets","Darcs/Match.lhs",407,9,"(ensureDirectories $ super_name p) >> (mWriteFilePS p c)","(ensureDirectories $ super_name p) >> mWriteFilePS p c");
+idea("Use fewer brackets","Darcs/Match.lhs",408,9,"ensureDirectories (super_name d) >> (mCreateDirectory d)","ensureDirectories (super_name d) >> mCreateDirectory d");
+idea("Use fewer brackets","Darcs/Match.lhs",425,9,"patch2patchinfo `unseal2` (find_a_patch match repo)","patch2patchinfo `unseal2` find_a_patch match repo");
+idea("Use fewer brackets","Darcs/Match.lhs",444,1,"(apply_patches [] . invertRL) `unsealFlipped`\n  (safetake n (concatRL ps))","(apply_patches [] . invertRL) `unsealFlipped`\n  safetake n (concatRL ps)");
+idea("Use fewer brackets","Darcs/Match.lhs",459,9,"patch2patchinfo `unseal2` (find_a_patch match ps)","patch2patchinfo `unseal2` find_a_patch match ps");
+idea("Use print","Darcs/Patch/Check.lhs",66,5,"putStrLn $ show pc","print pc");
+idea("Eta reduce","Darcs/Patch/Check.lhs",124,1,"set_contents f mss = PC (sc f mss)","set_contents f = PC . sc f");
+idea("Eta reduce","Darcs/Patch/Check.lhs",215,1,"assert_exists f = assert_not $ NotEx f","assert_exists = assert_not . NotEx");
+idea("Eta reduce","Darcs/Patch/FileName.lhs",52,1,"fp2fn fp = FN fp","fp2fn = FN");
+idea("Eta reduce","Darcs/Patch/FileName.lhs",72,1,"ps2fn ps = FN $ decode_white $ unpackPSfromUTF8 ps","ps2fn = FN . decode_white . unpackPSfromUTF8");
+idea("Use fewer brackets","Darcs/Patch/FileName.lhs",115,1,"\"..\" : (drop_dotdot p)","\"..\" : drop_dotdot p");
+idea("Eta reduce","Darcs/Patch/Info.lhs",43,1,"repopatchinfo r pi = RPI r pi","repopatchinfo r = RPI r");
+idea("Eta reduce","Darcs/Patch/Info.lhs",70,11,"doesnt_start_with x ys = not $ any (`isPrefixOf` x) ys","doesnt_start_with x = not . any (`isPrefixOf` x)");
+idea("Use fewer brackets","Darcs/Patch/Info.lhs",177,3,"y ++ (strReplace x y zs)","y ++ strReplace x y zs");
+idea("Use fewer brackets","Darcs/Patch/Info.lhs",178,3,"z : (strReplace x y zs)","z : strReplace x y zs");
+idea("Use fewer brackets","Darcs/Patch/Info.lhs",204,5,"(take 40 s) ++ \"...\"","take 40 s ++ \"...\"");
+idea("Eta reduce","Darcs/Patch/Info.lhs",242,5,"show pi = renderString (showPatchInfo pi)","show = renderString . showPatchInfo");
+idea("Eta reduce","Darcs/Patch/Match.lhs",49,1,"make_matcher s m = MATCH s m","make_matcher s = MATCH s");
+idea("Eta reduce","Darcs/Patch/Match.lhs",208,11,"negate_match a p = not (a p)","negate_match a = not . a");
+idea("Use fewer brackets","Darcs/Patch/Match.lhs",209,11,"(m1 p) || (m2 p)","m1 p || m2 p");
+idea("Use fewer brackets","Darcs/Patch/Match.lhs",210,11,"(m1 p) && (m2 p)","m1 p && m2 p");
+idea("Eta reduce","Darcs/Patch/Match.lhs",213,1,"trystring s = try $ string s","trystring = try . string");
+idea("Eta reduce","Darcs/Patch/Match.lhs",269,1,"parens p = between (string \"(\") (string \")\") p","parens = between (string \"(\") (string \")\")");
+idea("Use a string literal","Darcs/Patch/Match.lhs",272,1,"['\\\\', '\"']","\"\\\\\\\"\"");
+idea("Use a string literal","Darcs/Patch/Match.lhs",272,1,"['\"']","\"\\\"\"");
+idea("Use fewer brackets","Darcs/Patch/Match.lhs",286,1,"r == (just_name (info hp))","r == just_name (info hp)");
+idea("Eta reduce","Darcs/Patch/MatchData.lhs",29,1,"patch_match s = PatternMatch s","patch_match = PatternMatch");
+idea("Eta reduce","Darcs/Patch/Permutations.lhs",120,1,"head_permutationsFL ps\n  = map (\\ (x :> xs) -> x :>: xs) $ headPermutationsFL ps","head_permutationsFL\n  = map (\\ (x :> xs) -> x :>: xs) . headPermutationsFL");
+idea("Use on","Darcs/Patch/Permutations.lhs",144,5,"xs =/\\= ys = reverseFL xs =/\\= reverseFL ys","(=/\\=) = (=/\\=) `on` reverseFL");
+idea("Use on","Darcs/Patch/Permutations.lhs",161,5,"xs =\\/= ys = reverseRL xs =\\/= reverseRL ys","(=\\/=) = (=\\/=) `on` reverseRL");
+idea("Eta reduce","Darcs/Patch/Read.lhs",63,2,"readPatch' w = readPrim OldFormat w","readPatch' = readPrim OldFormat");
+idea("Redundant if","Darcs/Patch/Read.lhs",140,1,"if nullPS s then return False else\n  if headPS s /= '\\n' then return False else\n    alter_input tailPS >> return True","if nullPS s || (headPS s /= '\\n') then (return False) else\n  (alter_input tailPS >> return True)");
+idea("Use fewer brackets","Darcs/Patch/Read.lhs",255,20,"return $ (NamedP n d)","return $ NamedP n d");
+idea("Use fewer brackets","Darcs/Patch/ReadMonads.hs",22,12,"if nullPS (dropWhitePS s) then (Just ((), nilPS)) else Nothing","if nullPS (dropWhitePS s) then Just ((), nilPS) else Nothing");
+idea("Eta reduce","Darcs/Patch/ReadMonads.hs",51,1,"parse_strictly (SM f) s = f s","parse_strictly (SM f) = f");
+idea("Use const","Darcs/Patch/ReadMonads.hs",61,29,"\\ _ -> Nothing","const Nothing");
+idea("Eta reduce","Darcs/Patch/ReadMonads.hs",64,5,"work f = SM f","work = SM");
+idea("Eta reduce","Darcs/Patch/ReadMonads.hs",72,1,"parse_lazily (LM f) s = f s","parse_lazily (LM f) = f");
+idea("Eta reduce","Darcs/Patch/ReadMonads.hs",80,5,"fail s = error s","fail = error");
+idea("Use fewer brackets","Darcs/Patch/Test.lhs",142,1,"(invert)","invert");
+idea("Use a more efficient monadic variant","Darcs/Patch/Test.lhs",306,1,"mapM (delete_line (fn2fp f) line) old","mapM_ (delete_line (fn2fp f) line) old");
+idea("Use a more efficient monadic variant","Darcs/Patch/Test.lhs",306,1,"mapM (insert_line (fn2fp f) line) (reverse new)","mapM_ (insert_line (fn2fp f) line) (reverse new)");
+idea("Use a more efficient monadic variant","Darcs/Patch/Test.lhs",315,1,"mapM (delete_line (fn2fp f) 1) (linesPS o)","mapM_ (delete_line (fn2fp f) 1) (linesPS o)");
+idea("Use a more efficient monadic variant","Darcs/Patch/Test.lhs",315,1,"mapM (insert_line (fn2fp f) 1) (reverse $ linesPS n)","mapM_ (insert_line (fn2fp f) 1) (reverse $ linesPS n)");
+idea("Use fewer brackets","Darcs/Patch/Test.lhs",349,1,"(does_commute p1 p2) ==>\n  (Just (p2 :< p1) == (commutex (p2 :< p1) >>= commutex))","does_commute p1 p2 ==>\n  (Just (p2 :< p1) == (commutex (p2 :< p1) >>= commutex))");
+idea("Use fewer brackets","Darcs/Patch/Test.lhs",355,1,"(does_commute p1 p2) ==>\n  case commutex (p2 :< p1) of\n      Just (p1' :< p2') -> check_a_patch $\n                             join_patches [p1, p2, invert p1', invert p2']\n      _ -> impossible","does_commute p1 p2 ==>\n  case commutex (p2 :< p1) of\n      Just (p1' :< p2') -> check_a_patch $\n                             join_patches [p1, p2, invert p1', invert p2']\n      _ -> impossible");
+idea("Use fewer brackets","Darcs/Patch/Test.lhs",515,1,"\"Patches are:\\n\" ++ (show tp)","\"Patches are:\\n\" ++ show tp");
+idea("Eta reduce","Darcs/Patch/Test.lhs",589,1,"try_tok_possibly t o n mss\n  = mapM\n      (silly_maybe_possibly $ liftM concatPS .\n         try_tok_internal t (packString o) (packString n))\n      $ take 1000 mss","try_tok_possibly t o n\n  = mapM\n      (silly_maybe_possibly $ liftM concatPS .\n         try_tok_internal t (packString o) (packString n))\n      . take 1000");
+idea("Lambda shift","Darcs/Patch/Test.lhs",597,6,"silly_maybe_possibly f\n  = \\ px ->\n      case px of\n          PNothing -> Just PNothing\n          PSomething -> Just PSomething\n          PJust x -> case f x of\n                         Nothing -> Nothing\n                         Just x' -> Just $ PJust x'","silly_maybe_possibly f px\n  = case px of\n        PNothing -> Just PNothing\n        PSomething -> Just PSomething\n        PJust x -> case f x of\n                       Nothing -> Nothing\n                       Just x' -> Just $ PJust x'");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"(not_duplicatestriple)","not_duplicatestriple");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"(not_duplicatestriple)","not_duplicatestriple");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commutePairFromTree $\n  (recommute\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commutePairFromTree $\n  recommute\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commutePairFromTWFP $\n  (recommute\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commutePairFromTWFP $\n  recommute\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commutePairFromTree $\n  (recommute\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commutePairFromTree $\n  recommute\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commutePairFromTWFP $\n  (recommute\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commutePairFromTWFP $\n  recommute\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commutePairFromTree $\n  (commute_inverses\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commutePairFromTree $\n  commute_inverses\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commutePairFromTWFP $\n  (commute_inverses\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commutePairFromTWFP $\n  commute_inverses\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commutePairFromTree $\n  (commute_inverses\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commutePairFromTree $\n  commute_inverses\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commutePairFromTWFP $\n  (commute_inverses\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commutePairFromTWFP $\n  commute_inverses\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Use fewer brackets","Darcs/Patch/Unit.lhs",51,1,"commuteTripleFromTree $\n  (permutivity\n     (commute ::\n        ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch))))","commuteTripleFromTree $\n  permutivity\n    (commute ::\n       ((:>) RealPatch RealPatch -> Maybe ((:>) RealPatch RealPatch)))");
+idea("Eta reduce","Darcs/Patch/Unit.lhs",271,1,"quickhunk l o n\n  = hunk \"test\" l (map (\\ c -> packString [c]) o)\n      (map (\\ c -> packString [c]) n)","quickhunk l o\n  = hunk \"test\" l (map (\\ c -> packString [c]) o) .\n      map (\\ c -> packString [c])");
+idea("Use fewer brackets","Darcs/Patch/Viewing.lhs",150,3,"y ++ (strReplace x y zs)","y ++ strReplace x y zs");
+idea("Use fewer brackets","Darcs/Patch/Viewing.lhs",151,3,"z : (strReplace x y zs)","z : strReplace x y zs");
+idea("Eta reduce","Darcs/Patch/Viewing.lhs",325,5,"showPatch xs = vcat (mapFL showPatch xs)","showPatch = vcat . mapFL showPatch");
+idea("Eta reduce","Darcs/Population.lhs",78,1,"applyPatchSetPop ps pop\n  = applyPatchesPop (reverseRL $ concatRL ps) pop","applyPatchSetPop ps = applyPatchesPop (reverseRL $ concatRL ps)");
+idea("Use fewer brackets","Darcs/Population.lhs",106,82,"(unseal applyPatchSetPop)\n  (mkPatchSet $ dropWhileRL ((/= pinfo) . info) pips)","unseal applyPatchSetPop\n  (mkPatchSet $ dropWhileRL ((/= pinfo) . info) pips)");
+idea("Eta reduce","Darcs/Population.lhs",122,1,"lookup_pop f p = lookup_pop' (unpackPS $ fn2ps $ fp2fn f) p","lookup_pop f = lookup_pop' (unpackPS $ fn2ps $ fp2fn f)");
+idea("Use fewer brackets","Darcs/Population.lhs",129,5,"lookup_pop' (dropDS d) . (Pop pinfo)","lookup_pop' (dropDS d) . Pop pinfo");
+idea("Use fewer brackets","Darcs/Population.lhs",137,9,"lookup_pop' d' . (Pop pinfo)","lookup_pop' d' . Pop pinfo");
+idea("Eta reduce","Darcs/Population.lhs",146,1,"lookup_creation_pop pinfo f p\n  = lookup_creation_pop' pinfo (unpackPS $ fn2ps $ fp2fn f) p","lookup_creation_pop pinfo f\n  = lookup_creation_pop' pinfo (unpackPS $ fn2ps $ fp2fn f)");
+idea("Use fewer brackets","Darcs/Population.lhs",149,1,"(Pop pinfo) `fmap` lcp pp","Pop pinfo `fmap` lcp pp");
+idea("Eta reduce","Darcs/PopulationData.lhs",82,2,"show s = showPop \"\" s","show = showPop \"\"");
+idea("Eta reduce","Darcs/PrintPatch.lhs",40,1,"printFriendly opts p\n  = putDocLnWith fancyPrinters $ showFriendly opts p","printFriendly opts = putDocLnWith fancyPrinters . showFriendly opts");
+idea("Eta reduce","Darcs/PrintPatch.lhs",44,1,"printPatch p = putDocLnWith fancyPrinters $ showPatch p","printPatch = putDocLnWith fancyPrinters . showPatch");
+idea("Eta reduce","Darcs/PrintPatch.lhs",48,1,"printPatchPager p = viewDocWith fancyPrinters $ showPatch p","printPatchPager = viewDocWith fancyPrinters . showPatch");
+idea("Eta reduce","Darcs/PrintPatch.lhs",53,1,"contextualPrintPatch s p\n  = putDocLnWith fancyPrinters $ showContextPatch s p","contextualPrintPatch s\n  = putDocLnWith fancyPrinters . showContextPatch s");
+idea("Use when","Darcs/Progress.lhs",89,30,"if total p == Just l then endTedious k else return ()","when (total p == Just l) $ endTedious k");
+idea("Use fewer brackets","Darcs/Progress.lhs",121,11,"(startit y) :>: NilFL","startit y :>: NilFL");
+idea("Use fewer brackets","Darcs/Progress.lhs",133,11,"(startit y) :<: NilRL","startit y :<: NilRL");
+idea("Use replicate","Darcs/Progress.lhs",176,40,"take (length s) (repeat ' ')","replicate (length s) ' '");
+idea("Eta reduce","Darcs/Progress.lhs",183,1,"setProgressMode m = writeIORef _progressMode m","setProgressMode = writeIORef _progressMode");
+idea("Eta reduce","Darcs/RemoteApply.lhs",35,1,"apply_via_sudo user repo bundle\n  = pipeDoc \"sudo\"\n      [\"-u\", user, \"darcs\", \"apply\", \"--all\", \"--repodir\", repo]\n      bundle","apply_via_sudo user repo\n  = pipeDoc \"sudo\"\n      [\"-u\", user, \"darcs\", \"apply\", \"--all\", \"--repodir\", repo]");
+idea("Eta reduce","Darcs/RemoteApply.lhs",38,1,"apply_via_local opts repo bundle\n  = pipeDoc \"darcs\"\n      (\"apply\" : \"--all\" : \"--repodir\" : repo : applyopts opts)\n      bundle","apply_via_local opts repo\n  = pipeDoc \"darcs\"\n      (\"apply\" : \"--all\" : \"--repodir\" : repo : applyopts opts)");
+idea("Use a list comprehension","Darcs/RemoteApply.lhs",62,1,"if Debug `elem` opts then [\"--debug\"] else []","[\"--debug\" | (Debug `elem` opts)]");
+idea("Eta reduce","Darcs/RepoPath.hs",68,2,"fromFilePath xs = AbsolutePath xs","fromFilePath = AbsolutePath");
+idea("Eta reduce","Darcs/RepoPath.hs",142,1,"simpleClean x\n  = norm_slashes $\n      reverse $ dropWhile (== '/') $ reverse $ map cleanup x","simpleClean\n  = norm_slashes .\n      reverse . dropWhile (== '/') . reverse . map cleanup");
+idea("Eta reduce","Darcs/Repository/ApplyPatches.lhs",48,1,"apply_patches opts ps\n  = apply_patches_with_feedback opts \"Applying patch\" ps","apply_patches opts\n  = apply_patches_with_feedback opts \"Applying patch\"");
+idea("Use replicate","Darcs/Repository/Cache.lhs",75,20,"take (10 - l) (repeat '0')","replicate (10 - l) '0'");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",96,11,"r ++ \"/\" ++ darcsdir ++ \"/\" ++ (hashedDir subdir)","r ++ \"/\" ++ darcsdir ++ \"/\" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",104,11,"r ++ \"/\" ++ darcsdir ++ \"/\" ++ (hashedDir subdir)","r ++ \"/\" ++ darcsdir ++ \"/\" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",116,1,"d ++ \"/\" ++ (hashedDir s)","d ++ \"/\" ++ hashedDir s");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",117,1,"r ++ \"/\" ++ darcsdir ++ \"/\" ++ (hashedDir s)","r ++ \"/\" ++ darcsdir ++ \"/\" ++ hashedDir s");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",138,1,"debugMessage $ \"I'm doing copyFileUsingCache on \" ++\n  (hashedDir subdir)","debugMessage $ \"I'm doing copyFileUsingCache on \" ++\n  hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",164,1,"\"Couldn't fetch `\" ++ f ++ \"'\\nin subdir \" ++ (hashedDir subdir)","\"Couldn't fetch `\" ++ f ++ \"'\\nin subdir \" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",207,11,"d ++ \"/\" ++ (hashedDir subdir)","d ++ \"/\" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",215,1,"d ++ \"/\" ++ (hashedDir subdir)","d ++ \"/\" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",224,1,"\"Couldn't write `\" ++ hash ++ \"'\\nin subdir \" ++ (hashedDir subdir)","\"Couldn't write `\" ++ hash ++ \"'\\nin subdir \" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",234,11,"debugFail $ \"No location to write file `\" ++ (hashedDir subdir)","debugFail $ \"No location to write file `\" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",239,11,"d ++ \"/\" ++ (hashedDir subdir)","d ++ \"/\" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Cache.lhs",239,11,"\"Cleaning cache \" ++ d ++ \"/\" ++ (hashedDir subdir)","\"Cleaning cache \" ++ d ++ \"/\" ++ hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/Checkpoint.lhs",170,9,"(map fst) `fmap` read_checkpoints \".\"","map fst `fmap` read_checkpoints \".\"");
+idea("Use fewer brackets","Darcs/Repository/Format.lhs",54,11,"(fmap Right) (drfe x)","fmap Right (drfe x)");
+idea("Eta reduce","Darcs/Repository/Format.lhs",63,1,"parse_repo_format ps\n  = RF $ map (splitPS '|') $ filter (not . nullPS) $ linesPS ps","parse_repo_format\n  = RF . map (splitPS '|') . filter (not . nullPS) . linesPS");
+idea("Use (:)","Darcs/Repository/Format.lhs",70,1,"([map rp2ps flags2inv] ++ maybe2)","map rp2ps flags2inv : maybe2");
+idea("Use fewer brackets","Darcs/Repository/HashedIO.lhs",52,1,"debugMessage $ \"Reading hash file \" ++ hash ++ \" from \" ++\n  (hashedDir subdir)","debugMessage $ \"Reading hash file \" ++ hash ++ \" from \" ++\n  hashedDir subdir");
+idea("Use fewer brackets","Darcs/Repository/HashedIO.lhs",205,27,"(HashDir{permissions = RO, cache = c, compress = compr,\n         rootHash = h})","HashDir{permissions = RO, cache = c, compress = compr,\n        rootHash = h}");
+idea("Use fewer brackets","Darcs/Repository/HashedIO.lhs",267,1,"(HashDir{permissions = RO, cache = c, compress = compr,\n         rootHash = h})","HashDir{permissions = RO, cache = c, compress = compr,\n        rootHash = h}");
+idea("Use fewer brackets","Darcs/Repository/HashedIO.lhs",298,10,"(HashDir{permissions = RW, cache = c, compress = compr,\n         rootHash = sha1PS nilPS})","HashDir{permissions = RW, cache = c, compress = compr,\n        rootHash = sha1PS nilPS}");
+idea("Eta reduce","Darcs/Repository/HashedIO.lhs",363,1,"copyPartialsHashed c compr root\n  = mapM_ (copyPartialHashed c compr root)","copyPartialsHashed c compr = mapM_ . copyPartialHashed c compr");
+idea("Use fewer brackets","Darcs/Repository/HashedIO.lhs",397,1,"debugMessage $ \"Cleaning out \" ++ (hashedDir dir_)","debugMessage $ \"Cleaning out \" ++ hashedDir dir_");
+idea("Use fewer brackets","Darcs/Repository/HashedIO.lhs",400,11,"darcsdir ++ \"/\" ++ (hashedDir dir_)","darcsdir ++ \"/\" ++ hashedDir dir_");
+idea("Use fewer brackets","Darcs/Repository/HashedIO.lhs",401,10,"concat `fmap`\n  (mapM (listHashedContents \"cleaning up...\" c) hashroots)","concat `fmap`\n  mapM (listHashedContents \"cleaning up...\" c) hashroots");
+idea("Use concatMap","Darcs/Repository/Prefs.lhs",268,11,"concat $ map ext_regex exts","concatMap ext_regex exts");
+idea("Eta reduce","Darcs/Repository/Prefs.lhs",268,11,"ext_regexes exts = concat $ map ext_regex exts","ext_regexes = concat . map ext_regex");
+idea("Use fewer brackets","Darcs/Repository/Prefs.lhs",311,1,"if (prefs /= \"x\") then get_preffile $ prefs ++ p else return []","if prefs /= \"x\" then get_preffile $ prefs ++ p else return []");
+idea("Use when","Darcs/Repository/Prefs.lhs",320,43,"if haspref then mWriteBinFile (fp2fn $ prefs ++ p) (unlines ls)\n  else return ()","when haspref $ mWriteBinFile (fp2fn $ prefs ++ p) (unlines ls)");
+idea("Use fewer brackets","Darcs/Repository/Prefs.lhs",328,1,"if s == s' then (s : ss) else s' : add_to_list s ss","if s == s' then s : ss else s' : add_to_list s ss");
+idea("Use fewer brackets","Darcs/Repository/Prefs.lhs",346,1,"fst . (break (== ' '))","fst . break (== ' ')");
+idea("Use fewer brackets","Darcs/Repository/Prefs.lhs",350,1,"fst . (break (== ' '))","fst . break (== ' ')");
+idea("Use fewer brackets","Darcs/Repository/Prefs.lhs",373,34,"if\n  (NoSetDefault `notElem` opts && DryRun `notElem` opts &&\n     r_is_not_tmp)\n  then return True else\n  do olddef <- get_preflist \"defaultrepo\"\n     return (olddef == [])","if\n  NoSetDefault `notElem` opts && DryRun `notElem` opts &&\n    r_is_not_tmp\n  then return True else\n  do olddef <- get_preflist \"defaultrepo\"\n     return (olddef == [])");
+idea("Use isPrefixOf, and then remove the (==) test","Darcs/Repository/Prefs.lhs",441,22,"take 5 l == \"repo:\"","(5 == length \"repo:\") && (\"repo:\" `isPrefixOf` l)");
+idea("Use isPrefixOf, and then remove the (==) test","Darcs/Repository/Prefs.lhs",442,22,"take 9 l == \"thisrepo:\"","(9 == length \"thisrepo:\") && (\"thisrepo:\" `isPrefixOf` l)");
+idea("Use isPrefixOf, and then remove the (==) test","Darcs/Repository/Prefs.lhs",444,22,"take 6 l == \"cache:\"","(6 == length \"cache:\") && (\"cache:\" `isPrefixOf` l)");
+idea("Use isPrefixOf, and then remove the (==) test","Darcs/Repository/Prefs.lhs",445,22,"take 9 l == \"readonly:\"","(9 == length \"readonly:\") && (\"readonly:\" `isPrefixOf` l)");
+idea("Use isPrefixOf, and then remove the (==) test","Darcs/SignalHandler.lhs",70,29,"take 6 e == \"STDOUT\"","(6 == length \"STDOUT\") && (\"STDOUT\" `isPrefixOf` e)");
+idea("Use fewer brackets","Darcs/SignalHandler.lhs",127,1,"(block job) `catchSignal` couldnt_do","block job `catchSignal` couldnt_do");
+idea("Use concatMap","Darcs/SlurpDirectory.lhs",89,5,"concat (map show l)","concatMap show l");
+idea("Use fewer brackets","Darcs/SlurpDirectory.lhs",89,5,"\"Dir \" ++ (fn2fp fn) ++ \"\\n\" ++ concat (map show l) ++ \"End Dir \"\n  ++ (fn2fp fn)","\"Dir \" ++ (fn2fp fn) ++ \"\\n\" ++ concat (map show l) ++ \"End Dir \"\n  ++ fn2fp fn");
+idea("Use fewer brackets","Darcs/SlurpDirectory.lhs",89,5,"\"Dir \" ++ (fn2fp fn)","\"Dir \" ++ fn2fp fn");
+idea("Use fewer brackets","Darcs/SlurpDirectory.lhs",92,5,"\"File \" ++ (fn2fp fn)","\"File \" ++ fn2fp fn");
+idea("Use on","Darcs/SlurpDirectory.lhs",109,5,"s1 == s2 = (slurp_name s1) == (slurp_name s2)","(==) = (==) `on` slurp_name");
+idea("Use fewer brackets","Darcs/SlurpDirectory.lhs",109,5,"(slurp_name s1) == (slurp_name s2)","slurp_name s1 == slurp_name s2");
+idea("Use on","Darcs/SlurpDirectory.lhs",111,5,"s1 <= s2 = (slurp_name s1) <= (slurp_name s2)","(<=) = (<=) `on` slurp_name");
+idea("Use fewer brackets","Darcs/SlurpDirectory.lhs",111,5,"(slurp_name s1) <= (slurp_name s2)","slurp_name s1 <= slurp_name s2");
+idea("Eta reduce","Darcs/SlurpDirectory.lhs",142,5,"mDoesDirectoryExist d = smDoesDirectoryExist d","mDoesDirectoryExist = smDoesDirectoryExist");
+idea("Eta reduce","Darcs/SlurpDirectory.lhs",143,5,"mDoesFileExist f = smDoesFileExist f","mDoesFileExist = smDoesFileExist");
+idea("Use when","Darcs/SlurpDirectory.lhs",170,1,"if slurp_hasdir fn s then ensureDirectories fn else return ()","when (slurp_hasdir fn s) $ ensureDirectories fn");
+idea("Use fewer brackets","Darcs/SlurpDirectory.lhs",178,1,"ensureDirectories (super_name d) >> (mCreateDirectory d)","ensureDirectories (super_name d) >> mCreateDirectory d");
+idea("Eta reduce","Darcs/SlurpDirectory.lhs",185,1,"write_files s fps = mapM_ (try_write_file s) fps","write_files s = mapM_ (try_write_file s)");
+idea("Use const","Darcs/SlurpDirectory.lhs",251,43,"\\ _ -> sl","const sl");
+idea("Use fewer brackets","Darcs/SlurpDirectory.lhs",265,18,"if (slurp_has (fn2fp a) s) then\n  Left $ \"Error moving \" ++ fn2fp a ++ \" to \" ++ fn2fp b else\n  Right (s, ())","if slurp_has (fn2fp a) s then\n  Left $ \"Error moving \" ++ fn2fp a ++ \" to \" ++ fn2fp b else\n  Right (s, ())");
+idea("Use const","Darcs/SlurpDirectory.lhs",349,26,"\\ _ -> True","const True");
+idea("Use const","Darcs/SlurpDirectory.lhs",351,51,"\\ _ -> True","const True");
+idea("Use const","Darcs/SlurpDirectory.lhs",352,52,"\\ _ -> True","const True");
+idea("Eta reduce","Darcs/SlurpDirectory.lhs",547,1,"get_slurp f s = fmap snd (get_slurp_context f s)","get_slurp f = fmap snd . get_slurp_context f");
+idea("Eta reduce","Darcs/SlurpDirectory.lhs",592,1,"slurp_has f s = isJust (get_slurp (fp2fn f) s)","slurp_has f = isJust . get_slurp (fp2fn f)");
+idea("Use fewer brackets","Darcs/SlurpDirectory.lhs",610,1,"(map toLower) . fn2fp","map toLower . fn2fp");
+idea("Eta reduce","Darcs/Test.lhs",68,6,"putInfo s = when (not $ Quiet `elem` opts) $ putStr s","putInfo = when (not $ Quiet `elem` opts) . putStr");
+idea("Eta reduce","Darcs/Test.lhs",91,6,"putInfo s = when (Verbose `elem` opts) $ putStr s","putInfo = when (Verbose `elem` opts) . putStr");
+idea("Eta reduce","Darcs/Test.lhs",92,6,"putErr s = when (Quiet `notElem` opts) $ hPutStr stderr s","putErr = when (Quiet `notElem` opts) . hPutStr stderr");
+idea("Eta reduce","Darcs/Test.lhs",119,6,"putInfo s = when (Verbose `elem` opts) $ putStr s","putInfo = when (Verbose `elem` opts) . putStr");
+idea("Eta reduce","Darcs/Test.lhs",120,6,"putErr s = when (Quiet `notElem` opts) $ hPutStr stderr s","putErr = when (Quiet `notElem` opts) . hPutStr stderr");
+idea("Use const","Darcs/Utils.lhs",81,39,"\\ _ -> b","const b");
+idea("Use liftM","Darcs/Utils.lhs",84,1,"getEnv s >>= return . Just","liftM Just (getEnv s)");
+idea("Eta reduce","Darcs/Utils.lhs",123,1,"withCurrentDirectory name m\n  = bracket\n      (do cwd <- getCurrentDirectory\n          when (toFilePath name /= \"\") (setCurrentDirectory name)\n          return cwd)\n      (\\ oldwd -> setCurrentDirectory oldwd `catchall` return ())\n      (const m)","withCurrentDirectory name\n  = bracket\n      (do cwd <- getCurrentDirectory\n          when (toFilePath name /= \"\") (setCurrentDirectory name)\n          return cwd)\n      (\\ oldwd -> setCurrentDirectory oldwd `catchall` return ())\n      . const");
+idea("Use const","Darcs/Utils.lhs",266,28,"\\ _ -> job","const job");
+idea("Use head","darcs.lhs",674,1,"argv !! 0 == \"-h\" || argv !! 0","head (argv !! 0 == \"-h\" || argv)");
+idea("Use head","darcs.lhs",674,1,"argv !! 0","head argv");
+idea("Use head","darcs.lhs",674,1,"argv !! 0","head argv");
+idea("Use head","darcs.lhs",674,1,"argv !! 0 == \"-v\" || argv !! 0","head (argv !! 0 == \"-v\" || argv)");
+idea("Use head","darcs.lhs",674,1,"argv !! 0","head argv");
+idea("Use head","darcs.lhs",674,1,"argv !! 0","head argv");
+idea("Use head","darcs.lhs",674,1,"length argv == 1 && argv !! 0","head (length argv == 1 && argv)");
+idea("Use fewer brackets","darcs.lhs",725,25,"(command_prereq c) []","command_prereq c []");
+idea("Eta reduce","DateMatcher.lhs",49,1,"dateRange a b c\n  = cDateRange (unsafeToCalendarTime a) (unsafeToCalendarTime b) c","dateRange a b\n  = cDateRange (unsafeToCalendarTime a) (unsafeToCalendarTime b)");
+idea("Eta reduce","DateTester.lhs",50,1,"testDateAt iso d = testDateAtCal (readUTCDate iso) d","testDateAt iso = testDateAtCal (readUTCDate iso)");
+idea("Use fewer brackets","Exec.lhs",97,1,"(terminateProcess)","terminateProcess");
+idea("Use fewer brackets","Exec.lhs",97,1,"(waitForProcess)","waitForProcess");
+idea("Use const","Exec.lhs",160,22,"\\ _ -> x","const x");
+idea("Use fewer brackets","IsoDate.lhs",295,25,"10 ^ (picoExp - digsExp) * (read digs)","10 ^ (picoExp - digsExp) * read digs");
+idea("Use fewer brackets","IsoDate.lhs",354,23,"if (unset x) then 0 else x","if unset x then 0 else x");
+idea("Use a string literal","IsoDate.lhs",480,1,"[' ']","\" \"");
+idea("Use fewer brackets","IsoDate.lhs",767,1,"a7 * (toInteger m)","a7 * toInteger m");
+idea("Use fewer brackets","list_authors.hs",31,1,"if do_stats then \"\" else\n  (\"Run \" ++ formatPath (prog_name ++ \" stats\") ++\n     \" for more detailed information.\\n\"\n     ++ \"\\n\")","if do_stats then \"\" else\n  \"Run \" ++ formatPath (prog_name ++ \" stats\") ++\n    \" for more detailed information.\\n\"\n    ++ \"\\n\"");
+idea("Use fewer brackets","list_authors.hs",189,1,"(uncurry add_name_to_mail) $ head eaLst","uncurry add_name_to_mail $ head eaLst");
+idea("Use print","microbench.hs",38,44,"putStrLn (show e)","print e");
+idea("Use fewer brackets","OldDate.lhs",194,20,"(7 * w) + wd - (fromEnum firstDay)","(7 * w) + wd - fromEnum firstDay");
+idea("Use fewer brackets","OldDate.lhs",231,25,"10 ^ (picoExp - digsExp) * (read digs)","10 ^ (picoExp - digsExp) * read digs");
+idea("Use a string literal","OldDate.lhs",322,1,"[' ']","\" \"");
+idea("Use when","preproc.hs",15,1,"if length args < 1 then exitWith $ ExitFailure 1 else return ()","when (length args < 1) $ (exitWith $ ExitFailure 1)");
+idea("Eta reduce","Printer.lhs",127,1,"hPutDocWith prs h d = hPrintPrintables h (renderWith (prs h) d)","hPutDocWith prs h = hPrintPrintables h . renderWith (prs h)");
+idea("Eta reduce","Printer.lhs",140,1,"hPrintPrintables h = mapM_ (hPrintPrintable h)","hPrintPrintables = mapM_ . hPrintPrintable");
+idea("Eta reduce","Printer.lhs",203,1,"renderPSWith prs d = concatPS $ renderPSsWith prs d","renderPSWith prs = concatPS . renderPSsWith prs");
+idea("Eta reduce","Printer.lhs",252,1,"unsafeBoth s ps = Doc $ simplePrinter (Both s ps)","unsafeBoth s = Doc . simplePrinter . Both s");
+idea("Eta reduce","Printer.lhs",359,1,"doc f = Doc $ return $ Document f","doc = Doc . return . Document");
+idea("Use const","RegChars.lhs",51,22,"\\ _ -> False","const False");
+idea("Use fewer brackets","SHA1.lhs",174,8,"(complement x) .&. z","complement x .&. z");
+idea("Use a list comprehension","Ssh.hs",155,17,"if take 1 path == \"~\" then\n  [\"sftp doesn't expand ~, use path/ instead of ~/path/\"] else []","[\"sftp doesn't expand ~, use path/ instead of ~/path/\" |\n (take 1 path == \"~\")]");
+idea("Use isPrefixOf, and then remove the (==) test","Ssh.hs",155,17,"take 1 path == \"~\"","(1 == length \"~\") && (\"~\" `isPrefixOf` path)");
+idea("Use fewer brackets","Ssh.hs",151,17,"(take 5 ns) ++ [\"and \" ++ (show (length ns - 5)) ++ \" more\"]","take 5 ns ++ [\"and \" ++ (show (length ns - 5)) ++ \" more\"]");
+idea("Use fewer brackets","Ssh.hs",151,17,"\"and \" ++ (show (length ns - 5))","\"and \" ++ show (length ns - 5)");
+idea("Use a list comprehension","Ssh.hs",190,13,"if hasCmFeature then [\"-o ControlPath=\" ++ cmPath] else []","[(\"-o ControlPath=\" ++ cmPath) | hasCmFeature]");
+idea("Eta reduce","UglyFileName.lhs",45,1,"fp2fn fp = FN fp","fp2fn = FN");
+idea("Use fewer brackets","UglyFileName.lhs",74,5,"\"\" : (drop_dotdot' b)","\"\" : drop_dotdot' b");
+idea("Use fewer brackets","UglyFileName.lhs",79,11,"\"..\" : (drop_dotdot' p)","\"..\" : drop_dotdot' p");
+idea("Use print","unit.lhs",76,1,"putStrLn $ show patch_failures","print patch_failures");
+idea("Use fewer brackets","unit.lhs",102,5,"\"There are a total of \" ++ (show (length primitive_test_patches))","\"There are a total of \" ++ show (length primitive_test_patches)");
+idea("Use fewer brackets","unit.lhs",102,5,"\"There are a total of \" ++ (show (length test_patches))","\"There are a total of \" ++ show (length test_patches)");
+idea("Use fewer brackets","unit.lhs",210,1,"(thetest p) ++ (unit_tester thetest ps)","thetest p ++ unit_tester thetest ps");
+idea("Use fewer brackets","unit.lhs",214,1,"(thetest p1 p2) ++ (parallel_pair_unit_tester thetest ps)","thetest p1 p2 ++ parallel_pair_unit_tester thetest ps");
+idea("Use fewer brackets","unit.lhs",219,1,"(thetest p1 p2) ++ (pair_unit_tester thetest ps)","thetest p1 p2 ++ pair_unit_tester thetest ps");
+idea("Use fewer brackets","unit.lhs",235,12,"listArray (0, length sa) $ nilPS : (toPS sa)","listArray (0, length sa) $ nilPS : toPS sa");
+idea("Use fewer brackets","unit.lhs",236,12,"listArray (0, length sb) $ nilPS : (toPS sb)","listArray (0, length sb) $ nilPS : toPS sb");
+idea("Use fewer brackets","unit.lhs",232,1,"\"shiftBoundaries failed on \" ++ sa ++ \" and \" ++ sb ++ \" with \" ++\n  (show (ca, cb))\n  ++ \" expected \"\n  ++ (show (ca', cb'))\n  ++ \" got \"\n  ++ (show (ca_res, cb_res))","\"shiftBoundaries failed on \" ++ sa ++ \" and \" ++ sb ++ \" with \" ++\n  (show (ca, cb))\n  ++ \" expected \"\n  ++ (show (ca', cb'))\n  ++ \" got \"\n  ++ show (ca_res, cb_res)");
+idea("Use fewer brackets","unit.lhs",232,1,"\"shiftBoundaries failed on \" ++ sa ++ \" and \" ++ sb ++ \" with \" ++\n  (show (ca, cb))\n  ++ \" expected \"\n  ++ (show (ca', cb'))","\"shiftBoundaries failed on \" ++ sa ++ \" and \" ++ sb ++ \" with \" ++\n  (show (ca, cb))\n  ++ \" expected \"\n  ++ show (ca', cb')");
+idea("Use fewer brackets","unit.lhs",232,1,"\"shiftBoundaries failed on \" ++ sa ++ \" and \" ++ sb ++ \" with \" ++\n  (show (ca, cb))","\"shiftBoundaries failed on \" ++ sa ++ \" and \" ++ sb ++ \" with \" ++\n  show (ca, cb)");
+idea("Use fewer brackets","unit.lhs",281,5,"\"Failed to read shown:  \" ++ (show p)","\"Failed to read shown:  \" ++ show p");
+idea("Use fewer brackets","unit.lhs",283,5,"\"Failed to read at all:  \" ++ (show p)","\"Failed to read at all:  \" ++ show p");
+idea("Eta reduce","unit.lhs",323,1,"quickhunk l o n\n  = fromPrim $\n      hunk \"test\" l (map (\\ c -> packString [c]) o)\n        (map (\\ c -> packString [c]) n)","quickhunk l o\n  = fromPrim .\n      hunk \"test\" l (map (\\ c -> packString [c]) o) .\n        map (\\ c -> packString [c])");
+idea("Use fewer brackets","unit.lhs",335,20,"(length test_patches) - 1","length test_patches - 1");
+idea("Use fewer brackets","unit.lhs",339,3,"(parallel_pair_unit_tester t_merge_either_way_valid merge_pairs) ++\n  (parallel_pair_unit_tester t_merge_swap_merge merge_pairs)","parallel_pair_unit_tester t_merge_either_way_valid merge_pairs ++\n  parallel_pair_unit_tester t_merge_swap_merge merge_pairs");
+idea("Eta reduce","unit.lhs",385,9,"checkseq ps = check_a_patch $ join_patches ps","checkseq = check_a_patch . join_patches");
+idea("Use fewer brackets","unit.lhs",395,1,"\"Failed to recommute:\\n\" ++ (show p1) ++ (show p2)","\"Failed to recommute:\\n\" ++ (show p1) ++ show p2");
+idea("Use fewer brackets","unit.lhs",395,1,"\"Failed to recommute:\\n\" ++ (show p1)","\"Failed to recommute:\\n\" ++ show p1");
+idea("Use fewer brackets","unit.lhs",431,1,"fromPrim (rmfile \"NwNSO\") :<\n  (quickmerge\n     (fromPrim (addfile \"hello\") :\\/: fromPrim (addfile \"hello\")))","fromPrim (rmfile \"NwNSO\") :<\n  quickmerge\n    (fromPrim (addfile \"hello\") :\\/: fromPrim (addfile \"hello\"))");
+idea("Use fewer brackets","unit.lhs",431,1,"(quickmerge\n   (fromPrim (addfile \"hello\") :\\/: fromPrim (addfile \"hello\")))\n  :< fromPrim (rmfile \"NwNSO\")","quickmerge\n  (fromPrim (addfile \"hello\") :\\/: fromPrim (addfile \"hello\"))\n  :< fromPrim (rmfile \"NwNSO\")");
+idea("Use fewer brackets","unit.lhs",488,1,"([packString \"a\"])","[packString \"a\"]");
+idea("Use fewer brackets","unit.lhs",488,1,"([packString \"b\"])","[packString \"b\"]");
+idea("Eta reduce","unit.lhs",555,9,"testhunk l o n = fromPrim $ hunk \"test\" l o n","testhunk l o = fromPrim . hunk \"test\" l o");
+idea("Use a list comprehension","unit.lhs",637,13,"if p1'b /= p1' then\n  [\"Merge swapping problem with...\\np1 \" ++ show p1 ++\n     \"merged with\\np2 \"\n     ++ show p2\n     ++ \"p1' is\\np1' \"\n     ++ show p1'\n     ++ \"p1'b is\\np1'b  \"\n     ++ show p1'b]\n  else []","[(\"Merge swapping problem with...\\np1 \" ++ show p1 ++\n    \"merged with\\np2 \"\n    ++ show p2\n    ++ \"p1' is\\np1' \"\n    ++ show p1'\n    ++ \"p1'b is\\np1'b  \"\n    ++ show p1'b)\n | (p1'b /= p1')]");
+idea("Eta reduce","unit.lhs",722,11,"checkseq ps = check_a_patch $ join_patches ps","checkseq = check_a_patch . join_patches");
+idea("Eta reduce","unit.lhs",730,11,"checkseq ps = check_a_patch $ join_patches ps","checkseq = check_a_patch . join_patches");
+idea("Eta reduce","unit.lhs",736,11,"checkseq ps = check_a_patch $ join_patches ps","checkseq = check_a_patch . join_patches");
+idea("Eta reduce","unit.lhs",743,11,"checkseq ps = check_a_patch $ join_patches ps","checkseq = check_a_patch . join_patches");
+idea("Eta reduce","unit.lhs",751,11,"checkseq ps = check_a_patch $ join_patches ps","checkseq = check_a_patch . join_patches");
+idea("Use fewer brackets","URL.hs",163,15,"return . (Map.lookup u)","return . Map.lookup u");
+idea("Use fewer brackets","URL.hs",201,1,"return . (Map.insertWith fn u v)","return . Map.insertWith fn u v");
+idea("Use fewer brackets","URL.hs",242,18,"return . (Map.lookup u)","return . Map.lookup u");
+idea("Use fewer brackets","URL.hs",244,18,"return . (Map.delete u)","return . Map.delete u");
+idea("Use fewer brackets","UTF8.lhs",125,7,"(fromIntegral cp) .&. 63","fromIntegral cp .&. 63");
+idea("Use fewer brackets","UTF8.lhs",134,7,"(fromIntegral cp) .&. 63","fromIntegral cp .&. 63");
+idea("Use fewer brackets","UTF8.lhs",135,7,"(fromIntegral (shiftR cp 6)) .&. 63","fromIntegral (shiftR cp 6) .&. 63");
+idea("Use fewer brackets","UTF8.lhs",145,7,"(fromIntegral cp) .&. 63","fromIntegral cp .&. 63");
+idea("Use fewer brackets","UTF8.lhs",146,7,"(fromIntegral (shiftR cp 6)) .&. 63","fromIntegral (shiftR cp 6) .&. 63");
+idea("Use fewer brackets","UTF8.lhs",147,7,"(fromIntegral (shiftR cp 12)) .&. 63","fromIntegral (shiftR cp 12) .&. 63");
+idea("Use fewer brackets","win32/System/Posix.hs",18,20,"(atime)","atime");
+idea("Use fewer brackets","win32/System/Posix.hs",18,20,"(mtime)","mtime");
+// </CONTENT>
+
+function idea(name,file,line,col,old,suggest)
+{
+	hints[name] = value(0, hints[name]) + 1;
+	files[file] = value(0, files[file]) + 1;
+	items[items.length+1] = {name:name, file:file, line:line, col:col, old:old, suggest:suggest};
+}
+
+function sum(xs)
+{
+	var n = 0;
+	for (var i in xs)
+		n += xs[i];
+	return n;
+}
+
+function value(def, x)
+{
+	if (x) return x; else return def;
+}
+
+function show_item(x)
+{
+	var s = "";
+	s += x.file + ":" + x.line + ":" + x.col + ": " + x.name + "<br/>";
+	s += "Found:<br/><pre>" + x.old + "</pre>";
+	s += "Why not:<br/><pre>" + x.suggest + "</pre><hr/>";
+	return s;
+}
+
+function show_items(f)
+{
+	var s = "";
+	for (i in items)
+	{
+		var x = items[i];
+		if (f(x)) s += show_item(x);
+	}
+	return s;
+}
+
+function pick_link(i)
+{
+	document.getElementById("link_" + link_sel).style.fontWeight = "normal";
+	document.getElementById("link_" + i).style.fontWeight = "bold";
+	link_sel = i;
+}
+
+function show_hints(i, match)
+{
+	pick_link(i);
+	var s = "";
+	for (var i in hints)
+	{
+		if (i == match || match == "")
+		{
+			function f(x){return x.name == i};
+			s += "<h2>" + i + "</h2>"
+			s += show_items(f);
+		}
+	}
+	document.getElementById('content').innerHTML = s;
+}
+
+function show_files(i, match)
+{
+	pick_link(i);
+	var s = "";
+	for (var i in files)
+	{
+		if (i == match || match == "")
+		{
+			function f(x){return x.file == i};
+			s += "<h2>" + i + "</h2>"
+			s += show_items(f);
+		}
+	}
+	document.getElementById('content').innerHTML = s;
+}
+
+function on_load()
+{
+	function f(name,file,line,col,old,suggest)
+	{
+		hints[name] = value(0, hints[name]) + 1;
+		files[file] = value(0, files[file]) + 1;
+	}
+
+	function shows(text, xs)
+	{
+		var s;
+		link_count++;
+		s = "<p><a id='link_" + link_count + "' href='javascript:show_" + text + "(" + link_count + ",\"\")'>All " + text + " (" + sum(xs) + ")</a></p><ul>";
+		for (var i in xs)
+		{
+			link_count++;
+			s += "<li><a id='link_" + link_count + "' href='javascript:show_" + text + "(" + link_count + ",\"" + i + "\")'>" + i + " (" + xs[i] + ")</a></li>";
+		}
+		s += "</ul>";
+		return s;
+	}
+
+	var s = shows("hints",hints) + shows("files",files);
+	document.getElementById('leftbar').innerHTML = s;
+
+	show_hints(1,"");
+}
+</script>
+<style type="text/css">
+/* See http://www.webreference.com/programming/css_frames/ */
+body {
+  margin:0;
+  border:0;
+  padding:0;
+  height:100%;
+  max-height:100%;
+  font-family: sans-serif;
+  font-size:76%;
+  overflow: hidden;
+}
+
+h1 {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:35px;
+  overflow:auto;
+  padding: 0;
+  padding-left: 10px;
+  margin: 0;
+}
+
+#leftbar {
+  position:absolute;
+  top:30px;
+  left:0;
+  width: 215px;
+  bottom: 0px;
+  overflow:auto;
+  background:rgb(202,223,255);
+  margin: 10px;
+  padding-top: 0;
+  padding-left: 7px;
+  padding-right: 7px;
+  -moz-border-radius: 5px;
+}
+
+#content {
+  position:absolute;
+  top:35px;
+  left:250px;
+  bottom:0;
+  right:0;
+  overflow:auto;
+  padding-bottom: 15px;
+}
+
+#leftbar ul {margin-top: 0px; padding-left: 15px;}
+#leftbar p {margin-bottom: 0px;}
+
+pre{
+	font-family: "lucida console", monospace;
+}
+
+</style>
+</head>
+<body onload='on_load()'>
+<h1><a href="http://www.cs.york.ac.uk/~ndm/hlint/">HLint</a> report</h1>
+
+<div id="leftbar" valign="top" style="min-width:200px">leftbar</div>
+<div id="content" valign="top" width="100%">content</div>
+</body>
+</html>
