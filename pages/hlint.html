@@ -61,10 +61,10 @@ Why not:
 
 darcs-2.1.2\src\Darcs\Repository\Prefs.lhs:231:5: Warning: Use foldl
 Found:
-  abf fi (r : rs) = abf (\ f -> fi f && isNothing (matchRegex r f)) rs
+  abf fi (r : rs) = abf (\ f -> fi f &amp;&amp; isNothing (matchRegex r f)) rs
   abf fi [] = fi
 Why not:
-  abf fi rs = foldl (\ fi r f -> fi f && isNothing (matchRegex r f)) fi rs
+  abf fi rs = foldl (\ fi r f -> fi f &amp;&amp; isNothing (matchRegex r f)) fi rs
 
 ... many other suggestions ...
 </pre>
