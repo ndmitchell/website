@@ -10,54 +10,61 @@ tags=program haskell popular
 <pre>
 $ hlint darcs-2.1.2
 
-darcs-2.1.2\src\CommandLine.lhs:46:1: Use a string literal
+darcs-2.1.2\src\CommandLine.lhs:46:1: Warning: Use a string literal
 Found:
   [' ', '\t', '"', '%']
 Why not:
   " \t\"%"
 
-darcs-2.1.2\src\CommandLine.lhs:49:1: Eta reduce
+darcs-2.1.2\src\CommandLine.lhs:49:1: Warning: Eta reduce
 Found:
   quotedArg ftable
     = between (char '"') (char '"') $ quoteContent ftable
 Why not:
   quotedArg = between (char '"') (char '"') . quoteContent
 
-darcs-2.1.2\src\CommandLine.lhs:94:1: Use concatMap
+darcs-2.1.2\src\CommandLine.lhs:94:1: Error: Use concatMap
 Found:
   concat $ map escapeC s
 Why not:
   concatMap escapeC s
 
-darcs-2.1.2\src\CommandLine.lhs:103:1: Use fewer brackets
+darcs-2.1.2\src\CommandLine.lhs:103:1: Warning: Use fewer brackets
 Found:
   ftable ++ (map (\ (c, x) -&gt; (toUpper c, urlEncode x)) ftable)
 Why not:
   ftable ++ map (\ (c, x) -&gt; (toUpper c, urlEncode x)) ftable
 
-darcs-2.1.2\src\Darcs\Patch\ReadMonads.hs:61:29: Use const
+darcs-2.1.2\src\Darcs\Patch\ReadMonads.hs:61:29: Warning: Use const
 Found:
   \ _ -&gt; Nothing
 Why not:
   const Nothing
 
-darcs-2.1.2\src\Darcs\RemoteApply.lhs:62:1: Use a list comprehension
+darcs-2.1.2\src\Darcs\RemoteApply.lhs:62:1: Warning: Use a list comprehension
 Found:
   if Debug `elem` opts then ["--debug"] else []
 Why not:
-  ["--debug" | (Debug `elem` opts)]
+  ["--debug" | Debug `elem` opts]
 
-darcs-2.1.2\src\Ssh.hs:155:17: Use isPrefixOf, and then remove the (==) test
+darcs-2.1.2\src\Ssh.hs:155:17: Error: Use isPrefixOf
 Found:
   take 1 path == "~"
 Why not:
-  (1 == length "~") &amp;&amp; ("~" `isPrefixOf` path)
+  "~" `isPrefixOf` path
 
-darcs-2.1.2\src\Darcs\Patch\Test.lhs:306:1: Use a more efficient monadic variant
+darcs-2.1.2\src\Darcs\Patch\Test.lhs:306:1: Error: Use a more efficient monadic variant
 Found:
   mapM (delete_line (fn2fp f) line) old
 Why not:
   mapM_ (delete_line (fn2fp f) line) old
+
+darcs-2.1.2\src\Darcs\Repository\Prefs.lhs:231:5: Warning: Use foldl
+Found:
+  abf fi (r : rs) = abf (\ f -> fi f && isNothing (matchRegex r f)) rs
+  abf fi [] = fi
+Why not:
+  abf fi rs = foldl (\ fi r f -> fi f && isNothing (matchRegex r f)) fi rs
 
 ... many other suggestions ...
 </pre>
