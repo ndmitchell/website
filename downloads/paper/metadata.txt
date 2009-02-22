@@ -1,5 +1,22 @@
 *type=	paper
 
+page=   thesis
+url=    paper-transformation_and_analysis_of_functional_programs-4_jun_2008.pdf
+title=  Transformation and Analysis of Functional Programs
+date=   04 June 2008
+@school=University of York
+@pages=225
+@at=	phdthesis
+text=
+        This thesis describes techniques for transforming and analysing functional programs. We operate on a core language, to which Haskell programs can be reduced. We present a range of techniques, all of which have been implemented and evaluated.
+
+        We make programs shorter by defining a library which abstracts over common data traversal patterns, removing boilerplate code. This library only supports traversals having value-specific behaviour for one type, allowing a simpler programming model. Our library allows concise expression of traversals with competitive performance.
+
+        We make programs faster by applying a variant of supercompilation. As a result of practical experiments, we have identified modifications to the standard supercompilation techniques -- particularly with respect to let bindings and the generalisation technique.
+        
+        We make programs safer by automatically checking for potential pattern-match errors. We define a transformation that takes a higher-order program and produces an equivalent program with fewer functional values, typically a first-order program. We then define an analysis on a first-order language which checks statically that, despite the possible use of partial (or non-exhaustive) pattern matching, no pattern-match failure can occur.
+
+
 page=   catch
 url=    paper-not_all_patterns_but_enough-25_sep_2008.pdf
 title=  Not All Patterns, But Enough - an automatic verifier for partial but sufficient pattern matching
