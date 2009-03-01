@@ -6,6 +6,10 @@ tags=tags haskell phd yhc program popular
 	A Haskell program may fail at runtime with a pattern-match error if the program has any incomplete (non-exhaustive) patterns in definitions or case alternatives. The Catch tool is a static checker that allows non-exhaustive patterns to exist, yet ensures that a pattern-match error does not occur.
 </p>
 
+<p>
+	Unfortunately version incompatiblities mean that currently its very difficult to get Catch to compile. Hopefully at some point Catch can be ported to work on GHC Core, and Catch can be used on any programs which are compiled by GHC.
+</p>
+
 <h2>Users</h2>
 <p>
     <img style="float:right;margin-left:10px; border:0;" src="<:root>elements/valid-catch.png" alt="Checked by Catch!" height="31" width="88" />

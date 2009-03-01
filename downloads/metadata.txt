@@ -1,21 +1,17 @@
 
 *page=  catch
 
-type=   release
-url=    hackage:catch
-
 type=   manual
 url=    darcs:catch/catch.htm
 title=  Catch: A User Manual
-parent= hackage:catch
+parent= darcs:catch
 
 type=   darcs
 url=    darcs:catch
-parent= hackage:catch
 
 type=   bug
 url=    bug:Catch
-parent= hackage:catch
+parent= darcs:catch
 
 type=   blog
 url=    blog:catch
