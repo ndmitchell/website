@@ -17,7 +17,7 @@ import Website.Page
 import Website.Download
 
 
-ndm = "http://www-users.cs.york.ac.uk/~ndm/"
+root = "http://community.haskell.org/~ndm/"
 
 
 known = ["push","build","debug","check"]
@@ -40,10 +40,10 @@ main = do
     
     iff "build" $ generate False
     iff "debug" $ generate True
-    iff "push" $ system "scp -r web ndm@venice.cs.york.ac.uk:/usr/ndm"
+    iff "push" $ system "scp -r web ndm@community.haskell.org:/home/ndm/public_html"
     iff "check" $ do
         files <- getDirWildcards "pages/*.html"
-        let urls = [ndm ++ x | x <- "" : map takeBaseName files, x /= "index"]
+        let urls = [root ++ x | x <- "" : map takeBaseName files, x /= "index"]
         check urls
 
 
@@ -106,7 +106,7 @@ url x | "http:" `isPrefixOf` x = x
       | "blog:" `isPrefixOf` x = "http://neilmitchell.blogspot.com/search/label/" ++ drop 5 x
       | "haddock:" `isPrefixOf` x = "http://www.cs.york.ac.uk/fp/haddock/" ++ drop 8 x
       | "bug:" `isPrefixOf` x = "http://code.google.com/p/ndmitchell/issues/list?q=proj:" ++ drop 4 x
-      | otherwise = ndm ++ "downloads/" ++ x
+      | otherwise = root ++ "downloads/" ++ x
 
 
 
