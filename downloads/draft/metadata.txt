@@ -5,3 +5,10 @@ url=    draft-parser_design-17_nov_2004.pdf
 title=  Parser Design
 date=   17 Nov 2004
 note=   very early notes on my ideas regarding parsing.
+
+page=   firstify
+url=    draft-losing_functions_without_gaining_data-02_mar_2009.pdf
+title=  Losing Functions without Gaining Data
+date=   02 Mar 2009
+note=   submitted to ICFP 2009.
+
