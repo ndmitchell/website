@@ -10,5 +10,5 @@ page=   firstify
 url=    draft-losing_functions_without_gaining_data-02_mar_2009.pdf
 title=  Losing Functions without Gaining Data
 date=   02 Mar 2009
-note=   submitted to ICFP 2009.
+note=   submitted to <a href="http://www.cs.nott.ac.uk/~gmh/icfp09.html">ICFP 2009</a>.
 

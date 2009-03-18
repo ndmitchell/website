@@ -131,6 +131,11 @@ where=  PLASMA
 
 *page=  supero
 
+url=	slides-supercompilation_for_haskell-03_mar_2009.pdf
+title=	Supercompilation for Haskell
+date=	03 Mar 2009
+where=	<a href="http://sneezy.cs.nott.ac.uk/fun/">Fun in the Afternoon</a> Spring 2009
+
 url=    slides-supero_making_haskell_faster-27_sep_2007.pdf
 title=  Supero: Making Haskell Faster
 date=   27 Sep 2007
