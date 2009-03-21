@@ -13,7 +13,7 @@ import Website.Wildcard
 import Website.Util
 import Website.Metadata
 
-outdir = "web"
+outdir = "public_html"
 
 copy :: FilePath -> FilePath -> IO ()
 copy x y = do

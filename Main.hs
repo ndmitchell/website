@@ -7,6 +7,7 @@ import Data.List
 import Data.Maybe
 import Safe
 import System.Cmd
+import System.Exit
 import System.FilePath
 import System.Environment
 import System.IO.Unsafe
@@ -40,7 +41,13 @@ main = do
     
     iff "build" $ generate False
     iff "debug" $ generate True
-    iff "push" $ system "scp -r web ndm@community.haskell.org:/home/ndm/public_html"
+
+    iff "push" $ do
+        let system_ x = do putStrLn x ; res <- system x; when (res /= ExitSuccess) (error "System command failed")
+        system_ "tar --gzip -cf public_html.tar.gz public_html"
+        system_ "scp public_html.tar.gz ndm@community.haskell.org:/home/ndm/public_html.tar.gz"
+        system_ "ssh ndm@community.haskell.org tar -xf public_html.tar.gz"
+
     iff "check" $ do
         files <- getDirWildcards "pages/*.html"
         let urls = [root ++ x | x <- "" : map takeBaseName files, x /= "index"]
