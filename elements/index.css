@@ -58,10 +58,12 @@ h2 {
 *******************************************************************/
 
 #menu {
-	/* mozilla only rules */
-	/* -moz- breaks the CSS validator, but tough */
+	/* mozilla and webkit only rules */
+	/* -moz- and -webkit- break the CSS validator, but tough */
 	-moz-border-radius-bottomright: 10px;
 	-moz-border-radius-topright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
 	position: fixed !important;
 	/* end */
 	width: 130px;
