@@ -49,4 +49,5 @@
 ^\.darcs-temp-mail$
 # Those specific to Website below this line
 ^web$
+^public_html$
 ^darcs-ssh$
