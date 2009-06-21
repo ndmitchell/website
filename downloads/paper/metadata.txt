@@ -1,5 +1,29 @@
 *type=	paper
 
+page=	firstify
+url=	paper-losing_functions_without_gaining_data-03_sep_2009.pdf
+title=	Losing Functions without Gaining Data
+date=	03 Sep 2009
+where=	<a href="http://www.haskell.org/haskell-symposium/2009/">Haskell Symposium 2009</a>
+author= Neil Mitchell and Colin Runciman
+@booktitle=Haskell '09: Proceedings of the second ACM SIGPLAN symposium on Haskell
+# @pages=49-60
+@location=Edinburgh, Scotland, UK
+# @doi=http://doi.acm.org/10.1145/1411286.1411293
+@publisher=ACM
+@isbn=978-1-60558-508-6
+text=
+    We describe a transformation which takes a higher-order program,
+    and produces an equivalent first-order program. Unlike Reynolds-style
+    defunctionalisation, it does not introduce any new data types,
+    and the results are more amenable to subsequent analysis operations.
+    We can use our method to improve the results of existing
+    analysis operations, including strictness analysis, pattern-match
+    safety and termination checking. Our transformation is implemented,
+    and works on a Core language to which Haskell programs
+    can be reduced. Our method cannot always succeed in removing
+    all functional values, but in practice is remarkably successful.
+
 page=   thesis
 url=    paper-transformation_and_analysis_of_functional_programs-4_jun_2008.pdf
 title=  Transformation and Analysis of Functional Programs
