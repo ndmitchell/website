@@ -108,7 +108,7 @@ populateDownloads = do
 
 
 url x | "http:" `isPrefixOf` x = x
-      | "hackage:" `isPrefixOf` x = "http://hackage.haskell.org/cgi-bin/hackage-scripts/package/" ++ drop 8 x
+      | "hackage:" `isPrefixOf` x = "http://hackage.haskell.org/package/" ++ drop 8 x
       | "darcs:" `isPrefixOf` x = "http://community.haskell.org/~ndm/darcs/" ++ drop 6 x
       | "blog:" `isPrefixOf` x = "http://neilmitchell.blogspot.com/search/label/" ++ drop 5 x
       | "haddock:" `isPrefixOf` x = "http://www.cs.york.ac.uk/fp/haddock/" ++ drop 8 x
