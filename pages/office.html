@@ -1,0 +1,43 @@
+title=Office
+tags=popular
+
+<p>
+    I have written some macros for <a href="http://office.microsoft.com/">Microsoft Office</a>.
+</p>
+<ul>
+	<li><a href="http://neilmitchell.blogspot.com/2007/11/powerpoint-pdf-part-2.html">PowerPoint flattener</a> - to convert a PowerPoint presentation with animation into a flat PowerPoint without animation (suitable for conversion to PDF).</li>
+	<li><a href="#outlook_replytoall">Outlook Reply To All</a> - to provide Reply To All if that feature has been disabled by your organisation.
+</ul>
+
+
+
+<h2><a id="outlook_replytoall"></a>Outlook Reply To All</h2>
+
+<p>
+	Some companies lock down the use of Outlook by disabling the Reply To All button. This makes it harder to manage email, and requires manually copying email addresses to get the same effect. But using a bit of Office VBA, it is possible to make a functioning Reply To All button. The following solution has been tested in Outlook 2003, but should work for older versions as well.
+</p></p>
+	First, enable macros in Outlook. Go to Tools, Macro, Security and select Medium or Low security.
+</p><p>
+	Second, add a Reply To All action. Go to Tools, Macro, Visual Basic Editor and put the following code in the text editor.
+</p>
+<pre>
+Option Explicit
+
+Public Sub ReallyReplyAll()
+Dim o As MailItem
+Set o = Application.ActiveExplorer.Selection.Item(1)
+o.ReplyAll.Display
+End Sub
+</pre>
+<p>
+Finally, add a toolbar button to invoke the action. Go to Tools, Customise, Commands, Macros, and drag and drop the command Project1.ThisOutlookSession.ReallyReplyAll on to the toolbar. You can put this command exactly where you used to have Reply To All, and give it the same icon/name.
+</p><p>
+To test, select an email and click on the button you just added, it should do exactly what Reply To All would have done. There are some minor limitations to this method:
+</p>
+<ul>
+<li>The button will not disable itself when it isn't applicable, i.e. when there are no emails selected. You will still be able to click on the button, but it won't do anything.</li>
+<li>If you select a medium level of macro security, you will have to go through a security confirmation the first time you click Reply To All in an Outlook session.</li>
+</ul>
+<p>
+If possible, try to educate the person in charge that Reply To All is perfectly good email etiquette, and that people should be trusted to use it responsibly. However, if that fails, the above method is a useful fallback.
+</p>

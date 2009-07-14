@@ -1,4 +1,10 @@
 
+*page=  office
+
+type=	darcs
+url=	darcs:office
+
+
 *page=  catch
 
 type=   manual
