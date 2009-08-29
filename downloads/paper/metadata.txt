@@ -1,10 +1,33 @@
 *type=	paper
 
-page=	firstify
-url=	paper-losing_functions_without_gaining_data-03_sep_2009.pdf
-title=	Losing Functions without Gaining Data
-date=	03 Sep 2009
-where=	<a href="http://www.haskell.org/haskell-symposium/2009/">Haskell Symposium 2009</a>
+page=   derive
+url=    paper-deriving_a_relationship_from_a_single_example-04_sep_2009.pdf
+title=  Deriving a Relationship from a Single Example
+date=   04 Sep 2009
+where=  <a href="http://www.cogsys.wiai.uni-bamberg.de/aaip09/">Approaches and Applications of Inductive Programming 2009</a>
+author= Neil Mitchell
+@location=Edinburgh, Scotland, UK
+text=
+    Given an appropriate domain specific language (DSL), it is possible
+    to describe the relationship between Haskell data types and many
+    generic functions, typically type-class instances. While describing
+    the relationship is possible, it is not always an easy task. There is an
+    alternative - simply give one example output for a carefully chosen
+    input, and have the relationship derived.
+
+    When deriving a relationship from only one example, it is important
+    that the derived relationship is the intended one.We identify
+    general restrictions on the DSL, and on the provided example, to
+    ensure a level of predictability. We then apply these restrictions in
+    practice, to derive the relationship between Haskell data types and
+    generic functions. We have used our scheme in the Derive tool,
+    where over 60% of type classes are derived from a single example.
+
+page=   firstify
+url=    paper-losing_functions_without_gaining_data-03_sep_2009.pdf
+title=  Losing Functions without Gaining Data
+date=   03 Sep 2009
+where=  <a href="http://www.haskell.org/haskell-symposium/2009/">Haskell Symposium 2009</a>
 author= Neil Mitchell and Colin Runciman
 @booktitle=Haskell '09: Proceedings of the second ACM SIGPLAN symposium on Haskell
 # @pages=49-60
