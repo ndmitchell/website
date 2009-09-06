@@ -76,6 +76,12 @@ where=  PLASMA
 
 *page=  derive
 
+url=    slides-deriving_a_relationship_from_a_single_example-04_sep_2009.pdf
+title=  Deriving a Relationship from a Single Example
+date=   04 Sep 2009
+where=  <a href="http://www.cogsys.wiai.uni-bamberg.de/aaip09/">Approaches and Applications of Inductive Programming 2009</a>
+parent= paper-deriving_a_relationship_from_a_single_example-04_sep_2009.pdf
+
 url=    slides-instances_for_free-22_may_2008.pdf
 title=  Instances for Free
 date=   22 May 2008
@@ -89,6 +95,12 @@ parent= paper-deriving_generic_functions_by_example-26_oct_2007.pdf
 
 
 *page=  firstify
+
+url=    slides-losing_functions_without_gaining_data-03_sep_2009.pdf
+title=  Losing Functions without Gaining Data
+date=   03 Sep 2009
+where=  <a href="http://www.haskell.org/haskell-symposium/2009/">Haskell Symposium 2009</a>
+parent= paper-losing_functions_without_gaining_data-03_sep_2009.pdf
 
 url=    slides-first_order_haskell-06_apr_2007.pdf
 title=  First Order Haskell
