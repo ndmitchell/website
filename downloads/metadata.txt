@@ -1,4 +1,29 @@
 
+*page=  cmdargs
+
+type=   darcs
+url=    darcs:cmdargs
+
+type=   manual
+url=    darcs:cmdargs/cmdargs.htm
+title=  CmdArgs: Easy Command Line Processing
+parent= darcs:cmdargs
+
+type=   bug
+url=    bug:CmdArgs
+parent= darcs:cmdargs
+
+type=   blog
+url=    blog:cmdargs
+
+type=   haddock
+url=    haddock:cmdargs
+parent= hackage:cmdargs
+
+type=   release
+url=    hackage:cmdargs
+
+
 *page=  office
 
 type=	darcs
