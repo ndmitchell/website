@@ -111,7 +111,10 @@ url x | "http:" `isPrefixOf` x = x
       | "hackage:" `isPrefixOf` x = "http://hackage.haskell.org/package/" ++ drop 8 x
       | "darcs:" `isPrefixOf` x = "http://community.haskell.org/~ndm/darcs/" ++ drop 6 x
       | "blog:" `isPrefixOf` x = "http://neilmitchell.blogspot.com/search/label/" ++ drop 5 x
-      | "haddock:" `isPrefixOf` x = "http://www.cs.york.ac.uk/fp/haddock/" ++ drop 8 x
+      | "haddock:" `isPrefixOf` x =
+            let (name,rest) = break (== '/') $ drop 8 x
+                modu = if null rest then "doc-index" else [if x == '.' then '-' else x | x <- tail rest]
+            in "http://hackage.haskell.org/packages/archive/" ++ name ++ "/latest/doc/html/" ++ modu ++ ".html"
       | "bug:" `isPrefixOf` x = "http://code.google.com/p/ndmitchell/issues/list?q=proj:" ++ drop 4 x
       | otherwise = root ++ "downloads/" ++ x
 

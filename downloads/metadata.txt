@@ -17,7 +17,7 @@ type=   blog
 url=    blog:cmdargs
 
 type=   haddock
-url=    haddock:cmdargs
+url=    haddock:cmdargs/System.Console.CmdArgs
 parent= hackage:cmdargs
 
 type=   release
@@ -67,7 +67,7 @@ url=    bug:Derive
 parent= hackage:derive
 
 type=   haddock
-url=    haddock:derive
+url=    haddock:derive/Data.DeriveTH
 parent= hackage:derive
 
 
@@ -141,7 +141,7 @@ title=  Drinking TagSoup by Example
 parent= hackage:tagsoup
 
 type=   haddock
-url=    haddock:tagsoup/Text-HTML-TagSoup.html
+url=    haddock:tagsoup/Text.HTML.TagSoup
 parent= hackage:tagsoup
 
 
@@ -189,7 +189,7 @@ type=   darcs
 url=    darcs:binarydefer
 
 type=   haddock
-url=    haddock:binarydefer/Data-Binary-Defer.html
+url=    haddock:binarydefer/Data.Binary.Defer
 
 
 *page=  hlint
@@ -245,7 +245,7 @@ type=   darcs
 url=    darcs:proposition
 
 type=   haddock
-url=    haddock:proposition/Data-Proposition.html
+url=    http://www.cs.york.ac.uk/fp/haddock/proposition/Data-Proposition.html
 
 
 *page=  safe
@@ -258,7 +258,7 @@ url=    darcs:safe
 parent= hackage:safe
 
 type=   haddock
-url=    haddock:safe/Safe.html
+url=    haddock:safe/Safe
 parent= hackage:safe
 
 
