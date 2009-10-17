@@ -102,6 +102,12 @@ date=   03 Sep 2009
 where=  <a href="http://www.haskell.org/haskell-symposium/2009/">Haskell Symposium 2009</a>
 parent= paper-losing_functions_without_gaining_data-03_sep_2009.pdf
 
+type=   video
+url=    http://www.vimeo.com/6687266
+title=  Losing Functions without Gaining Data
+date=   03 Sep 2009
+parent= paper-losing_functions_without_gaining_data-03_sep_2009.pdf
+
 url=    slides-first_order_haskell-06_apr_2007.pdf
 title=  First Order Haskell
 date=   06 Apr 2007
