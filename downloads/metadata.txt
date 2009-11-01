@@ -148,7 +148,7 @@ parent= hackage:tagsoup
 *page=  thesis
 
 type=   darcs
-url=    darcs:ndm/thesis
+url=    darcs:thesis
 
 
 *page=  uniplate
