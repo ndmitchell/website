@@ -281,7 +281,7 @@ url=    http://www.haskell.org/haskellwiki/Yhc
 title=  Yhc Manual (wiki)
 
 type=   darcs
-url=    http://darcs.haskell.org/yhc/
+url=    http://www.cs.york.ac.uk/fp/darcs/yhc/
 
 type=   bug
 url=    http://code.google.com/p/yhc/issues/list
