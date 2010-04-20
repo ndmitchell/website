@@ -10,13 +10,14 @@ tags=library haskell popular
 </ol>
 <p>
 	A very simple example of a command line processor is:
+</p>
 <pre>
 data Sample = Sample {hello :: String}
               deriving (Show, Data, Typeable)
 
-sample = mode $ Sample{hello = def &= text "World argument" & empty "world"}
+sample = mode $ Sample{hello = def &amp;= text "World argument" &amp; empty "world"}
 
-main = print =<< cmdArgs "Sample v1, (C) Neil Mitchell 2009" [sample]
+main = print =&lt;&lt; cmdArgs "Sample v1, (C) Neil Mitchell 2009" [sample]
 </pre>
 <p>
 	Despite being very concise, this processor is already fairly well featured:
