@@ -18,7 +18,7 @@
 			<:show-catch>
 		</td>
 		<td id="bottom">
-    		&copy; <!contact "Neil Mitchell"> 2004-2009.
+    		&copy; <!contact "Neil Mitchell"> 2004-2010.
     	</td>
     </tr>
 </table>
