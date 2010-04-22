@@ -10,7 +10,6 @@ import Data.Char
 import Data.List
 import Data.Maybe
 import Text.HTML.TagSoup
-import Safe
 import System.FilePath
 import Website.Driver
 

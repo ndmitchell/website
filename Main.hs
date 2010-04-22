@@ -5,7 +5,6 @@ import Control.Monad
 import Data.Char
 import Data.List
 import Data.Maybe
-import Safe
 import System.Cmd
 import System.Exit
 import System.FilePath
@@ -90,9 +89,6 @@ populatePages debug pages = do
     pages <- mapM (\x -> putChar '.' >> readPage debug x) pages
     putStrLn ""
     return $ linkPages pages downloads
-    where
-        f (y,x) | y `elem` ["url","parent"] = (y, url x)
-        f x = x
 
 
 populateDownloads :: IO [Download]
