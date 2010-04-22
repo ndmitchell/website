@@ -9,6 +9,7 @@ import System.Cmd
 import System.Exit
 import System.FilePath
 import System.Environment
+import System.IO
 import System.IO.Unsafe
 import Text.HTML.TagSoup
 import Website.Check
@@ -24,6 +25,7 @@ known = ["push","build","debug","check"]
 
 main :: IO ()
 main = do
+    hSetBuffering stdout NoBuffering
     args <- getArgs
     let bad = filter (`notElem` known) args
     when (bad /= []) $
