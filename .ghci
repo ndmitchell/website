@@ -1,0 +1,14 @@
+:set -fno-warn-overlapping-patterns -fwarn-unused-binds -fwarn-unused-imports
+:load Main
+
+:def build const $ return ":main build"
+:def push const $ return ":main push"
+:def check const $ return ":main check"
+
+:{
+:def extra const $
+    let msg = [":build - build the website"
+              ,":push  - upload the website (do after build)"
+              ,":check - run HTML validation (do after push)"]
+    in putStr (unlines msg) >> return []
+:}
