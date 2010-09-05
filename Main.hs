@@ -237,5 +237,6 @@ tag meta "all-downloads" _ = showDownloadGroup $ concatMap f $ pgAll meta
         f (name,page) = map (\dl -> dl{dlText = dlText dl ++ extra}) $ pgDownloads page
             where extra = " (<a href='" ++ urlPage meta name ++ "'>" ++ pgTitle page ++ "</a>)"
 
+tag meta "cabal" _ = "Install using <a href='../cabal/'>cabal</a>."
 
 tag meta name atts = error $ "Unrecognised tag: " ++ name
