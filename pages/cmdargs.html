@@ -14,8 +14,8 @@ tags=library haskell popular
 <pre>
 data Sample = Sample {hello :: String} deriving (Show, Data, Typeable)
 
-sample = Sample{hello = def &= help "World argument" &= opt "world"}@
-         &= summary "Sample v1"
+sample = Sample{hello = def &amp;= help "World argument" &amp;= opt "world"}
+         &amp;= summary "Sample v1"
 
 main = print =&lt;&lt; cmdArgs sample
 </pre>
