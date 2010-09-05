@@ -1,3 +1,4 @@
+:set -package tagsoup-0.6
 :set -fno-warn-overlapping-patterns -fwarn-unused-binds -fwarn-unused-imports
 :load Main
 
