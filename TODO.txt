@@ -1,0 +1,4 @@
+For each library/program I need to say:
+* What it does.
+* Why you should use it.
+* How you use it (small example)
