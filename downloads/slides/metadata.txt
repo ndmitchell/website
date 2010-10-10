@@ -1,5 +1,19 @@
 *type=  slides
 
+*page=  shake
+
+url=    slides-shake_a_better_make-01_oct_2010.pdf
+title=  Shake: A Better Make
+where=  <a href="http://haskell.org/haskellwiki/HaskellImplementorsWorkshop/2010">Haskell Implementors Workshop 2010</a>
+date=   01 Oct 2010
+
+type=   video
+url=    http://vimeo.com/15465133
+date=   01 Oct 2010
+title=  Shake: A Better Make
+where=  <a href="http://haskell.org/haskellwiki/HaskellImplementorsWorkshop/2010">Haskell Implementors Workshop 2010</a>
+parent= slides-shake_a_better_make-01_oct_2010.pdf
+
 
 *page=  catch
 
@@ -14,8 +28,6 @@ url=    http://video.google.com/videoplay?docid=8250544235079789504
 title=  Not All Patterns, But Enough
 date=   25 Sep 2008
 parent= paper-not_all_patterns_but_enough-25_sep_2008.pdf
-
-
 
 url=    slides-detecting_pattern_match_failures_in_haskell-26_nov_2007.pdf
 title=  Detecting Pattern-Match Failures in Haskell
@@ -148,6 +160,12 @@ where=  PLASMA
 
 
 *page=  supero
+
+url=    slides-rethinking_supercompilation_29_sep_2010.pdf
+parent= paper-rethinking_supercompilation-29_sep_2010.pdf
+title=  Rethinking Supercompilation
+date=   29 Sep 2010
+where=  <a href="http://www.icfpconference.org/icfp2010/">ICFP 2010</a>
 
 url=	slides-supercompilation_for_haskell-03_mar_2009.pdf
 title=	Supercompilation for Haskell

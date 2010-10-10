@@ -1,5 +1,25 @@
 *type=	paper
 
+page=   supero
+url=    paper-rethinking_supercompilation-29_sep_2010.pdf
+title=  Rethinking Supercompilation
+date=   29 Sep 2010
+where=  <a href="http://www.icfpconference.org/icfp2010/">ICFP 2010</a>
+author= Neil Mitchell
+@location=Baltimore, Maryland, USA
+@pages=309-320
+@booktitle=ICFP '10: Proceedings of the 15th ACM SIGPLAN International Conference on Functional Programming
+@doi=http://doi.acm.org/10.1145/1863543.1863588
+@publisher=ACM
+@isbn=978-1-60558-794-3
+text=
+    Supercompilation is a program optimisation technique that is particularly
+    effective at eliminating unnecessary overheads. We have designed a new supercompiler,
+    making many novel choices, including different termination criteria and handling of
+    let bindings. The result is a supercompiler that focuses on simplicity, compiles
+    programs quickly and optimises programs well. We have benchmarked our supercompiler,
+    with some programs running more than twice as fast than when compiled with GHC.
+
 page=   derive
 url=    paper-deriving_a_relationship_from_a_single_example-04_sep_2009.pdf
 title=  Deriving a Relationship from a Single Example
@@ -7,6 +27,10 @@ date=   04 Sep 2009
 where=  <a href="http://www.cogsys.wiai.uni-bamberg.de/aaip09/">Approaches and Applications of Inductive Programming 2009</a>
 author= Neil Mitchell
 @location=Edinburgh, Scotland, UK
+@series=Lecture Notes in Computer Science, Vol. 5812
+@editors=Ute Schmid, Emanuel Kitzelmann, Rinus Plasmeijer
+@isbn=978-3-642-11930-9
+@pages=1-24
 text=
     Given an appropriate domain specific language (DSL), it is possible
     to describe the relationship between Haskell data types and many
@@ -30,9 +54,9 @@ date=   03 Sep 2009
 where=  <a href="http://www.haskell.org/haskell-symposium/2009/">Haskell Symposium 2009</a>
 author= Neil Mitchell and Colin Runciman
 @booktitle=Haskell '09: Proceedings of the second ACM SIGPLAN symposium on Haskell
-# @pages=49-60
+@pages=49-60
 @location=Edinburgh, Scotland, UK
-# @doi=http://doi.acm.org/10.1145/1411286.1411293
+@doi=http://doi.acm.org/10.1145/1411286.1411293
 @publisher=ACM
 @isbn=978-1-60558-508-6
 text=
