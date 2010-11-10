@@ -1,0 +1,28 @@
+% tagsoup-Nt.tex
+\begin{hcarentry}{tagsoup}
+\label{tagsoup}
+\report{Neil Mitchell}%05/10
+\makeheader
+
+TagSoup is a library for extracting information out of unstructured HTML code, sometimes
+known as tag-soup. The HTML does not have to be well formed, or render properly within
+any particular framework. This library is for situations where the author of the HTML
+is not cooperating with the person trying to extract the information, but is also not
+trying to hide the information.
+
+The library provides a basic data type for a list of unstructured tags, a parser to
+convert HTML into this tag type, and useful functions and combinators for finding and
+extracting information. The library has seen real use in an application to give
+Hackage~\cref{hackagedb} listings, and is used in Hoogle (\url{http://haskell.org/communities/05-2009/html/report.html#sect4.4.1}).
+
+A new version of tagsoup has been released, fully supporting the HTML 5 specification. The
+API also has experimental support for ByteString (although currently ByteString is slower
+than String).
+
+\FurtherReading
+%\begin{compactitem}
+%\item 
+%Homepage:
+\url{http://community.haskell.org/~ndm/tagsoup}
+%\end{compactitem}
+\end{hcarentry}

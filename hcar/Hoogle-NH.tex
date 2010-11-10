@@ -1,0 +1,20 @@
+% Hoogle-NH.tex
+\begin{hcarentry}[updated]{Hoogle}
+\label{Hoogle}
+\report{Neil Mitchell}%11/10
+\status{stable}
+\makeheader
+
+Hoogle is an online Haskell API search engine. It searches the functions in the various libraries,
+both by name and by type signature. When searching by name, the search just finds functions which
+contain that name as a substring. However, when searching by types it attempts to find any functions
+that might be appropriate, including argument reordering and missing arguments. The tool is written
+in Haskell, and the source code is available online. Hoogle is available as a web interface, a
+command line tool, and a lambdabot plugin.
+
+Hoogle development has recently restarted, and work is proceeding quickly. The darcs version of
+Hoogle can now search all of Hackage~\cref{hackage}, and should be released in a few months.
+
+\FurtherReading
+\url{http://haskell.org/hoogle}
+\end{hcarentry}

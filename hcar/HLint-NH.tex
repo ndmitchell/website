@@ -1,0 +1,18 @@
+% HLint-NH.tex
+\begin{hcarentry}[updated]{HLint}
+\label{HLint}
+\report{Neil Mitchell}%11/10
+\status{stable}
+\makeheader
+
+HLint is a tool that reads Haskell code and suggests changes to make it simpler.
+For example, if you call \texttt{maybe foo id} it will suggest using \texttt{fromMaybe foo} instead.
+HLint is compatible with almost all Haskell extensions, and can be easily extended with additional hints.
+
+There have been numerous feature improvements since the last HCAR, including an API, and better support
+for qualified module names. HLint is now used within hpaste.org%~\cref{hpaste}
+.
+
+\FurtherReading
+\url{http://community.haskell.org/~ndm/hlint/}
+\end{hcarentry}
