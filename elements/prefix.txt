@@ -19,4 +19,5 @@
 <:show-menu>
 
 <div id="content">
+    <:hoogle>
 	<h1><:title></h1>

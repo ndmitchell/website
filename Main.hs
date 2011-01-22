@@ -1,3 +1,4 @@
+{-# LANGUAGE PatternGuards #-}
 
 module Main(main) where
 
@@ -237,6 +238,20 @@ tag meta "all-downloads" _ = showDownloadGroup $ concatMap f $ pgAll meta
         f (name,page) = map (\dl -> dl{dlText = dlText dl ++ extra}) $ pgDownloads page
             where extra = " (<a href='" ++ urlPage meta name ++ "'>" ++ pgTitle page ++ "</a>)"
 
+
 tag meta "cabal" _ = "Install using <a href='../cabal/'>cabal</a>."
+
+
+tag meta "hoogle" _ | Just x <- lookup "hoogle" $ pgAttribs meta = concat $
+    ["<script type='text/javascript' src='http://haskell.org/hoogle/datadir/resources/jquery-1.4.2.js'></script>"
+    ,"<script type='text/javascript' src='http://haskell.org/hoogle/datadir/resources/hoogle.js'></script>"
+    ,"<form action='http://haskell.org/hoogle/' method='get'><div>"
+    ,    "Search " ++ pgTitle meta ++ " API "
+    ,    "<input type='text'   name='hoogle' id='hoogle' accesskey='1' />"] ++
+    [    "<input type='hidden' name='prefix' value='+" ++ x ++ "' />" | x /= ""] ++
+    [    "<input type='submit' value='Search' />"
+    ,"</div></form>"]
+    | otherwise = ""
+
 
 tag meta name atts = error $ "Unrecognised tag: " ++ name

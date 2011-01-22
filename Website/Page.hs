@@ -27,7 +27,7 @@ readPage debug file = do
     let fulltitle = res !# "title"
     return Page{pgName = base
                ,pgUrl = (if base == "index" then "" else base ++ "/") ++
-                      (if debug then "index.html" else "")
+                        (if debug then "index.html" else "")
                ,pgRoot = if base == "index" then "" else "../"
                ,pgTitle = fromMaybe fulltitle $ lookup "shortname" res
                ,pgFulltitle = fulltitle
