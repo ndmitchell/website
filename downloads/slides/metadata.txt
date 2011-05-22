@@ -142,6 +142,11 @@ parent= paper-hatday-28_oct_2005.pdf
 
 *page=  hoogle
 
+url=    slides-hoogle_finding_functions_from_types-16_may_2011.pdf
+title=  Hoogle: Finding Functions from Types
+date=   16 May 2011
+where=  <a href="http://dalila.sip.ucm.es/tfp11/">TFP 2011</a>
+
 url=    slides-hoogle_fast_type_searching-09_aug_2008.pdf
 title=  Hoogle: Fast Type Searching
 date=   09 Aug 2008
