@@ -208,6 +208,18 @@ type=   release
 url=    hackage:hlint
 
 
+*page=  shake
+
+type=   darcs
+url=    darcs:shake
+
+type=   bug
+url=    bug:Shake
+
+type=   release
+url=    hackage:shake
+
+
 *page=  firstify
 
 type=   darcs
