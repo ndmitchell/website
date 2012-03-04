@@ -220,6 +220,18 @@ type=   release
 url=    hackage:shake
 
 
+*page=  nsis
+
+type=   darcs
+url=    darcs:nsis
+
+type=   bug
+url=    bug:NSIS
+
+type=   release
+url=    hackage:nsis
+
+
 *page=  firstify
 
 type=   darcs
