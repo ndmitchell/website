@@ -8,8 +8,8 @@
 
 :{
 :def extra const $
-    let msg = [":build - build the website"
-              ,":push  - upload the website (do after build)"
-              ,":check - run HTML validation (do after push)"]
-    in putStr (unlines msg) >> return []
+        let msg = [":build - build the website"
+                  ,":push  - upload the website (do after build)"
+                  ,":check - run HTML validation (do after push)"]
+        in putStr (unlines msg) >> return []
 :}
