@@ -99,7 +99,7 @@ title=  Hoogle Manual (wiki)
 parent= hackage:hoogle
 
 type=   darcs
-url=    http://code.haskell.org/hoogle
+url=    https://github.com/ndmitchell/hoogle
 parent= hackage:hoogle
 
 type=   bug
