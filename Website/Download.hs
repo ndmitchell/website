@@ -67,7 +67,7 @@ readDownload x = Download date typ url parent
         typ = readDownloadType $ x !# "type"
         date = liftM dateToSort $ lookup "date" x 
 
-        entry | typ == Darcs && "https:" `isPrefixOf` url = "<a href='" ++ url ++ "'>" ++ url ++ "</a>"
+        entry | typ == Darcs && "https:" `isPrefixOf` url = "<a href='" ++ url ++ "'>Source code</a>"
               | typ == Darcs = "<a href='http://darcs.net/'>darcs</a> get --lazy " ++
                                "<a href='" ++ url ++ "'>" ++ url ++ "</a>"
               | otherwise = "<a href='" ++ url ++ "'>" ++ title ++ "</a>" ++
