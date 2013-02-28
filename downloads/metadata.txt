@@ -211,7 +211,7 @@ url=    hackage:hlint
 *page=  shake
 
 type=   darcs
-url=    darcs:shake
+url=    https://github.com/ndmitchell/shake
 
 type=   bug
 url=    bug:Shake
