@@ -2,6 +2,19 @@
 
 *page=  shake
 
+url=    slides-shake_before_building-10_sep_2012.pdf
+title=  Shake Before Building - Replacing Make with Haskell
+date=   10 Sep 2012
+where=  <a href="http://www.icfpconference.org/icfp2012/">ICFP 2012</a>
+parent= paper-shake_before_building-10_sep_2012.pdf
+
+type=   video
+url=    http://www.youtube.com/watch?v=xYCPpXVlqFM
+title=  Shake Before Building - Replacing Make with Haskell
+date=   10 Sep 2012
+where=  <a href="http://www.icfpconference.org/icfp2012/">ICFP 2012</a>
+parent= paper-shake_before_building-10_sep_2012.pdf
+
 url=    slides-shake_a_better_make-01_oct_2010.pdf
 title=  Shake: A Better Make
 where=  <a href="http://haskell.org/haskellwiki/HaskellImplementorsWorkshop/2010">Haskell Implementors Workshop 2010</a>
