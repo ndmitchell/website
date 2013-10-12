@@ -1,17 +1,17 @@
 
 *page=  cmdargs
 
-type=   darcs
-url=    darcs:cmdargs
+type=   git
+url=    git:cmdargs
 
 type=   manual
 url=    darcs:cmdargs/cmdargs.htm
 title=  CmdArgs: Easy Command Line Processing
-parent= darcs:cmdargs
+parent= git:cmdargs
 
 type=   bug
 url=    bug:CmdArgs
-parent= darcs:cmdargs
+parent= git:cmdargs
 
 type=   blog
 url=    blog:cmdargs
@@ -26,8 +26,8 @@ url=    hackage:cmdargs
 
 *page=  office
 
-type=	darcs
-url=	darcs:office
+type=   git
+url=    git:office
 
 
 *page=  catch
@@ -35,14 +35,14 @@ url=	darcs:office
 type=   manual
 url=    darcs:catch/catch.htm
 title=  Catch: A User Manual
-parent= darcs:catch
+parent= git:catch
 
-type=   darcs
-url=    darcs:catch
+type=   git
+url=    git:catch
 
 type=   bug
 url=    bug:Catch
-parent= darcs:catch
+parent= git:catch
 
 type=   blog
 url=    blog:catch
@@ -58,8 +58,8 @@ url=    darcs:derive/derive.htm
 title=  Data.Derive: A User Manual
 parent= hackage:derive
 
-type=   darcs
-url=    darcs:derive
+type=   git
+url=    git:derive
 parent= hackage:derive
 
 type=   bug
@@ -98,8 +98,8 @@ url=    http://www.haskell.org/haskellwiki/Hoogle
 title=  Hoogle Manual (wiki)
 parent= hackage:hoogle
 
-type=   darcs
-url=    https://github.com/ndmitchell/hoogle
+type=   git
+url=    git:hoogle
 parent= hackage:hoogle
 
 type=   bug
@@ -115,8 +115,8 @@ url=    blog:hoogle
 type=   blog
 url=    blog:supero
 
-type=   darcs
-url=    darcs:supero
+type=   git
+url=    git:supero
 
 
 *page=  tagsoup
@@ -127,8 +127,8 @@ url=    blog:tagsoup
 type=   release
 url=    hackage:tagsoup
 
-type=   darcs
-url=    darcs:tagsoup
+type=   git
+url=    git:tagsoup
 parent= hackage:tagsoup
 
 type=   bug
@@ -147,8 +147,8 @@ parent= hackage:tagsoup
 
 *page=  thesis
 
-type=   darcs
-url=    darcs:thesis
+type=   git
+url=    git:thesis
 
 
 *page=  uniplate
@@ -156,8 +156,8 @@ url=    darcs:thesis
 type=   release
 url=    hackage:uniplate
 
-type=   darcs
-url=    darcs:uniplate
+type=   git
+url=    git:uniplate
 parent= hackage:uniplate
 
 type=   bug
@@ -185,8 +185,8 @@ type=   manual
 url=    darcs:binarydefer/binarydefer.htm
 title=  Deferred Binary Serialisation
 
-type=   darcs
-url=    darcs:binarydefer
+type=   git
+url=    git:binarydefer
 
 type=   haddock
 url=    haddock:binarydefer/Data.Binary.Defer
@@ -194,8 +194,8 @@ url=    haddock:binarydefer/Data.Binary.Defer
 
 *page=  hlint
 
-type=   darcs
-url=    darcs:hlint
+type=   git
+url=    git:hlint
 
 type=   bug
 url=    bug:HLint
@@ -210,8 +210,8 @@ url=    hackage:hlint
 
 *page=  shake
 
-type=   darcs
-url=    https://github.com/ndmitchell/shake
+type=   git
+url=    git:shake
 
 type=   bug
 url=    bug:Shake
@@ -222,8 +222,8 @@ url=    hackage:shake
 
 *page=  nsis
 
-type=   darcs
-url=    darcs:nsis
+type=   git
+url=    git:nsis
 
 type=   bug
 url=    bug:NSIS
@@ -234,8 +234,8 @@ url=    hackage:nsis
 
 *page=  firstify
 
-type=   darcs
-url=    darcs:firstify
+type=   git
+url=    git:firstify
 
 type=   release
 url=    hackage:firstify
@@ -247,8 +247,8 @@ parent= hackage:firstify
 
 *page=  guihaskell
 
-type=   darcs
-url=    darcs:guihaskell
+type=   git
+url=    git:guihaskell
 
 
 *page=  hat
@@ -259,14 +259,14 @@ url=    http://www.cs.york.ac.uk/fp/temp/hat-win32-05_jul_2006.zip
 
 *page=  proplang
 
-type=   darcs
-url=    darcs:proplang
+type=   git
+url=    git:proplang
 
 
 *page=  proposition
 
-type=   darcs
-url=    darcs:proposition
+type=   git
+url=    git:proposition
 
 type=   haddock
 url=    http://www.cs.york.ac.uk/fp/haddock/proposition/Data-Proposition.html
@@ -277,8 +277,8 @@ url=    http://www.cs.york.ac.uk/fp/haddock/proposition/Data-Proposition.html
 type=   release
 url=    hackage:safe
 
-type=   darcs
-url=    darcs:safe
+type=   git
+url=    git:safe
 parent= hackage:safe
 
 type=   haddock
@@ -288,14 +288,14 @@ parent= hackage:safe
 
 *page=  tex2hs
 
-type=   darcs
-url=    darcs:tex2hs
+type=   git
+url=    git:tex2hs
 
 
 *page=  winhaskell
 
-type=   darcs
-url=    darcs:winhaskell
+type=   git
+url=    git:winhaskell
 
 
 *page=  yhc
