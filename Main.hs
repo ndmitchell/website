@@ -110,6 +110,7 @@ url x | "http:" `isPrefixOf` x = x
       | "https:" `isPrefixOf` x = x
       | "hackage:" `isPrefixOf` x = "http://hackage.haskell.org/package/" ++ drop 8 x
       | "darcs:" `isPrefixOf` x = "http://community.haskell.org/~ndm/darcs/" ++ drop 6 x
+      | "git:" `isPrefixOf` x = "https://github.com/ndmitchell/" ++ drop 4 x ++ ".git"
       | "blog:" `isPrefixOf` x = "http://neilmitchell.blogspot.com/search/label/" ++ drop 5 x
       | "haddock:" `isPrefixOf` x =
             let (name,rest) = break (== '/') $ drop 8 x

@@ -35,7 +35,7 @@ instance Ord Download where
     compare d1 d2 = compare (date d1, typ d1) (date d2, typ d2)
 
 
-data DownloadType = Paper | Draft | Release | Manual | Slides | Video | Audio | Darcs | Haddock | Blog | Bug
+data DownloadType = Paper | Draft | Release | Manual | Slides | Video | Audio | Git | Darcs | Haddock | Blog | Bug
                      deriving (Read, Show, Enum, Ord, Eq, Bounded)
 
 allDownloadType :: [(String, DownloadType)]
@@ -50,6 +50,7 @@ showDownloadTypeTitle x = case x of
     Draft   -> "Draft Papers"
     Slides  -> "Presentation Slides"
     Darcs   -> "Darcs Repositories"
+    Git     -> "Git Repositories"
     Haddock -> "Haddock Documentation"
     Blog    -> "Blog Postings"
     Bug     -> "Bug Trackers"
@@ -69,6 +70,8 @@ readDownload x = Download date typ url parent
 
         entry | typ == Darcs && "https:" `isPrefixOf` url = "<a href='" ++ url ++ "'>Source code</a>"
               | typ == Darcs = "<a href='http://darcs.net/'>darcs</a> get --lazy " ++
+                               "<a href='" ++ url ++ "'>" ++ url ++ "</a>"
+              | typ == Git = "git clone " ++
                                "<a href='" ++ url ++ "'>" ++ url ++ "</a>"
               | otherwise = "<a href='" ++ url ++ "'>" ++ title ++ "</a>" ++
                             maybe [] (" - from " ++) (lookup "where" x) ++

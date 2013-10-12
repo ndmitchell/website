@@ -168,7 +168,7 @@ li ul li {
    margin-left: -16px;
 }
 
-.darcs {list-style-image: url(darcs.png);}
+.darcs, .git {list-style-image: url(darcs.png);}
 .slides {list-style-image: url(slides.png);}
 .manual {list-style-image: url(manual.png);}
 .paper {list-style-image: url(paper.png);}
