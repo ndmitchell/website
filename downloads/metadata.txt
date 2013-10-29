@@ -5,7 +5,7 @@ type=   git
 url=    git:cmdargs
 
 type=   manual
-url=    darcs:cmdargs/cmdargs.htm
+url=    https://rawgithub.com/ndmitchell/cmdargs/master/cmdargs.htm
 title=  CmdArgs: Easy Command Line Processing
 parent= git:cmdargs
 
@@ -33,7 +33,7 @@ url=    git:office
 *page=  catch
 
 type=   manual
-url=    darcs:catch/catch.htm
+url=    https://rawgithub.com/ndmitchell/catch/master/catch.htm
 title=  Catch: A User Manual
 parent= git:catch
 
@@ -54,7 +54,7 @@ type=   release
 url=    hackage:derive
 
 type=   manual
-url=    darcs:derive/derive.htm
+url=    https://rawgithub.com/ndmitchell/derive/master/derive.htm
 title=  Data.Derive: A User Manual
 parent= hackage:derive
 
@@ -136,7 +136,7 @@ url=    bug:TagSoup
 parent= hackage:tagsoup
 
 type=   manual
-url=    darcs:tagsoup/tagsoup.htm
+url=    https://rawgithub.com/ndmitchell/tagsoup/master/tagsoup.htm
 title=  Drinking TagSoup by Example
 parent= hackage:tagsoup
 
@@ -165,7 +165,7 @@ url=    bug:Uniplate
 parent= hackage:uniplate
 
 type=   manual
-url=    darcs:uniplate/uniplate.htm
+url=    https://rawgithub.com/ndmitchell/uniplate/master/uniplate.htm
 title=  Boilerplate Removal with Uniplate
 parent= hackage:uniplate
 
@@ -182,7 +182,7 @@ url=    http://cvs.haskell.org/Hugs/pages/downloading.htm
 *page=  binarydefer
 
 type=   manual
-url=    darcs:binarydefer/binarydefer.htm
+url=    https://rawgithub.com/ndmitchell/binarydefer/master/binarydefer.htm
 title=  Deferred Binary Serialisation
 
 type=   git
@@ -201,7 +201,7 @@ type=   bug
 url=    bug:HLint
 
 type=   manual
-url=    darcs:hlint/hlint.htm
+url=    https://rawgithub.com/ndmitchell/hlint/master/hlint.htm
 title=	HLint Manual
 
 type=   release
