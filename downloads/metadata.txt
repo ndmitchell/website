@@ -201,7 +201,7 @@ type=   bug
 url=    bug:HLint
 
 type=   manual
-url=    https://rawgithub.com/ndmitchell/hlint/master/hlint.htm
+url=    https://github.com/ndmitchell/hlint#readme
 title=	HLint Manual
 
 type=   release
