@@ -10,7 +10,7 @@ title=  CmdArgs: Easy Command Line Processing
 parent= git:cmdargs
 
 type=   bug
-url=    bug:CmdArgs
+url=    https://github.com/ndmitchell/cmdargs/issues?state=open
 parent= git:cmdargs
 
 type=   blog
@@ -40,10 +40,6 @@ parent= git:catch
 type=   git
 url=    git:catch
 
-type=   bug
-url=    bug:Catch
-parent= git:catch
-
 type=   blog
 url=    blog:catch
 
@@ -63,7 +59,7 @@ url=    git:derive
 parent= hackage:derive
 
 type=   bug
-url=    bug:Derive
+url=    https://github.com/ndmitchell/derive/issues
 parent= hackage:derive
 
 type=   haddock
@@ -103,7 +99,7 @@ url=    git:hoogle
 parent= hackage:hoogle
 
 type=   bug
-url=    bug:Hoogle
+url=    https://github.com/ndmitchell/hoogle/issues
 parent= hackage:hoogle
 
 type=   blog
@@ -132,7 +128,7 @@ url=    git:tagsoup
 parent= hackage:tagsoup
 
 type=   bug
-url=    bug:TagSoup
+url=    https://github.com/ndmitchell/tagsoup/issues
 parent= hackage:tagsoup
 
 type=   manual
@@ -161,7 +157,7 @@ url=    git:uniplate
 parent= hackage:uniplate
 
 type=   bug
-url=    bug:Uniplate
+url=    https://github.com/ndmitchell/uniplate/issues
 parent= hackage:uniplate
 
 type=   manual
@@ -198,7 +194,7 @@ type=   git
 url=    git:hlint
 
 type=   bug
-url=    bug:HLint
+url=    https://github.com/ndmitchell/hlint/issues
 
 type=   manual
 url=    https://github.com/ndmitchell/hlint#readme
@@ -214,7 +210,7 @@ type=   git
 url=    git:shake
 
 type=   bug
-url=    bug:Shake
+url=    https://github.com/ndmitchell/shake/issues
 
 type=   release
 url=    hackage:shake
@@ -226,7 +222,7 @@ type=   git
 url=    git:nsis
 
 type=   bug
-url=    bug:NSIS
+url=    https://github.com/ndmitchell/nsis/issues
 
 type=   release
 url=    hackage:nsis
@@ -239,10 +235,6 @@ url=    git:firstify
 
 type=   release
 url=    hackage:firstify
-
-type=   bug
-url=    bug:Firstify
-parent= hackage:firstify
 
 
 *page=  guihaskell
