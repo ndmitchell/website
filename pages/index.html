@@ -2,24 +2,29 @@ title=Home Page
 tags=admin
 
 <p>
-	<img style="float:right;margin-left:6px;" src="elements/my-photo.jpg" alt="My photo" />
-	I was previously an <a href="http://www.epsrc.ac.uk/">EPSRC funded</a> PhD student in the <a href="http://www.cs.york.ac.uk/">Computer Science Department</a> at the <a href="http://www.york.ac.uk/">University of York</a>, England, in the <a href="http://www.cs.york.ac.uk/plasma/">Programming Languages and Systems Research Group</a> (PLASMA), supervised by <a href="http://www-users.cs.york.ac.uk/~colin/">Colin Runciman</a>. I have now finished my PhD, and am working for <a href="http://www.standardchartered.com/">Standard Chartered</a>.
+    <a href="elements/henry-photo-big.jpg"><img style="float:right;margin-left:6px;" src="elements/henry-photo.jpg" alt="Henry Mitchell photo" /></a>
+    <a href="elements/neil-photo-big.jpg"><img style="float:right;margin-left:6px;" src="elements/neil-photo.jpg" alt="Neil Mitchell photo" /></a>
+    I'm a Haskell programmer who lives in Cambridge with my wife <a href="https://www.esc.cam.ac.uk/people/research-students/emily-mitchell">Emily</a> and son Henry (who has grown up a little since the photo on the right was taken). I have a PhD in Computer Science from <a href="http://www.cs.york.ac.uk/">York University</a>, working on making functional programs shorter, faster and safer. Since then I've worked with F# at <a href="https://www.credit-suisse.com/">Credit Suisse</a> and Haskell/C++ at <a href="http://www.standardchartered.com/">Standard Chartered</a>, taking the lessons of functional programming and applying them in finance. I'm a strong believer in the functional approach, finding the combination of conciseness, static-typing and testability to offer significant advantages - see <a href="http://neilmitchell.blogspot.com/">my blog</a> for more. To get in touch email me at <:email "ndmitchell@gmail.com">.
 </p>
+
+<h2>Open Source Projects</h2>
+
+<p>
+    I develop a number of open source Haskell projects, all of which can be found at <a href="https://github.com/ndmitchell">my Github page</a>. Some of my more popular projects include:
+</p>
+<ul class="space">
+    <li><b><!shake></b> - a library for writing build systems, an alternative to <tt>make</tt>.</li>
+    <li><b><!hoogle></b> - a Haskell API search engine, searching the standard Haskell libraries by function name and type signature.</li>
+    <li><b><!hlint></b> - an automatic analysis tool to suggest improvements to Haskell code.</li>
+    <li><b><!uniplate></b> - a library for writing concise traversals over data types.</li>
+</ul>
 
 <h2>Research Interests</h2>
 <p>
-    My main research interest is functional programming, typically using the <a href="http://www.haskell.org/">Haskell</a> programming language.
+    My research interests cover functional programming and the theoretical side of computer science, a complete list of my papers can be found under <!downloads>. My current research topics include:
 </p>
 <ul class="space">
-    <li><b>Program Transformation</b> - I have a strong interest in program transformation and analysis <!thesis more>. In particular I am intersested in making certain types of static analysis more applicable <!firstify more>, and developing new techniques to eliminate program crashes <!catch more>. I am also interested in improving the performance of programs <!supero more>.</li>
-
-    <li><b>Programmer Support</b> - I have a particular desire to see Windows supported as standard by all the Haskell tools and libraries. I have rewritten <a href="http://www.haskell.org/hugs/">WinHugs</a> <!winhugs more>, am the main Windows developer on the <a href="http://www.haskell.org/haskellwiki/Yhc">Yhc</a> team <!yhc more>, and would like to see a Windows GUI for Yhc/GHC <!guihaskell more>. I am also interested in creating tools to make functional programming easier, such as API search tools <!hoogle more>, programmer support tools <!drhaskell more> and general libraries <!:library more>.</li>
-
-    <li><b>Parsing</b> - I think parsing as it stands could be far better. I have many ideas of improvements to parsing technology, including faster and more easily specified parser generators in a language independant way <!parsing more>. I also have time complexity improvements to existing phases of existing parser systems <!helix more>. Much of this work revolves around regular expressions, and their simplification <!resimplify more>.</li>
+    <li><b>Supercompilation</b> - a technique for optimising programs in a general yet powerful way. Advanced optimising compilers are complex, my hope is that supercompilation can simplify them and improve the performance <!supero more>.</li>
+    <li><b>Generic programming</b> - functional programs tend to be more concise than alternatives, but often they still contain repitition of redundancies. This repitition is both time consuming to write and a common source of bugs. There are many approaches to generic programming, but I focus on approaches that are both simple and low-overhead, sacrificing flexibility and power <!uniplate more>.</li>
+    <li><b>Build systems</b> - while <tt>make</tt> is unbiquitous, it is not without its flaws. I have worked on build systems that let people express dependencies more precisely, resulting in faster and more accurate rebuilds <!shake more>.</li>
 </ul>
-
-
-<h2>Contact Details</h2>
-<p>
-	Email: <:email "ndmitchell@gmail.com"> <!contact more><br/>
-</p>
