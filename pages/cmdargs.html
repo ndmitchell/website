@@ -3,44 +3,5 @@ tags=library haskell popular
 hoogle=cmdargs
 
 <p>
-	CmdArgs is a Haskell library for defining command line parsers. The two features that make it a better choice than the standard <a href="http://haskell.org/ghc/docs/latest/html/libraries/base/System-Console-GetOpt.html">getopt library</a> are:
+	CmdArgs is a Haskell library for defining command line parsers. Compared to alternatives, defining a parser is concise and supports multiple modes (e.g. like <tt>git</tt> or <tt>cabal</tt>).
 </p>
-<ol>
-	<li>It's very concise to use. The <!hlint> command line handling is three times shorter with CmdArgs.</li>
-	<li>It supports programs with multiple modes, such as <a href="http://darcs.net">darcs</a> or <a href="http://haskell.org/cabal/">Cabal</a>.</li>
-</ol>
-<p>
-	A very simple example of a command line processor is:
-</p>
-<pre>
-data Sample = Sample {hello :: String} deriving (Show, Data, Typeable)
-
-sample = Sample{hello = def &amp;= help "World argument" &amp;= opt "world"}
-         &amp;= summary "Sample v1"
-
-main = print =&lt;&lt; cmdArgs sample
-</pre>
-<p>
-	Despite being very concise, this processor is already fairly well featured:
-</p>
-<pre>
-$ runhaskell Sample.hs --hello=world
-Sample {hello = "world"}
-
-$ runhaskell Sample.hs --help
-Sample v1, (C) Neil Mitchell 2009
-
-sample [FLAG]
-
-  -? --help[=FORMAT]  Show usage information (optional format)
-  -V --version        Show version information
-  -v --verbose        Higher verbosity
-  -q --quiet          Lower verbosity
-  -h --hello=VALUE    World argument (default=world)
-</pre>
-
-<h2>Related work</h2>
-
-<ul>
-<li><a href="https://github.com/gregwebs/ParseHelp.hs">CmdArgs Help</a> - a different interface to the CmdArgs haskell library, based on writing the help output only.</li>
-</ul>

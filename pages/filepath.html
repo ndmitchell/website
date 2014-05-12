@@ -1,21 +1,7 @@
 title=FilePath
 tags=library haskell released
-catch
 hoogle=filepath
 
 <p>
-	FilePath is a Haskell library for manipulating <tt>FilePath</tt> values in a cross-platform way on both Windows and Unix/Linux. To give a simple example:
-</p>
-<pre>
-import System.FilePath
-
-main = do
-    putStrLn $ takeFileName "/usr/bin/readme.txt"  -- prints "readme.txt"
-    putStrLn $ "/usr/bin" &lt;/> "readme" &lt;.> "txt"   -- prints "/usr/bin/readme.txt"
-</pre>
-<p>
-	This library provides three modules. To use filepaths matching your platform, import <tt>System.FilePath</tt>. To always use a particular platforms filepaths, either import <tt>System.FilePath.Windows</tt> or <tt>System.FilePath.Posix</tt>,
-</p>
-<p>
-	The FilePath library was originally written for <!yhc>, and then refined through extensive discussion on the Haskell mailing lists. The library is now part of the core Haskell libraries, and since GHC 6.6.1 has been shipped with all major compilers. While I am the original author, changes are now made through the <a href="http://www.haskell.org/haskellwiki/Library_submissions">library submissions</a> process.
+	FilePath is a Haskell library for manipulating <tt>FilePath</tt> values in a cross-platform way on both Windows and Unix/Linux. This library is now part of the core Haskell libraries, and since GHC 6.6.1 has been shipped with all major compilers. While I am the original author, changes are now made through the <a href="http://www.haskell.org/haskellwiki/Library_submissions">library submissions</a> process.
 </p>
