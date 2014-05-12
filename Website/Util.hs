@@ -34,13 +34,16 @@ concatMapM f x = liftM concat $ mapM f x
 
 copyFileBinary :: FilePath -> FilePath -> IO ()
 copyFileBinary fromFPath toFPath =
-    do readFileBinary fromFPath >>= writeFileBinary toFPath
+    do readFileBinary' fromFPath >>= writeFileBinary toFPath
        return ()
 
-readFileBinary :: FilePath -> IO String
-readFileBinary file = do
+readFileBinary' :: FilePath -> IO String
+readFileBinary' file = do
     h <- openBinaryFile file ReadMode
-    hGetContents h
+    s <- hGetContents h
+    evaluate $ length s
+    hClose h
+    return s
 
 writeFileBinary :: FilePath -> String -> IO ()
 writeFileBinary file str = do
