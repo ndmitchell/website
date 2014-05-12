@@ -7,6 +7,7 @@ module Website.Metadata(
 
 import Control.Arrow
 import Data.Char
+import Website.Util
 
 
 data Metadata = Metadata {global :: Data, page :: Data, extra :: [Data], pages :: [Data]}
@@ -22,7 +23,7 @@ data Line = Attrib String String | Blank | Indent String
 
 readMetadataFile :: FilePath -> IO [Data]
 readMetadataFile file = do
-    src <- readFile file
+    src <- readFile' file
     return $ collate [] [] $ join $ map classify $ lines src
     where
         -- classify each line by what it is
@@ -48,13 +49,13 @@ readMetadataFile file = do
 
 readMetadataHead :: FilePath -> IO Data
 readMetadataHead file = do
-    src <- readFile file
+    src <- readFile' file
     return $ map divide $ takeWhile (not . null) $ lines src
 
 
 dropMetadataHead :: FilePath -> IO String
 dropMetadataHead file = do
-    src <- readFile file
+    src <- readFile' file
     return $ unlines $ dropWhile null $ dropWhile (not . null) $ lines src
 
 

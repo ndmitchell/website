@@ -1,6 +1,7 @@
 
 module Website.Util where
 
+import Control.Exception
 import Control.Monad
 import Data.Maybe
 import System.Directory
@@ -46,6 +47,12 @@ writeFileBinary file str = do
     h <- openBinaryFile file WriteMode
     hPutStr h str
     hClose h
+
+readFile' :: FilePath -> IO String
+readFile' file = withFile file ReadMode $ \h -> do
+    s <- hGetContents h
+    evaluate $ length s
+    return s
 
 split :: Char -> String -> [String]
 split x xs = case break (== x) xs of

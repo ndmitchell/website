@@ -68,8 +68,8 @@ generate debug = do
         copy ("pages/" ++ x2 ++ "*.htm") (x2 ++ "/")
 
     -- build up the meta data
-    prefix <- readFile "elements/prefix.txt"
-    suffix <- readFile "elements/suffix.txt"
+    prefix <- readFile' "elements/prefix.txt"
+    suffix <- readFile' "elements/suffix.txt"
     pages <- populatePages debug files
 
     -- output some bibtex
@@ -183,14 +183,6 @@ tag meta "title" a = pgFulltitle meta
 tag meta "show-tags" _ = unwords $ map f $ sort $ pgTags meta
     where f x = "<a href='" ++ urlTag meta x ++ "'>" ++ x ++ "</a>"
 
-
-tag meta "show-catch" _ | not $ pgAttribs meta !? "catch" = []
-                        | otherwise =
-    "<a href='" ++ urlPage meta "catch" ++ "'>" ++
-        "<img style='border:0;' src='" ++ pgRoot meta ++ "elements/valid-catch.png' " ++
-             "alt='Checked by Catch!' height='31' width='88' /></a>"
-
-
 tag meta "show-menu" _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
     where
         links = [(pgTitle (meta !## "index"), urlPage meta "index",False)] ++
@@ -210,7 +202,7 @@ tag meta "show-menu" _ = "<ul id='menu'>" ++ concatMap f links ++ "</ul>"
 
 tag meta "all-tags" _ = concatMap f tagList
     where
-        tagList = sort [(a,b) | x <- lines $ unsafePerformIO $ readFile "tags.txt", let (a,_:b) = break (== '=') x]
+        tagList = sort [(a,b) | x <- lines $ unsafePerformIO $ readFile' "tags.txt", let (a,_:b) = break (== '=') x]
 
         f (tag,desc) = if null items then "" else
                        "<p><b><a name='" ++ tag ++ "'></a>" ++ tag ++ "</b>: " ++ desc ++ "<br/>" ++
