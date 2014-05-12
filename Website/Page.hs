@@ -40,7 +40,7 @@ readPage debug file = do
 
 linkPages :: [Page] -> [Download] -> [(String,Page)]
 linkPages ps ds
-        | not $ null evil = error "Some downloads have incorrect pages"
+        | not $ null evil = error $ "Some downloads have incorrect pages: " ++ show evil
         | otherwise = res
     where
         res = map f ps
