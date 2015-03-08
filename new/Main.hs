@@ -68,7 +68,7 @@ checkMetadata xs | all (checkFields . map fst) xs = reverse $ sortOn date xs
                        | otherwise = True
         date = parseDate . fromJust . lookup "date"
 
-        required = words "title date text"
+        required = words "title date text key"
         optional = words "paper slides video audio where author abstract"
 
 
@@ -90,13 +90,8 @@ parseMetadata = map (map f) . wordsBy null . rejoin . map trimEnd . lines . repl
 
 
 bibtex :: [(String, String)] -> String
-bibtex x = f $ unlines $ ("@" ++ at ++ "{mitchell:" ++ key) : map showBibLine items ++ ["}"]
+bibtex x = unlines $ ("@" ++ at ++ "{mitchell:" ++ key) : map showBibLine items ++ ["}"]
     where
-        f (' ':' ':xs) = "&nbsp;" ++ f (' ':xs)
-        f ('\n':xs) = "<br/>" ++ f xs
-        f (x:xs) = x : f xs
-        f [] = []
-
         (at,ex) | "paper" `elem` map fst x = (fromMaybe "inproceedings" $ lookup "@at" x, [])
                 | otherwise = ("misc",[("note","Presentation" ++ whereText)])
         items = filter (not . null . snd)
@@ -107,14 +102,15 @@ bibtex x = f $ unlines $ ("@" ++ at ++ "{mitchell:" ++ key) : map showBibLine it
                 ,("day", show $ thd3 date)
                 ] ++ ex ++
                 [(a,b) | ('@':a,b) <- x, a /= "at"] ++
-                [("url", "\\verb'" ++ (if x !? "paper" then x !# "paper" else x !# "slides") ++ "'")]
+                [("url", "\\verb'http://community.haskell.org/~ndm/downloads/" ++ (if x !? "paper" then x !# "paper" else x !# "slides") ++ "'")]
 
         date = parseDate $ x !# "date"
-        key = keyDate
-        keyDate = (\(a,b,c) -> concatMap ((:) '_' . show . negate) [a,b-1,c]) date
+        key = (x !# "key") ++ "_" ++ replace " " "_" (lower $ x !# "date")
         whereText = maybe [] (\x -> " from " ++ stripTags x) $ lookup "where" x
 
-stripTags = id
+stripTags ('<':xs) = stripTags $ drop 1 $ dropWhile (/= '>') xs
+stripTags (x:xs) = x : stripTags xs
+stripTags [] = []
 
 showBibLine (a,b) = "    ," ++ a ++ replicate (14 - length a) ' ' ++ " = {" ++ (if a == "pages" then f b else b) ++ "}"
     where

@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title>Neil Mitchell's home page</title>
+        <link type="image/png" rel="icon" href="elements/favicon.png" />
 <style type="text/css">
 body {
     margin: 0px;
@@ -27,6 +28,11 @@ h2 {
     font-size: 16pt;
 }
 
+li {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
 h3 {
     margin-bottom: 5px;
 }
@@ -46,14 +52,13 @@ h3 {
     display: none;
 }
 .citation {
-    border: 2px solid gray;
+    border: 1px solid gray;
     padding: 1px;
     padding-left: 5px;
-    margin: 10px;
-    margin-left: 25px;
     background-color: #eee;
     font-family: monospace;
-    overflow: auto;
+    overflow-x: scroll;
+    white-space: pre;
 }
 
 #body {
@@ -112,7 +117,7 @@ function showItems(x)
     I develop a number of open source Haskell projects, all of which can be found at <a href="https://github.com/ndmitchell">my Github page</a> or <a href="hackage/reverse">on Hackage</a>. I welcome both contributions via pull requests and bug reports via the GitHub issue trackers. Some of my more popular projects include:
 </p>
 <ul>
-    <li><b>#{shake}</b> - a library for writing build systems, an alternative to <tt>make</tt>.</li>
+    <li><b>#{shake}</b> - a library for writing build systems, an alternative to <code>make</code>.</li>
     <li><b>#{hoogle}</b> - a Haskell API search engine, searching the standard Haskell libraries by function name and type signature.</li>
     <li><b>#{hlint}</b> - a tool that suggests stylistic improvements to Haskell code.</li>
 </ul>

@@ -7,6 +7,7 @@ date:    10 Sep 2012
 where:   <a href="http://www.icfpconference.org/icfp2012/">ICFP 2012</a>
 text:    An introduction to #{shake} focusing on the theoretical side.
 author:  Neil Mitchell
+key:     shake
 @location: Copenhagen, Denmark
 @booktitle: ICFP '12: Proceedings of the 17th ACM SIGPLAN International Conference on Functional Programming
 @publisher: ACM
@@ -27,6 +28,7 @@ text:    Thoughts about making supercompilation faster, based on my experiments 
 date:    29 Sep 2010
 where:   <a href="http://www.icfpconference.org/icfp2010/">ICFP 2010</a>
 author:  Neil Mitchell
+key:     supercompilation
 @location: Baltimore, Maryland, USA
 @pages: 309-320
 @booktitle: ICFP '10: Proceedings of the 15th ACM SIGPLAN International Conference on Functional Programming
@@ -46,6 +48,7 @@ video:  http://vimeo.com/15465133
 title:  Shake: A Better Make
 text:   Early details about the design of #{shake}.
 where:  <a href="http://haskell.org/haskellwiki/HaskellImplementorsWorkshop/2010">Haskell Implementors Workshop 2010</a>
+key:    shake
 date:   01 Oct 2010
 
 paper: paper-deriving_a_relationship_from_a_single_example-04_sep_2009.pdf
@@ -55,6 +58,7 @@ text:   Assuming you have a single example of a type class, what should the data
 date:  04 Sep 2009
 where:  <a href="http://www.cogsys.wiai.uni-bamberg.de/aaip09/">Approaches and Applications of Inductive Programming 2009</a>
 author: Neil Mitchell
+key:    derive
 @location: Edinburgh, Scotland, UK
 @series: Lecture Notes in Computer Science, Vol. 5812
 @editors: Ute Schmid, Emanuel Kitzelmann, Rinus Plasmeijer
@@ -84,6 +88,7 @@ text:    An algorithm for making higher-order programs first-order without intro
 date:    03 Sep 2009
 where:   <a href="http://www.haskell.org/haskell-symposium/2009/">Haskell Symposium 2009</a>
 author:  Neil Mitchell and Colin Runciman
+key:     defunctionalisation
 @booktitle: Haskell '09: Proceedings of the second ACM SIGPLAN symposium on Haskell
 @pages: 49-60
 @location: Edinburgh, Scotland, UK
@@ -106,6 +111,7 @@ paper:   paper-transformation_and_analysis_of_functional_programs-4_jun_2008.pdf
 slides:    slides-transformation_and_analysis_of_functional_programs-14_jul_2008.pdf
 title:   Transformation and Analysis of Functional Programs
 date:    04 Jun 2008
+key:     thesis
 text:    My PhD thesis, covering a generics library (#{uniplate}), a supercompiler (#{supero}), a defunctionalisation algorithm (#{firstify}) and a pattern-match safety verifier (#{catch}).
 @school: University of York
 @pages:  225
@@ -124,10 +130,11 @@ paper:   paper-not_all_patterns_but_enough-25_sep_2008.pdf
 slides:    slides-not_all_patterns_but_enough-25_sep_2008.pdf
 video:    http://video.google.com/videoplay?docid=8250544235079789504
 title:   Not All Patterns, But Enough - an automatic verifier for partial but sufficient pattern matching
-text:    A static analysis for automatically proving a program will not raise an error at runtime, implemented as #{catch}. The analysis was able to detect 3 bugs in the HsColour program.
+text:    A static analysis for automatically proving a program will not raise an error at runtime, implemented as #{catch}. The analysis was able to detect 3 bugs in the <a href="https://hackage.haskell.org/package/hscolour">HsColour</a> program.
 date:    25 Sep 2008
 where:   <a href="http://www.haskell.org/haskell-symposium/2008/">Haskell Symposium 2008</a>
 author:  Neil Mitchell and Colin Runciman
+key:     catch
 @booktitle: Haskell '08: Proceedings of the first ACM SIGPLAN symposium on Haskell
 @pages: 49-60
 @location: Victoria, BC, Canada
@@ -152,6 +159,7 @@ title:  Hoogle Overview
 date:   19 Nov 2008
 where:  The <a href="http://www.haskell.org/haskellwiki/The_Monad.Reader">Monad.Reader</a>
 author: Neil Mitchell
+key:    hoogle
 text: An overview of #{hoogle}, including both the algorithms and code structure.
 @at:article
 @journal:The Monad.Reader
@@ -170,6 +178,7 @@ title:  A Supercompiler for Core Haskell
 date:   01 May 2008
 where:  <a href="http://proglang.informatik.uni-freiburg.de/IFL2007/">IFL 2007</a> post proceedings
 author: Neil Mitchell and Colin Runciman
+key:    supero
 text: An early design of the #{supero} supercompiler.
 @pages:147-164
 @booktitle: IFL 2007
@@ -191,6 +200,7 @@ title:  Deriving Generic Functions by Example
 text: Todo
 date:   26 Oct 2007
 where:  <a href="http://www.cs.york.ac.uk/yds/">York Doctoral Symposium 2007</a>
+key:    deriving
 @pages:55-62
 @publisher:Tech. Report YCS-2007-421, Dept. of Computer Science, University of York, UK
 @editor:Jan Tobias M\"{u}hlberg and Juan Ignacio Perna
@@ -213,6 +223,7 @@ paper:    paper-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
 slides:    slides-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
 video:    http://www.ludd.ltu.se/~pj/hw2007/uniplate.mov
 title:  Uniform Boilerplate and List Processing
+key:    uniplate
 text: Todo
 date:   30 Sep 2007
 where:  <a href="http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">Haskell Workshop 2007</a>
@@ -241,6 +252,7 @@ slides:    slides-supero_making_haskell_faster-27_sep_2007.pdf
 title:  Supero: Making Haskell Faster
 text: Todo
 date:   27 Sep 2007
+key:    supercompilation
 where:  <a href="http://proglang.informatik.uni-freiburg.de/IFL2007/">IFL 2007</a>
 author: Neil Mitchell and Colin Runciman
 @booktitle: IFL 2007: Draft Proceedings of the 19th International Symposium on Implementation and Application of Functional Languages
@@ -260,6 +272,7 @@ abstract:
 paper:    paper-yhc_core-30_apr_2007.pdf
 title:  Yhc.Core - from Haskell to Core
 text: Todo
+key:    yhc
 date:   30 Apr 2007
 where:  The <a href="http://www.haskell.org/haskellwiki/The_Monad.Reader">Monad.Reader</a>
 author: Dimitry Golubovsky and Neil Mitchell and Matthew Naylor
@@ -280,6 +293,7 @@ text: Todo
 date:   01 Feb 2007
 where:  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a> post proceedings
 author: Neil Mitchell and Colin Runciman
+key:    catch
 @publisher:Intellect
 @booktitle: Trends in Functional Programming
 @volume:6
@@ -297,6 +311,7 @@ paper:    paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2
 slides:    slides-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 title:  Unfailing Haskell: A Static Checker for Pattern Matching
 text: Todo
+key:    catch
 date:   24 Sep 2005
 where:  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a>
 author: Neil Mitchell and Colin Runciman
@@ -315,6 +330,7 @@ paper:    paper-hatday-28_oct_2005.pdf
 slides:    slides-hat_visual-27_may_2005.pdf
 where:  <a href="http://www.haskell.org/hat/">Hat</a> Day 2005 (York)
 title:  Visual Hat
+key:    hat
 text: Todo
 date:   28 Oct 2005
 @booktitle: Hat Day 2005: work in progress on the Hat tracing system for Haskell
@@ -331,6 +347,7 @@ paper:    paper-qualifying_dissertation-30_jun_2005.pdf
 title:  Qualifying Dissertation: Unfailing Haskell
 text: Todo
 date:   30 Jun 2005
+key:   thesis
 @at:misc
 @institution:University of York
 abstract:
@@ -360,12 +377,14 @@ abstract:
 slides:    slides-detecting_pattern_match_failures_in_haskell-26_nov_2007.pdf
 title:  Detecting Pattern-Match Failures in Haskell
 text: Todo
+key:  catch
 date:   26 Nov 2007
 where:  <a href="http://metacomp.comlab.ox.ac.uk/">The Oxford Centre for Metacomputation</a>
 
 slides:    slides-catch-06_apr_2006.pdf
 title:  Catch, A Practical Tool
 text: Todo
+key:   catch
 date:   06 Apr 2006
 where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2006</a>
 
@@ -373,24 +392,28 @@ where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2006</a>
 slides:    slides-transformation_and_analysis_of_haskell_source_code-02_jul_2007.pdf
 title:  Transformation and Analysis of Haskell Source Code
 text: Todo
+key:    thesis
 date:   02 Jul 2007
 where:  my thesis seminar
 
 slides:    slides-catch-16_mar_2006.pdf
 title:  Catch, Lazy Termination
 text: Todo
+key:    catch
 date:   16 Mar 2006
-where:  PLASMA
+where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-termination_checking_for_a_lazy_functional_language-21_dec_2004.pdf
 title:  Termination checking for a lazy functional language
 text: Todo
+key:    termination
 date:   21 Dec 2004
 where:  my first year literature review seminar
 
 
 slides:    slides-ada_generics-07_mar_2007.pdf
 title:  Ada: Generics
+key:   ada
 text: Todo
 date:   07 Mar 2007
 where:  the Algorithms and Data Structures course
@@ -399,20 +422,23 @@ where:  the Algorithms and Data Structures course
 slides:    slides-a_new_parser-17_nov_2004.pdf
 title:  A New Parser
 text: Todo
+key:  parser
 date:   17 Nov 2004
-where:  PLASMA
+where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 
 slides:    slides-instances_for_free-22_may_2008.pdf
 title:  Instances for Free
 text: Todo
+key:    deriving
 date:   22 May 2008
-where:  PLASMA
+where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 
 slides:    slides-first_order_haskell-06_apr_2007.pdf
 title:  First Order Haskell
 text: Todo
+key:   defunctionalisation
 date:   06 Apr 2007
 where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
 
@@ -420,6 +446,7 @@ where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
 slides:    slides-hat_windows_and_wimp-05_oct_2006.pdf
 title:  Hat: Windows and WIMP
 text: Todo
+key: hat
 date:   05 Oct 2006
 where:  <a href="http://www.haskell.org/hat/">Hat</a> Day 2006 (Kent)
 
@@ -428,59 +455,69 @@ slides:    slides-hoogle_finding_functions_from_types-16_may_2011.pdf
 title:  Hoogle: Finding Functions from Types
 text:   An overview of how type-search works in #{hoogle} v1 to v4.
 date:   16 May 2011
+key:    hoogle
 where:  <a href="http://dalila.sip.ucm.es/tfp11/">TFP 2011</a>
 
 slides:    slides-hoogle_fast_type_searching-09_aug_2008.pdf
 audio:    http://www.wellquite.org/non-blog/AngloHaskell2008/neil%20mitchell.ogg
 title:  Hoogle: Fast Type Searching
 text: Todo
+key:    hoogle
 date:   09 Aug 2008
 where:  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2008">AngloHaskell 2008</a>
 
 slides:    slides-supercompilation_for_haskell-03_mar_2009.pdf
 title:  Supercompilation for Haskell
 text: Todo
+key:    supercompilation
 date:   03 Mar 2009
 where:  <a href="http://sneezy.cs.nott.ac.uk/fun/">Fun in the Afternoon</a> Spring 2009
 
 slides:    slides-faster_haskell-10_aug_2007.pdf
 title:  Faster Haskell
 text: Todo
+key:    supercompilation
 date:   10 Aug 2007
 where:  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2007">Anglo Haskell 2007</a>
 
 slides:    slides-yhc_past_present_future-10_aug_2007.pdf
 title:  Yhc: Past, Present, Future
 text: Todo
+key:    yhc
 date:   10 Aug 2007
 where:  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2007">Anglo Haskell 2007</a>
 
 slides:    slides-fastest_lambda_first-30_may_2007.pdf
 title:  Fastest Lambda First
 text: Todo
+key:    supercompilation
 date:   30 May 2007
-where:  PLASMA
+where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-playing_with_haskell_data-18_jan_2007.pdf
 title:  Playing with Haskell Data
 text: Todo
+key:    uniplate
 date:   18 Jan 2007
-where:  PLASMA
+where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-haskell_with_go_faster_stripes-30_nov_2006.pdf
 title:  Haskell With Go Faster Stripes
 text: Todo
+key:    supercompilation
 date:   30 Nov 2006
-where:  PLASMA
+where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-hoogle-08_dec_2005.pdf
 title:  Hoogle
 text: Todo
+key:    hoogle
 date:   08 Dec 2005
-where:  PLASMA
+where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-total_pasta-23_mar_2005.pdf
 title:  Total Pasta
 text: Todo
+key:    total
 date:   23 Mar 2005
 where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2005</a>
