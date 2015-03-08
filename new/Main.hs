@@ -22,7 +22,7 @@ main = do
     let reps = [("#{" ++ lower proj ++ "}", "<a href=\"" ++ url ++ "\">" ++ proj ++ "</a>") | (proj,url) <- projects]
     let res = replaces (("#{download}",download):reps) template
     when ("#{" `isInfixOf` res) $ error $ "Missed a replacement, " ++ take 20 (snd $ breakOn "#{" res) ++ "..."
-    writeFile "index.html" res
+    writeFile "../index.html" res
     putStrLn "Generated to index.html"
 
 projects :: [(String, String)]
@@ -40,7 +40,7 @@ renderMetadata unique xs =
         [""
         ,"<h3>" ++ typ ++ ": " ++ at "title" ++ "</h3>"
         ,"<p class=\"info\">" ++ intercalate ", " parts ++ (if null $ at "where" then "" else " from " ++ at "where") ++ ", " ++ at "date" ++ ".</p>"
-        ,"<p id=\"citation" ++ show unique ++ "\" class=\"citation\">@citation goes here{}</p>"] ++
+        ,"<p id=\"citation" ++ show unique ++ "\" class=\"citation\">" ++ bibtex xs ++ "</p>"] ++
         ["<p id=\"abstract" ++ show unique ++ "\" class=\"abstract\"><b>Abstract:</b> " ++ replace "\n" "<br/><br/>" abstract ++ "</p>" | abstract /= ""] ++
         ["<p class=\"text\">" ++ at "text" ++ "</p>"]
     where
@@ -48,10 +48,11 @@ renderMetadata unique xs =
               else if "paper" `elem` keys then "Paper"
               else if "slides" `elem` keys then "Talk"
               else "Other"
-        parts = [ "<a href=\"" ++ v ++ "\">" ++ (if i == 0 then toUpper (head k) : tail k else k) ++ "</a>"
+        parts = [ "<a href=\"" ++ download v ++ "\">" ++ (if i == 0 then toUpper (head k) : tail k else k) ++ "</a>"
                 | (i,(k,v)) <- zip [0..] $ filter (not . null . snd) $ map (id &&& at) $ words "paper slides video audio"] ++
                 [ "<a href=\"javascript:showCitation(" ++ show unique ++ ")\">citation</a>"] ++
                 [ "<a href=\"javascript:showAbstract(" ++ show unique ++ ")\">abstract</a>" | abstract /= ""]
+        download x = if "http" `isPrefixOf` x then x else "downloads/" ++ x
 
         at x = unwords $ map snd $ filter ((==) x . fst) xs
         abstract = at "abstract"
@@ -85,3 +86,63 @@ parseMetadata = map (map f) . wordsBy null . rejoin . map trimEnd . lines . repl
         rejoin (x:(' ':y):zs) = rejoin $ (x ++ " " ++ trim y) : zs
         rejoin (x:xs) = x : rejoin xs
         rejoin [] = []
+
+
+
+bibtex :: [(String, String)] -> String
+bibtex x = f $ unlines $ ("@" ++ at ++ "{mitchell:" ++ key) : map showBibLine items ++ ["}"]
+    where
+        f (' ':' ':xs) = "&nbsp;" ++ f (' ':xs)
+        f ('\n':xs) = "<br/>" ++ f xs
+        f (x:xs) = x : f xs
+        f [] = []
+
+        (at,ex) | "paper" `elem` map fst x = (fromMaybe "inproceedings" $ lookup "@at" x, [])
+                | otherwise = ("misc",[("note","Presentation" ++ whereText)])
+        items = filter (not . null . snd)
+                [("title", capitalise $ x !# "title")
+                ,("author", fromMaybe "Neil Mitchell" $ lookup "author" x)
+                ,("year", show $ fst3 date)
+                ,("month", months !! (snd3 date - 1))
+                ,("day", show $ thd3 date)
+                ] ++ ex ++
+                [(a,b) | ('@':a,b) <- x, a /= "at"] ++
+                [("url", "\\verb'" ++ (if x !? "paper" then x !# "paper" else x !# "slides") ++ "'")]
+
+        date = parseDate $ x !# "date"
+        key = keyDate
+        keyDate = (\(a,b,c) -> concatMap ((:) '_' . show . negate) [a,b-1,c]) date
+        whereText = maybe [] (\x -> " from " ++ stripTags x) $ lookup "where" x
+
+stripTags = id
+
+showBibLine (a,b) = "    ," ++ a ++ replicate (14 - length a) ' ' ++ " = {" ++ (if a == "pages" then f b else b) ++ "}"
+    where
+        f (x:'-':y:xs) | isDigit x && isDigit y = x:'-':'-':y : f xs
+        f (x:xs) = x : f xs
+        f [] = []
+
+-- capitalise the title in some way
+capitalise :: String -> String
+capitalise str = unwords (f True x : map (f False) xs)
+    where
+        (x:xs) = words str
+
+        f first (x:xs) | ":" `isSuffixOf` xs = f first (x : take (length xs - 1) xs) ++ ":"
+                       | (any isUpper xs && '-' `notElem` xs)
+                       || (not first && (x:xs) `elem` names) = "{" ++ x:xs ++ "}"
+                       | otherwise = x:xs
+
+names = ["Haskell","Uniplate","Hat","Windows","Pasta"]
+
+(!#) :: [(String,a)] -> String -> a
+(!#) xs y = fromMaybe (error $ "!# failed, looking for " ++ show y ++ " in " ++ show (map fst xs)) $
+            lookup y xs
+
+(!?) :: [(String,a)] -> String -> Bool
+(!?) xs y = y `elem` map fst xs
+
+
+months = ["January","February","March","April","May","June"
+         ,"July","August","September","October","November","December"]
+
