@@ -5,7 +5,7 @@ video:   http://www.youtube.com/watch?v=xYCPpXVlqFM
 title:   Shake Before Building - Replacing Make with Haskell
 date:    10 Sep 2012
 where:   <a href="http://www.icfpconference.org/icfp2012/">ICFP 2012</a>
-text:    An introduction to #{shake} focusing on the theoretical side.
+text:    An introduction to #{shake}, focusing on the theoretical side.
 author:  Neil Mitchell
 key:     shake
 @location: Copenhagen, Denmark
@@ -197,7 +197,7 @@ abstract:
 paper:    paper-deriving_generic_functions_by_example-26_oct_2007.pdf
 slides:    slides-deriving_generic_functions_by_example-26_oct_2007.pdf
 title:  Deriving Generic Functions by Example
-text: Todo
+text: An early version of the generic deriving work from #{derive}.
 date:   26 Oct 2007
 where:  <a href="http://www.cs.york.ac.uk/yds/">York Doctoral Symposium 2007</a>
 key:    deriving
@@ -224,7 +224,7 @@ slides:    slides-uniform_boilerplate_and_list_processing-30_sep_2007.pdf
 video:    http://www.ludd.ltu.se/~pj/hw2007/uniplate.mov
 title:  Uniform Boilerplate and List Processing
 key:    uniplate
-text: Todo
+text: Details of the #{uniplate} generics library, including information on how to use the Uniplate operations.
 date:   30 Sep 2007
 where:  <a href="http://www.cse.unsw.edu.au/~keller/haskellws/HaskellWorkshop.html">Haskell Workshop 2007</a>
 author: Neil Mitchell and Colin Runciman
@@ -250,7 +250,7 @@ abstract:
 paper:    paper-supero_making_haskell_faster-27_sep_2007.pdf
 slides:    slides-supero_making_haskell_faster-27_sep_2007.pdf
 title:  Supero: Making Haskell Faster
-text: Todo
+text: A very early version of #{supero}, before it was an actual supercompiler.
 date:   27 Sep 2007
 key:    supercompilation
 where:  <a href="http://proglang.informatik.uni-freiburg.de/IFL2007/">IFL 2007</a>
@@ -271,7 +271,7 @@ abstract:
 
 paper:    paper-yhc_core-30_apr_2007.pdf
 title:  Yhc.Core - from Haskell to Core
-text: Todo
+text: Information about the #{yhc} core language, its constructors and semantics.
 key:    yhc
 date:   30 Apr 2007
 where:  The <a href="http://www.haskell.org/haskellwiki/The_Monad.Reader">Monad.Reader</a>
@@ -289,7 +289,7 @@ abstract:
 
 paper:    paper-a_static_checker_for_safe_pattern_matching_in_haskell-01_feb_2007.pdf
 title:  A Static Checker for Safe Pattern Matching in Haskell
-text: Todo
+text: An early version of #{catch}.
 date:   01 Feb 2007
 where:  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a> post proceedings
 author: Neil Mitchell and Colin Runciman
@@ -310,7 +310,7 @@ abstract:
 paper:    paper-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 slides:    slides-unfailing_haskell_a_static_checker_for_pattern_matching-24_sep_2005.pdf
 title:  Unfailing Haskell: A Static Checker for Pattern Matching
-text: Todo
+text: A very early version of #{catch}.
 key:    catch
 date:   24 Sep 2005
 where:  <a href="http://www.niii.ru.nl/~marko/tfp05/">TFP 2005</a>
@@ -331,7 +331,7 @@ slides:    slides-hat_visual-27_may_2005.pdf
 where:  <a href="http://www.haskell.org/hat/">Hat</a> Day 2005 (York)
 title:  Visual Hat
 key:    hat
-text: Todo
+text: Thoughts on how to make the #{hat} tools work in a GUI.
 date:   28 Oct 2005
 @booktitle: Hat Day 2005: work in progress on the Hat tracing system for Haskell
 @pages:23-26
@@ -345,7 +345,7 @@ abstract:
 
 paper:    paper-qualifying_dissertation-30_jun_2005.pdf
 title:  Qualifying Dissertation: Unfailing Haskell
-text: Todo
+text: Discussions of total functional programming, an an early prototype of #{catch}.
 date:   30 Jun 2005
 key:   thesis
 @at:misc
@@ -376,14 +376,14 @@ abstract:
 
 slides:    slides-detecting_pattern_match_failures_in_haskell-26_nov_2007.pdf
 title:  Detecting Pattern-Match Failures in Haskell
-text: Todo
+text: Details about #{catch}, including worked examples.
 key:  catch
 date:   26 Nov 2007
 where:  <a href="http://metacomp.comlab.ox.ac.uk/">The Oxford Centre for Metacomputation</a>
 
 slides:    slides-catch-06_apr_2006.pdf
 title:  Catch, A Practical Tool
-text: Todo
+text: Very early notes on #{catch}.
 key:   catch
 date:   06 Apr 2006
 where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2006</a>
@@ -391,21 +391,21 @@ where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2006</a>
 
 slides:    slides-transformation_and_analysis_of_haskell_source_code-02_jul_2007.pdf
 title:  Transformation and Analysis of Haskell Source Code
-text: Todo
+text: Slides giving a very quick overview of my thesis.
 key:    thesis
 date:   02 Jul 2007
 where:  my thesis seminar
 
 slides:    slides-catch-16_mar_2006.pdf
 title:  Catch, Lazy Termination
-text: Todo
+text: Discussions about what termination means in a lazy language, and how to detect it. 
 key:    catch
 date:   16 Mar 2006
 where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-termination_checking_for_a_lazy_functional_language-21_dec_2004.pdf
 title:  Termination checking for a lazy functional language
-text: Todo
+text: A review of the literature around termination checking, particular in lazy languages.
 key:    termination
 date:   21 Dec 2004
 where:  my first year literature review seminar
@@ -414,14 +414,14 @@ where:  my first year literature review seminar
 slides:    slides-ada_generics-07_mar_2007.pdf
 title:  Ada: Generics
 key:   ada
-text: Todo
+text: First-year lecture notes on generics in Ada.
 date:   07 Mar 2007
 where:  the Algorithms and Data Structures course
 
 
 slides:    slides-a_new_parser-17_nov_2004.pdf
 title:  A New Parser
-text: Todo
+text: Thoughts about an alternative way to do parsing.
 key:  parser
 date:   17 Nov 2004
 where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
@@ -429,7 +429,7 @@ where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLAS
 
 slides:    slides-instances_for_free-22_may_2008.pdf
 title:  Instances for Free
-text: Todo
+text: Generating Haskell instances from examples, as found in the #{derive} tool.
 key:    deriving
 date:   22 May 2008
 where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
@@ -437,7 +437,7 @@ where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLAS
 
 slides:    slides-first_order_haskell-06_apr_2007.pdf
 title:  First Order Haskell
-text: Todo
+text: An early version of a mechanism for defunctionalising Haskell programs, which later became #{firstify}.
 key:   defunctionalisation
 date:   06 Apr 2007
 where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
@@ -445,7 +445,7 @@ where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2007</a>
 
 slides:    slides-hat_windows_and_wimp-05_oct_2006.pdf
 title:  Hat: Windows and WIMP
-text: Todo
+text: Thoughts about how the #{hat} tools could benefit from GUI elements.
 key: hat
 date:   05 Oct 2006
 where:  <a href="http://www.haskell.org/hat/">Hat</a> Day 2006 (Kent)
@@ -461,63 +461,63 @@ where:  <a href="http://dalila.sip.ucm.es/tfp11/">TFP 2011</a>
 slides:    slides-hoogle_fast_type_searching-09_aug_2008.pdf
 audio:    http://www.wellquite.org/non-blog/AngloHaskell2008/neil%20mitchell.ogg
 title:  Hoogle: Fast Type Searching
-text: Todo
+text: An early overview of how both type and text search works in #{hoogle}.
 key:    hoogle
 date:   09 Aug 2008
 where:  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2008">AngloHaskell 2008</a>
 
 slides:    slides-supercompilation_for_haskell-03_mar_2009.pdf
 title:  Supercompilation for Haskell
-text: Todo
+text: Details of how to apply supercompilation to Haskell.
 key:    supercompilation
 date:   03 Mar 2009
 where:  <a href="http://sneezy.cs.nott.ac.uk/fun/">Fun in the Afternoon</a> Spring 2009
 
 slides:    slides-faster_haskell-10_aug_2007.pdf
 title:  Faster Haskell
-text: Todo
+text: Early work on Supercompilation.
 key:    supercompilation
 date:   10 Aug 2007
 where:  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2007">Anglo Haskell 2007</a>
 
 slides:    slides-yhc_past_present_future-10_aug_2007.pdf
 title:  Yhc: Past, Present, Future
-text: Todo
+text: The history behind #{yhc}, along with future plans and intentions.
 key:    yhc
 date:   10 Aug 2007
 where:  <a href="http://www.haskell.org/haskellwiki/AngloHaskell/2007">Anglo Haskell 2007</a>
 
 slides:    slides-fastest_lambda_first-30_may_2007.pdf
 title:  Fastest Lambda First
-text: Todo
+text: Details of a whole-program optimiser for Haskell, early work on #{supero}.
 key:    supercompilation
 date:   30 May 2007
 where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-playing_with_haskell_data-18_jan_2007.pdf
 title:  Playing with Haskell Data
-text: Todo
+text: Generic traversals and transformations over Haskell data types, what would later become #{uniplate}.
 key:    uniplate
 date:   18 Jan 2007
 where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-haskell_with_go_faster_stripes-30_nov_2006.pdf
 title:  Haskell With Go Faster Stripes
-text: Todo
+text: How to make Haskell faster.
 key:    supercompilation
 date:   30 Nov 2006
 where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-hoogle-08_dec_2005.pdf
 title:  Hoogle
-text: Todo
+text: An early introduction to #{hoogle}.
 key:    hoogle
 date:   08 Dec 2005
 where:  <a href="http://www.cs.york.ac.uk/research/research-groups/plasma/">PLASMA</a>
 
 slides:    slides-total_pasta-23_mar_2005.pdf
 title:  Total Pasta
-text: Todo
+text: An algorithm for automatically proving totality of a simple pointer-based programming language.
 key:    total
 date:   23 Mar 2005
 where:  <a href="http://www.bctcs.ac.uk/">BCTCS 2005</a>

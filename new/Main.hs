@@ -28,7 +28,9 @@ main = do
 projects :: [(String, String)]
 projects =
     [("Shake","http://shakebuild.com/")
-    ,("Hoogle","http://hoogle.haskell.org/")] ++
+    ,("Hoogle","http://hoogle.haskell.org/")
+    ,("Yhc","FIXME")
+    ,("Hat","http://www.haskell.org/hat/")] ++
     [(x, "https://github.com/ndmitchell/" ++ lower x)
     | x <- words "HLint Supero Derive Firstify Catch Uniplate"]
 
